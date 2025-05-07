@@ -1,11 +1,12 @@
 import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { cwd } from 'node:process'
-import { pathToFileURL } from 'node:url'
-import type { GraniteConfig } from '../src/config'
 import { connectToWeb } from '@universal-middleware/express'
 import { H3, serve } from 'h3-nightly'
-import { createServer as createViteServer } from 'vite'
+import { generateHydrationScript, renderToStringAsync } from 'solid-js/web'
+import { type RunnableDevEnvironment, createServer as createViteServer } from 'vite'
+import solidPlugin from 'vite-plugin-solid'
+import type { GraniteConfig } from '../src/config'
 
 const loadAndParseConfig = async () => {
   const configPath = resolve(cwd(), 'granite.config.ts')
@@ -13,12 +14,10 @@ const loadAndParseConfig = async () => {
     throw new Error('No granite.config.ts found in the current directory')
   }
 
-  const configFileUrl = pathToFileURL(configPath).href
-
   try {
-    const configModule = await import(configFileUrl)
-    const configData = configModule.default as GraniteConfig
-    return configData
+    const configModule = await import(configPath)
+    const configDefault = configModule.default as GraniteConfig
+    return configDefault
   } catch (error) {
     throw new Error('Error processing granite.config.ts', { cause: error })
   }
@@ -34,34 +33,39 @@ const vite = await createViteServer({
   server: {
     middlewareMode: true,
   },
+  plugins: [
+    solidPlugin({ ssr: true }),
+    {
+      name: 'virtual-entry',
+      resolveId(id: string) {
+        if (id === 'virtual:entry-client') {
+          return `${id}.tsx`
+        }
+      },
+      load(id: string) {
+        if (id === 'virtual:entry-client.tsx') {
+          return `
+            import { hydrate } from 'solid-js/web'
+            import App from '/src/index.tsx'
+            hydrate(App, document)
+          `
+        }
+      },
+    },
+  ],
 })
 
-console.log('vite', Object.keys(vite.environments))
+const viteClientEnvironment = vite.environments.client as RunnableDevEnvironment
+const viteSsrEnvironment = vite.environments.ssr as RunnableDevEnvironment
 
-// const { serverRender } = await (async () => {
-//   if (!isRunnableDevEnvironment(vite.environments.ssr)) {
-//     throw new Error('SSR environment is not runnable')
-//   }
-
-//   const serverEntry = await vite.environments.ssr.runner.import('/src/entry-server.ts')
-//   if (!serverEntry) {
-//     throw new Error('Server entry is not defined')
-//   }
-//   if (!serverEntry.render) {
-//     throw new Error('Render function is not defined')
-//   }
-
-//   return {
-//     serverEnvironment: vite.environments.ssr,
-//     serverRender: serverEntry.render,
-//   }
-// })()
+const indexPath = resolve(cwd(), 'src/index.tsx')
+const indexModule = await viteSsrEnvironment.runner.import(indexPath)
+const indexDefault = indexModule.default
 
 server.use(async (event) => {
   try {
     const handler = connectToWeb(vite.middlewares)
     const response = await handler(event.req)
-    console.log('vite middleware response', response)
     return response
   } catch (error) {
     // biome-ignore lint/suspicious/noConsole: <explanation>
@@ -69,12 +73,23 @@ server.use(async (event) => {
   }
 })
 
+const hydrationScript = generateHydrationScript()
+
 server.all('*', async (event) => {
   console.log('handler', event.url)
   try {
-    const html = await render(event.url)
+    const html = await renderToStringAsync(indexDefault)
+    const htmlUpdated = html.replace(
+      '</head>',
+      [
+        hydrationScript,
+        `<script type="module" src="http://localhost:5173/@vite/client"></script>`,
+        `<script type="module" src="/@id/virtual:entry-client.tsx"></script>`,
+        '</head>',
+      ].join(''),
+    )
 
-    return new Response(html, {
+    return new Response(htmlUpdated, {
       status: 200,
       headers: {
         'Content-Type': 'text/html',
@@ -87,15 +102,3 @@ server.all('*', async (event) => {
 })
 
 serve(server, { port: 5173 })
-
-// biome-ignore lint/suspicious/useAwait: <explanation>
-const render = async (_url: URL) => {
-  return `<html>
-    <body>
-      <h1>Hello from ssr</h1>
-      <script type="module" src="http://localhost:5173/@vite/client"></script>
-       <script type="module" src="http://localhost:5173/src/entry-client.ts"></script>
-    </body>
-  </html>
-  `
-}

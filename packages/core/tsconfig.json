@@ -4,6 +4,9 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js"
   }
 }

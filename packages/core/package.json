@@ -11,6 +11,10 @@
   "devDependencies": {
     "@universal-middleware/express": "^0.4.15",
     "tsx": "^4.19.4",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vite-plugin-solid": "^2.11.6"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.9.6"
   }
 }

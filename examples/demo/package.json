@@ -6,6 +6,7 @@
     "build": "bunx tsc && bunx granite build"
   },
   "dependencies": {
-    "@granite/core": "workspace:*"
+    "@granite/core": "workspace:*",
+    "solid-js": "^1.9.6"
   }
 }
