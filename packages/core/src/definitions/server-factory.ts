@@ -1,9 +1,8 @@
 import type { EventHandler, EventHandlerRequest, HTTPMethod } from 'h3-nightly'
-import type { JSX } from 'solid-js'
 
 // export interface RouteConfig {
 //   preload?: () => void
-//   component: () => JSX.Element
+//   component: () => JComponent
 // }
 
 // export const createRoute = (config: RouteConfig): RouteConfig => config
@@ -24,7 +23,7 @@ interface ServerRouteComponent {
   path: string
   method?: HTTPMethod
   preload?: () => void
-  component: () => JSX.Element
+  component: string
   children?: ServerRoute[]
 }
 

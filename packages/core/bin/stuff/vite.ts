@@ -3,8 +3,13 @@ import { createServer, isRunnableDevEnvironment } from 'vite'
 import solidPlugin from 'vite-plugin-solid'
 
 export const createVite = async () => {
+  let clientScript = ''
+
   const vite = await createServer({
     appType: 'custom',
+    ssr: {
+      noExternal: ['solid-js/web', '@solidjs/meta', '@solidjs/router'],
+    },
     server: {
       middlewareMode: true,
     },
@@ -19,12 +24,7 @@ export const createVite = async () => {
         },
         load(id: string) {
           if (id === 'virtual:entry-client.tsx') {
-            return `
-              import { hydrate } from 'solid-js/web'
-              import { HydrationScript } from 'solid-js/web'
-              import { HomeRoute } from '/src/components/home.tsx'
-              hydrate(HomeRoute, document.body)
-            `
+            return clientScript
           }
         },
       },
@@ -38,5 +38,8 @@ export const createVite = async () => {
   return {
     viteHandler: connectToWeb(vite.middlewares),
     ssrImport: vite.environments.ssr.runner.import.bind(vite.environments.ssr.runner),
+    setClientScript: (script: string) => {
+      clientScript = script
+    },
   }
 }

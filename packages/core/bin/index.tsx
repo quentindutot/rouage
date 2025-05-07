@@ -11,14 +11,14 @@ import { createVite } from './stuff/vite'
 const config = await loadAndParseConfig()
 console.log('Found granite.config.ts:', config)
 
-const indexPath = resolve(cwd(), 'src/index.ts')
+const indexPath = resolve(cwd(), 'src/index.tsx')
 if (!existsSync(indexPath)) {
-  throw new Error('No src/index.ts found in the current directory')
+  throw new Error('No src/index.tsx found in the current directory')
 }
 
 const server = new H3()
 
-const { viteHandler, ssrImport } = await createVite()
+const { viteHandler, ssrImport, setClientScript } = await createVite()
 
 server.use((event) => viteHandler(event.req))
 
@@ -28,13 +28,41 @@ const indexModule = await ssrImport(indexPath)
 const indexDefault = indexModule.default as ServerConfig
 console.log(indexDefault)
 
+const appRoutes = [
+  {
+    path: '/',
+    component: indexDefault.routes[0].component,
+    preload: indexDefault.routes[0].preload,
+  },
+  {
+    path: '/about',
+    component: indexDefault.routes[1].component,
+    preload: indexDefault.routes[1].preload,
+  },
+]
+
+setClientScript(
+  [
+    `import { hydrate } from 'solid-js/web'`,
+    `import appBuilder from '/Users/quentind/Projects/granite/packages/core/bin/stuff/app-builder.tsx'`,
+    `hydrate(appBuilder({ path: undefined, routes: ${JSON.stringify(appRoutes)} }), document.body)`,
+  ].join('\n'),
+)
+
+// const appPath = resolve(cwd(), 'src/app.tsx')
+// const appModule = await ssrImport(appPath)
+const appBuilderModule = await ssrImport('/Users/quentind/Projects/granite/packages/core/bin/stuff/app-builder.tsx')
+const appBuilder = appBuilderModule.default
+
 for (const route of indexDefault.routes) {
   const method = route.method ?? 'GET'
   const path = route.path
 
   const handler = isRouteComponent(route)
     ? async (_event: H3Event<EventHandlerRequest>) => {
-        const componentHtml = await renderToStringAsync(route.component)
+        console.log('route', method, path, route.component)
+
+        const componentHtml = await renderToStringAsync(appBuilder({ path, routes: appRoutes }))
         const templateHtml = [
           '<!DOCTYPE html>',
           '<html><head>',

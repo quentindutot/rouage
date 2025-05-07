@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
-const target = resolve(__dirname, 'index.ts')
+const target = resolve(__dirname, 'index.tsx')
 
 const child = spawn('tsx', ['watch', target], {
   stdio: 'inherit',
