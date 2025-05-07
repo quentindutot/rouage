@@ -11,6 +11,7 @@
     "rules": {
       "all": true,
       "correctness": {
+        "noNodejsModules": "off",
         "noUndeclaredDependencies": "off",
         "useImportExtensions": "off"
       },

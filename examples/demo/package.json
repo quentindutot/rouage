@@ -2,9 +2,8 @@
   "name": "@granite/demo",
   "type": "module",
   "scripts": {
-    "oui": "bunx @granite/core",
-    "dev": "bun --hot src/index.ts",
-    "build": "bunx tsc && bunx vite build"
+    "dev": "bunx granite dev",
+    "build": "bunx tsc && bunx granite build"
   },
   "dependencies": {
     "@granite/core": "workspace:*"
