@@ -1,7 +1,16 @@
 {
   "name": "@granite/demo",
   "type": "module",
+  "scripts": {
+    "dev": "bun --hot src/index.ts",
+    "build": "bunx tsc && bunx vite build"
+  },
   "dependencies": {
-    "@granite/core": "workspace:*"
+    "@granite/core": "workspace:*",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "vite": "^6.3.5"
   }
 }

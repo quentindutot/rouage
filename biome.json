@@ -9,7 +9,10 @@
   },
   "linter": {
     "rules": {
-      "all": true
+      "all": true,
+      "correctness": {
+        "noUndeclaredDependencies": "off"
+      }
     }
   },
   "javascript": {
