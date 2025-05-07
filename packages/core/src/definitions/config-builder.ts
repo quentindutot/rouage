@@ -18,4 +18,4 @@ export interface GraniteConfig {
 /**
  * Helper function to make it easier to use granite.config.ts.
  */
-export const defineConfig = (config: GraniteConfig) => config
+export const defineConfig = (config: GraniteConfig): GraniteConfig => config

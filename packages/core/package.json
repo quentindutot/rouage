@@ -6,6 +6,8 @@
     "granite": "bin/index.js"
   },
   "dependencies": {
+    "@solidjs/meta": "^0.29.4",
+    "@solidjs/router": "^0.15.3",
     "h3-nightly": "^2.0.0-20250428-102154-f1115f3"
   },
   "devDependencies": {
