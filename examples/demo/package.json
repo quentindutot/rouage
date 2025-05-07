@@ -1,0 +1,7 @@
+{
+  "name": "@granite/demo",
+  "type": "module",
+  "dependencies": {
+    "@granite/core": "workspace:*"
+  }
+}

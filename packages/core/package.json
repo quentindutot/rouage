@@ -1,0 +1,5 @@
+{
+  "name": "@granite/core",
+  "type": "module",
+  "main": "src/index.ts"
+}
