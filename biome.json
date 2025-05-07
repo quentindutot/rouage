@@ -11,7 +11,11 @@
     "rules": {
       "all": true,
       "correctness": {
-        "noUndeclaredDependencies": "off"
+        "noUndeclaredDependencies": "off",
+        "useImportExtensions": "off"
+      },
+      "complexity": {
+        "useSimplifiedLogicExpression": "off"
       }
     }
   },

@@ -1,5 +1,13 @@
 {
   "name": "@granite/core",
   "type": "module",
-  "main": "src/index.ts"
+  "main": "src/index.ts",
+  "bin": "src/index.ts",
+  "dependencies": {
+    "h3-nightly": "^2.0.0-20250428-102154-f1115f3"
+  },
+  "devDependencies": {
+    "@universal-middleware/express": "^0.4.15",
+    "vite": "^6.3.5"
+  }
 }
