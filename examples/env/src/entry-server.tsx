@@ -6,11 +6,12 @@ import { H3, serveStatic } from 'h3-nightly'
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
 import { App } from './app'
 import { rpcHandler } from './orpc/server'
+import { sharedConfig } from 'solid-js'
 
 const server = new H3({
-  onError(error) {
-    console.error(error)
-  },
+  // onError(error) {
+  //   console.error(error)
+  // },
 })
 
 if (!import.meta.env.DEV) {
@@ -44,6 +45,10 @@ server.get('/*', async (event) => {
   const assets = getAssets()
   let scripts = ''
 
+  const datum = sharedConfig.context?.datum ?? {}
+  console.log('datum', datum)
+  sharedConfig.context.datum = {}
+
   if (import.meta.env.DEV) {
     scripts = [
       generateHydrationScript(),
@@ -59,11 +64,16 @@ server.get('/*', async (event) => {
     scripts = [generateHydrationScript(), `<script type="module" src="/${manifestEntry.file}"></script>`].join('')
   }
 
+  // Serialize datum to be used on client side
+  const serializedDatum = JSON.stringify(datum)
+  const datumScript = `<script>window.__INITIAL_DATA__ = ${serializedDatum.replace(/</g, '\\u003c')};</script>`
+
   const html = [
     '<!DOCTYPE html>',
     '<html><head>',
     '<meta charset="utf-8" />',
     '<meta name="viewport" content="initial-scale=1.0, width=device-width" />',
+    datumScript,
     scripts,
     assets,
     '</head><body>',
