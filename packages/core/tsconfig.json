@@ -6,7 +6,12 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
 
+    "noEmit": false,
+    "outDir": "./build",
+    "declaration": true,
+
     "jsx": "preserve",
     "jsxImportSource": "solid-js"
-  }
+  },
+  "exclude": ["node_modules", "build"]
 }
