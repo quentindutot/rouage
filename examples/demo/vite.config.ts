@@ -1,4 +1,4 @@
-import { granite, solid } from '@granite/core/vite'
+import { granite, solid } from '@granite/core/plugin'
 import tailwind from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 

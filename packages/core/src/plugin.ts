@@ -24,7 +24,9 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
     config.environments = {
       client: {
         consumer: 'client',
-        resolve: { noExternal: true },
+        resolve: {
+          noExternal: true,
+        },
         build: {
           manifest: true,
           outDir: 'build',
@@ -35,7 +37,9 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
       },
       server: {
         consumer: 'server',
-        resolve: { noExternal: true },
+        resolve: {
+          noExternal: true,
+        },
         build: {
           outDir: 'build',
           assetsDir: 'server',

@@ -3,7 +3,8 @@
   "type": "module",
   "exports": {
     ".": "./build/index.js",
-    "./vite": "./build/plugins.js"
+    "./plugin": "./build/plugin.js",
+    "./server": "./build/server.js"
   },
   "scripts": {
     "dev": "bunx tsc --watch",

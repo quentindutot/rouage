@@ -1,35 +1,12 @@
 /* @refresh reload */
 
-import { readFile, stat } from 'node:fs/promises'
-import { join } from 'node:path'
-import { H3, serveStatic } from 'h3-nightly'
+import { createServer } from '@granite/core/server'
 import { sharedConfig } from 'solid-js'
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
 import { App } from './app'
 import { rpcHandler } from './orpc/server'
 
-const server = new H3({
-  // onError(error) {
-  //   console.error(error)
-  // },
-})
-
-if (!import.meta.env.DEV) {
-  server.use('/assets/**', (event) =>
-    serveStatic(event, {
-      getMeta: async (id) => {
-        // biome-ignore lint/suspicious/noEmptyBlockStatements: <explanation>
-        const stats = await stat(join('build', id)).catch(() => {})
-        if (stats?.isFile()) {
-          return { size: stats.size, mtime: stats.mtimeMs }
-        }
-      },
-      getContents: (id) => {
-        return readFile(join('build', id))
-      },
-    }),
-  )
-}
+const server = createServer()
 
 server.use('/rpc/**', async (event) => {
   const { matched, response } = await rpcHandler.handle(event.req, {
