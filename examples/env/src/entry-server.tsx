@@ -5,8 +5,13 @@ import { join } from 'node:path'
 import { H3, serveStatic } from 'h3-nightly'
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
 import { App } from './app'
+import { rpcHandler } from './orpc/server'
 
-const server = new H3()
+const server = new H3({
+  onError(error) {
+    console.error(error)
+  },
+})
 
 if (!import.meta.env.DEV) {
   server.use('/assets/**', (event) =>
@@ -24,6 +29,13 @@ if (!import.meta.env.DEV) {
     }),
   )
 }
+
+server.use('/rpc/**', async (event) => {
+  const { matched, response } = await rpcHandler.handle(event.req, {
+    prefix: '/rpc',
+  })
+  return matched ? response : new Response('Not found', { status: 404 })
+})
 
 server.get('/*', async (event) => {
   const path = event.url.pathname
