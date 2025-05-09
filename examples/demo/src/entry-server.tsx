@@ -3,10 +3,10 @@
 import { readFile, stat } from 'node:fs/promises'
 import { join } from 'node:path'
 import { H3, serveStatic } from 'h3-nightly'
+import { sharedConfig } from 'solid-js'
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
 import { App } from './app'
 import { rpcHandler } from './orpc/server'
-import { sharedConfig } from 'solid-js'
 
 const server = new H3({
   // onError(error) {

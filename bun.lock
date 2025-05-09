@@ -11,13 +11,6 @@
     "examples/demo": {
       "name": "@granite/demo",
       "dependencies": {
-        "@granite/core": "workspace:*",
-        "solid-js": "^1.9.6",
-      },
-    },
-    "examples/env": {
-      "name": "@granite/env",
-      "dependencies": {
         "@orpc/client": "^1.2.0",
         "@orpc/server": "^1.2.0",
         "@solidjs/meta": "^0.29.4",
@@ -162,8 +155,6 @@
     "@granite/core": ["@granite/core@workspace:packages/core"],
 
     "@granite/demo": ["@granite/demo@workspace:examples/demo"],
-
-    "@granite/env": ["@granite/env@workspace:examples/env"],
 
     "@jridgewell/gen-mapping": ["@jridgewell/gen-mapping@0.3.8", "", { "dependencies": { "@jridgewell/set-array": "^1.2.1", "@jridgewell/sourcemap-codec": "^1.4.10", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA=="],
 

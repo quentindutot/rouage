@@ -1,6 +1,6 @@
 export const Menu = () => (
-  <div>
+  <nav>
     <a href="/">Home</a>
     <a href="/about">About</a>
-  </div>
+  </nav>
 )
