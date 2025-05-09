@@ -6,6 +6,7 @@
     "./vite": "./build/plugins.js"
   },
   "scripts": {
+    "dev": "bunx tsc --watch",
     "build": "bunx tsc"
   },
   "dependencies": {

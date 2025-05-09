@@ -1,5 +1,4 @@
-import { Link, MetaProvider } from '@solidjs/meta'
-import { Route, Router } from '@solidjs/router'
+import { MetaLink, MetaProvider, Route, Router } from '@granite/core'
 import { Suspense, lazy } from 'solid-js'
 import styles from './app.css?url'
 
@@ -11,7 +10,7 @@ export const App = (props: { path?: string }) => (
     url={props.path}
     root={(props) => (
       <MetaProvider>
-        <Link rel="stylesheet" href={styles} />
+        <MetaLink rel="stylesheet" href={styles} />
         <Suspense>{props.children}</Suspense>
       </MetaProvider>
     )}

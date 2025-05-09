@@ -1,5 +1,4 @@
-import { Title } from '@solidjs/meta'
-import { createAsync } from '@solidjs/router'
+import { MetaTitle, createAsync } from '@granite/core'
 import { For, createSignal, sharedConfig } from 'solid-js'
 import { isServer } from 'solid-js/web'
 import { rpcClient } from '../orpc/client'
@@ -26,7 +25,7 @@ export const Home = () => {
   return (
     <>
       <div>Home</div>
-      <Title>Home</Title>
+      <MetaTitle>Home</MetaTitle>
       <Menu />
       <button type="button" onClick={() => setCount((count) => count + 1)}>
         count is {count()}
