@@ -29,9 +29,8 @@ server.get('/*', async (event) => {
   const path = event.url.pathname
 
   const content = await renderToStringAsync(() => <App path={path} />)
-
+  const assets = getAssets()
   let scripts = ''
-  let assets = ''
 
   if (import.meta.env.DEV) {
     scripts = [
@@ -39,8 +38,6 @@ server.get('/*', async (event) => {
       `<script type="module" src="/@vite/client"></script>`,
       `<script type="module" src="/src/entry-client.tsx"></script>`,
     ].join('')
-
-    assets = getAssets()
   } else {
     // @ts-ignore
     const manifestModule = await import('../build/.vite/manifest.json')
@@ -48,15 +45,6 @@ server.get('/*', async (event) => {
     const manifestEntry = manifestEntries['src/entry-client.tsx']
 
     scripts = [generateHydrationScript(), `<script type="module" src="/${manifestEntry.file}"></script>`].join('')
-
-    assets = getAssets()
-    // console.log('pre', assets)
-    // for (const [originalPath, manifestPath] of Object.entries(manifestEntries)) {
-    //   assets = assets.split(`href="/${originalPath}"`).join(`href="${manifestPath}"`)
-    // }
-    // @ts-ignore
-    // assets += manifestEntry.assets.map((asset) => `<link rel="stylesheet" href="${asset}" />`).join('')
-    // console.log('post', assets)
   }
 
   const html = [
