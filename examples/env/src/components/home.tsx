@@ -9,13 +9,14 @@ export const Home = () => {
   const planets = createAsync(async () => {
     if (isServer) {
       const data = await rpcClient.planet.list()
+      // @ts-expect-error
       sharedConfig.context.datum = {
         listPlanets: data,
       }
       return data
     }
 
-    console.log('client -- data', window.__INITIAL_DATA__)
+    // @ts-expect-error
     const data = window.__INITIAL_DATA__.listPlanets ?? (await rpcClient.planet.list())
     return data
   })

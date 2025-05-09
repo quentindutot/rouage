@@ -19,8 +19,9 @@ export default defineConfig({
             consumer: 'client',
             resolve: { noExternal: true },
             build: {
-              outDir: 'build',
               manifest: true,
+              outDir: 'build',
+              assetsDir: 'assets',
               emptyOutDir: true,
               rollupOptions: { input: 'src/entry-client.tsx' },
             },
@@ -30,6 +31,7 @@ export default defineConfig({
             resolve: { noExternal: true },
             build: {
               outDir: 'build',
+              assetsDir: 'server',
               emptyOutDir: false,
               rollupOptions: { input: 'src/entry-server.tsx' },
             },

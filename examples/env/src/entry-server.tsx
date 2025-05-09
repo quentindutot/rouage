@@ -42,11 +42,13 @@ server.get('/*', async (event) => {
   const path = event.url.pathname
 
   const content = await renderToStringAsync(() => <App path={path} />)
-  const assets = getAssets()
+  const assets = getAssets().split('/server/').join('/assets/')
   let scripts = ''
 
+  // @ts-expect-error
   const datum = sharedConfig.context?.datum ?? {}
-  console.log('datum', datum)
+  // console.log('datum', datum)
+  // @ts-expect-error
   sharedConfig.context.datum = {}
 
   if (import.meta.env.DEV) {
