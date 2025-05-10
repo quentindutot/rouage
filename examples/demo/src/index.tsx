@@ -4,16 +4,8 @@ import { createServer } from '@granite/core/server'
 import { sharedConfig } from 'solid-js'
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
 import { App } from './app'
-import { rpcHandler } from './orpc/server'
 
 const server = createServer()
-
-server.use('/rpc/**', async (event) => {
-  const { matched, response } = await rpcHandler.handle(event.req, {
-    prefix: '/rpc',
-  })
-  return matched ? response : new Response('Not found', { status: 404 })
-})
 
 server.get('/*', async (event) => {
   const path = event.url.pathname

@@ -1,22 +1,23 @@
 import { MetaTitle, createAsync } from '@granite/core'
 import { For, createSignal, sharedConfig } from 'solid-js'
 import { isServer } from 'solid-js/web'
-import { rpcClient } from '../orpc/client'
 import { Menu } from './menu'
 
 export const Home = () => {
-  const planets = createAsync(async () => {
+  const todos = createAsync(async () => {
     if (isServer) {
-      const data = await rpcClient.planet.list()
+      const data = await fetch('https://jsonplaceholder.typicode.com/todos').then((response) => response.json())
       // @ts-expect-error
       sharedConfig.context.datum = {
-        listPlanets: data,
+        listTodos: data,
       }
       return data
     }
 
-    // @ts-expect-error
-    const data = window.__INITIAL_DATA__.listPlanets ?? (await rpcClient.planet.list())
+    const data =
+      // @ts-expect-error
+      window.__INITIAL_DATA__.listTodos ??
+      (await fetch('https://jsonplaceholder.typicode.com/todos').then((response) => response.json()))
     return data
   })
 
@@ -30,7 +31,7 @@ export const Home = () => {
       <button type="button" onClick={() => setCount((count) => count + 1)}>
         count is {count()}
       </button>
-      <For each={planets()}>{(planet) => <div>{planet.name}</div>}</For>
+      <For each={todos()}>{(todo) => <div>{todo.title}</div>}</For>
     </>
   )
 }

@@ -12,8 +12,7 @@
   },
   "dependencies": {
     "@solidjs/meta": "^0.29.4",
-    "@solidjs/router": "^0.15.3",
-    "h3-nightly": "^2.0.0-20250428-102154-f1115f3"
+    "@solidjs/router": "^0.15.3"
   },
   "devDependencies": {
     "@universal-middleware/express": "^0.4.15",
@@ -21,6 +20,12 @@
   },
   "peerDependencies": {
     "vite": "^6.3.5",
-    "solid-js": "^1.9.6"
+    "solid-js": "^1.9.6",
+    "h3-nightly": "^2.0.0-20250428-102154-f1115f3"
+  },
+  "peerDependenciesMeta": {
+    "h3-nightly": {
+      "optional": true
+    }
   }
 }
