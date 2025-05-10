@@ -32,7 +32,7 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
           outDir: 'build',
           assetsDir: 'assets',
           emptyOutDir: true,
-          rollupOptions: { input: 'src/entry-client.tsx' },
+          rollupOptions: { input: 'virtual:entry-client' },
         },
       },
       server: {
@@ -78,6 +78,21 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
 
         await vite.build(vite.environments.server)
       },
+    }
+  },
+  resolveId(id) {
+    if (id === 'virtual:entry-client') {
+      return `${id}.tsx`
+    }
+  },
+  load(id) {
+    if (id === 'virtual:entry-client.tsx') {
+      return [
+        '/* @refresh reload */',
+        `import { hydrate } from 'solid-js/web'`,
+        `import { App } from './src/app'`,
+        'hydrate(() => <App />, document.body)',
+      ].join('\n')
     }
   },
   async configureServer(vite) {

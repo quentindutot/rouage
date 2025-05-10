@@ -9,11 +9,7 @@ export interface ServerInstance {
 }
 
 export const createServer = (): ServerInstance => {
-  const server = new H3({
-    // onError(error) {
-    //   console.error(error)
-    // },
-  })
+  const server = new H3()
 
   if (!import.meta.env.DEV) {
     server.use('/assets/**', (event) =>

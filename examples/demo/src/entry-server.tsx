@@ -24,7 +24,6 @@ server.get('/*', async (event) => {
 
   // @ts-expect-error
   const datum = sharedConfig.context?.datum ?? {}
-  // console.log('datum', datum)
   // @ts-expect-error
   sharedConfig.context.datum = {}
 
@@ -32,13 +31,14 @@ server.get('/*', async (event) => {
     scripts = [
       generateHydrationScript(),
       `<script type="module" src="/@vite/client"></script>`,
-      `<script type="module" src="/src/entry-client.tsx"></script>`,
+      `<script type="module" src="/@id/virtual:entry-client"></script>`,
     ].join('')
   } else {
     // @ts-ignore
     const manifestModule = await import('../build/.vite/manifest.json')
     const manifestEntries = manifestModule.default
-    const manifestEntry = manifestEntries['src/entry-client.tsx']
+    // @ts-ignore
+    const manifestEntry = manifestEntries['src/virtual:entry-client.tsx']
 
     scripts = [generateHydrationScript(), `<script type="module" src="/${manifestEntry.file}"></script>`].join('')
   }

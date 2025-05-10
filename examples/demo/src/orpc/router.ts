@@ -5,8 +5,6 @@ export const listPlanet = os
   .input(void_())
   .output(array(object({ id: number(), name: string() })))
   .handler(async () => {
-    // console.log('server stuff being called')
-
     await new Promise((resolve) => {
       setTimeout(() => {
         resolve(null)
