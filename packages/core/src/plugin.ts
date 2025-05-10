@@ -32,7 +32,7 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
           outDir: 'build',
           assetsDir: 'assets',
           emptyOutDir: true,
-          rollupOptions: { input: 'virtual:entry-client' },
+          rollupOptions: { input: { index: 'virtual:index' } },
         },
       },
       server: {
@@ -44,7 +44,7 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
           outDir: 'build',
           assetsDir: 'server',
           emptyOutDir: false,
-          rollupOptions: { input: 'src/entry-server.tsx' },
+          rollupOptions: { input: { index: 'src/index.tsx' } },
         },
       },
     }
@@ -81,12 +81,12 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
     }
   },
   resolveId(id) {
-    if (id === 'virtual:entry-client') {
+    if (id === 'virtual:index') {
       return `${id}.tsx`
     }
   },
   load(id) {
-    if (id === 'virtual:entry-client.tsx') {
+    if (id === 'virtual:index.tsx') {
       return [
         '/* @refresh reload */',
         `import { hydrate } from 'solid-js/web'`,
@@ -100,7 +100,7 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
 
     return () => {
       vite.middlewares.use(async (nodeRequest, nodeResponse) => {
-        const entry = await serverEnvironment.runner.import('src/entry-server.tsx')
+        const entry = await serverEnvironment.runner.import('src/index.tsx')
 
         const request: Request = createRequestAdapter()(nodeRequest)
         const response: Response = await entry.default.fetch(request)
@@ -112,7 +112,7 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
   async configurePreviewServer(vite) {
     return () => {
       vite.middlewares.use(async (nodeRequest, nodeResponse) => {
-        const entry = await import(resolve('build/entry-server.js'))
+        const entry = await import(resolve('build/index.js'))
 
         const request: Request = createRequestAdapter()(nodeRequest)
         const response: Response = await entry.default.fetch(request)

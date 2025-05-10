@@ -31,14 +31,14 @@ server.get('/*', async (event) => {
     scripts = [
       generateHydrationScript(),
       `<script type="module" src="/@vite/client"></script>`,
-      `<script type="module" src="/@id/virtual:entry-client"></script>`,
+      `<script type="module" src="/@id/virtual:index"></script>`,
     ].join('')
   } else {
     // @ts-ignore
     const manifestModule = await import('../build/.vite/manifest.json')
     const manifestEntries = manifestModule.default
     // @ts-ignore
-    const manifestEntry = manifestEntries['src/virtual:entry-client.tsx']
+    const manifestEntry = manifestEntries['src/virtual:index.tsx']
 
     scripts = [generateHydrationScript(), `<script type="module" src="/${manifestEntry.file}"></script>`].join('')
   }
