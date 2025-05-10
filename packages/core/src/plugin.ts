@@ -84,6 +84,12 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
     if (id === 'virtual:index') {
       return `${id}.tsx`
     }
+    if (id === 'virtual:app') {
+      return `${id}.tsx`
+    }
+    if (id === 'virtual:manifest') {
+      return 'build/.vite/manifest.json'
+    }
   },
   load(id) {
     if (id === 'virtual:index.tsx') {
@@ -93,6 +99,12 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
         `import { App } from './src/app'`,
         'hydrate(() => <App />, document.body)',
       ].join('\n')
+    }
+    if (id === 'virtual:app.tsx') {
+      return ['/* @refresh reload */', `export { App } from './src/app'`].join('\n')
+    }
+    if (id === 'virtual:manifest') {
+      return 'build/.vite/manifest.json'
     }
   },
   async configureServer(vite) {
