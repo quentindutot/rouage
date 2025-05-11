@@ -6,10 +6,9 @@ import { type Component, type JSX, Suspense } from 'solid-js'
 import styles from 'virtual:app_css'
 
 // biome-ignore lint/performance/noBarrelFile: <explanation>
-export { Title as MetaTitle, Link as MetaLink } from '@solidjs/meta'
-export { Route, createAsync } from '@solidjs/router'
+export { Route, createAsync, type RouteDefinition } from '@solidjs/router'
 
-interface RouterProps {
+export interface RouterProps {
   /**
    * The current path to render
    */
@@ -41,7 +40,3 @@ export const Router = (props: RouterProps) => (
     {props.children}
   </_Router>
 )
-
-export interface AppProps {
-  path?: string
-}
