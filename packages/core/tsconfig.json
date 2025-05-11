@@ -9,7 +9,7 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
 
-    "types": ["vite/client", "@types/node"]
+    "types": ["vite/client", "node"]
   },
   "exclude": ["node_modules", "build"]
 }
