@@ -3,9 +3,9 @@
   "type": "module",
   "workspaces": ["examples/*", "packages/*"],
   "scripts": {
-    "lint": "bunx biome lint --write",
-    "format": "bunx biome format --write",
-    "check": "bunx biome check --write"
+    "lint": "biome lint --write",
+    "format": "biome format --write",
+    "check": "biome check --write"
   },
   "devDependencies": {
     "@biomejs/biome": "~1.9.4",

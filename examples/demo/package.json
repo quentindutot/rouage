@@ -2,9 +2,9 @@
   "name": "@granite/demo",
   "type": "module",
   "scripts": {
-    "dev": "bunx vite",
-    "build": "bunx tsc && bunx vite build",
-    "preview": "bunx vite preview"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@granite/core": "workspace:*",

@@ -7,8 +7,8 @@
     "./vite": "./build/vite.js"
   },
   "scripts": {
-    "dev": "bunx tsc --watch",
-    "build": "bunx tsc"
+    "dev": "tsc --watch",
+    "build": "tsc"
   },
   "dependencies": {
     "@solidjs/meta": "^0.29.4",
