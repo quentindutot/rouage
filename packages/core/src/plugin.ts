@@ -44,7 +44,7 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
           outDir: 'build',
           assetsDir: 'server',
           emptyOutDir: false,
-          rollupOptions: { input: { index: 'src/index.tsx' } },
+          rollupOptions: { input: { index: 'src/index.ts' } },
         },
       },
     }
@@ -112,7 +112,7 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
 
     return () => {
       vite.middlewares.use(async (nodeRequest, nodeResponse) => {
-        const entry = await serverEnvironment.runner.import('src/index.tsx')
+        const entry = await serverEnvironment.runner.import('src/index.ts')
 
         const request: Request = createRequestAdapter()(nodeRequest)
         const response: Response = await entry.default.fetch(request)
