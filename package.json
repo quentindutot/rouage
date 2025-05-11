@@ -1,14 +1,18 @@
 {
   "name": "granite",
   "type": "module",
+  "private": true,
+  "license": "MIT",
   "packageManager": "pnpm@10.0.0",
   "scripts": {
+    "build": "pnpm run -r build",
     "lint": "biome lint --write",
     "format": "biome format --write",
     "check": "biome check --write"
   },
   "devDependencies": {
     "@biomejs/biome": "~1.9.4",
+    "@types/node": "^22.15.17",
     "typescript": "~5.8.3"
   }
 }

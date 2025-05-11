@@ -14,9 +14,6 @@
         "noNodejsModules": "off",
         "noUndeclaredDependencies": "off",
         "useImportExtensions": "off"
-      },
-      "complexity": {
-        "useSimplifiedLogicExpression": "off"
       }
     }
   },

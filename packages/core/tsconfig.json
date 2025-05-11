@@ -6,12 +6,10 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
 
-    "noEmit": false,
-    "outDir": "./build",
-    "declaration": true,
-
     "jsx": "preserve",
-    "jsxImportSource": "solid-js"
+    "jsxImportSource": "solid-js",
+
+    "types": ["vite/client", "@types/node"]
   },
   "exclude": ["node_modules", "build"]
 }
