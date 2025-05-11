@@ -2,9 +2,9 @@
   "name": "@granite/core",
   "type": "module",
   "exports": {
-    ".": "./build/index.js",
-    "./plugin": "./build/plugin.js",
-    "./server": "./build/server.jsx"
+    ".": "./build/client.jsx",
+    "./server": "./build/server.jsx",
+    "./vite": "./build/vite.js"
   },
   "scripts": {
     "dev": "bunx tsc --watch",
