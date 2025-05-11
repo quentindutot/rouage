@@ -5,7 +5,7 @@ import { sharedConfig } from 'solid-js'
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
 
 // @ts-expect-error
-import { App } from 'virtual:app'
+import App from 'virtual:app_tsx'
 
 export const granite: EventHandler = async (event) => {
   const path = event.url.pathname

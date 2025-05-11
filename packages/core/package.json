@@ -2,7 +2,7 @@
   "name": "@granite/core",
   "type": "module",
   "exports": {
-    ".": "./build/index.js",
+    ".": "./build/index.jsx",
     "./plugin": "./build/plugin.js",
     "./server": "./build/server.jsx"
   },

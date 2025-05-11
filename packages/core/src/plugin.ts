@@ -81,10 +81,13 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
     }
   },
   resolveId(id) {
-    if (id === 'virtual:index') {
-      return `${id}.tsx`
+    if (id === 'virtual:app_tsx') {
+      return id
     }
-    if (id === 'virtual:app') {
+    if (id === 'virtual:app_css') {
+      return id
+    }
+    if (id === 'virtual:index') {
       return `${id}.tsx`
     }
     if (id === 'virtual:manifest') {
@@ -92,16 +95,19 @@ export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
     }
   },
   load(id) {
+    if (id === 'virtual:app_tsx') {
+      return ['/* @refresh reload */', `import { App } from './src/app'`, 'export default App'].join('\n')
+    }
+    if (id === 'virtual:app_css') {
+      return ['/* @refresh reload */', `import styles from './src/app.css?url'`, 'export default styles'].join('\n')
+    }
     if (id === 'virtual:index.tsx') {
       return [
         '/* @refresh reload */',
         `import { hydrate } from 'solid-js/web'`,
-        `import { App } from './src/app'`,
+        `import App from 'virtual:app_tsx'`,
         'hydrate(() => <App />, document.body)',
       ].join('\n')
-    }
-    if (id === 'virtual:app.tsx') {
-      return ['/* @refresh reload */', `export { App } from './src/app'`].join('\n')
     }
     if (id === 'virtual:manifest') {
       return 'build/.vite/manifest.json'
