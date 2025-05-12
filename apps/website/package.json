@@ -1,12 +1,15 @@
 {
   "name": "@granite/content",
   "type": "module",
+  "private": true,
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
     "preview": "vitepress preview"
   },
   "devDependencies": {
-    "vitepress": "^1.6.3"
+    "vitepress": "^1.6.3",
+    "vitepress-plugin-group-icons": "^1.5.2",
+    "vitepress-plugin-llms": "^1.1.3"
   }
 }
