@@ -1,4 +1,4 @@
-import { type AppProps, Route, Router } from '@granite/core'
+import { type AppProps, Route, Router } from '@rouage/core'
 import { lazy } from 'solid-js'
 
 const Home = lazy(() => import('./components/home').then((module) => ({ default: module.Home })))

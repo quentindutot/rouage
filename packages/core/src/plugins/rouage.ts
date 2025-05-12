@@ -4,10 +4,10 @@ import { createRequestAdapter, sendResponse } from '@universal-middleware/expres
 import type { Plugin, RunnableDevEnvironment, UserConfig } from 'vite'
 
 // biome-ignore lint/suspicious/noEmptyInterface: <explanation>
-export interface GraniteOptions {}
+export interface RouageOptions {}
 
-export const granite = (_options?: Partial<GraniteOptions>): Plugin => ({
-  name: 'granite',
+export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
+  name: 'rouage',
   config(config: UserConfig) {
     config.appType = 'custom'
     config.environments = {

@@ -7,7 +7,7 @@ import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-j
 // @ts-expect-error
 import App from 'virtual:app_tsx'
 
-export const granite: EventHandler = async (event) => {
+export const rouage: EventHandler = async (event) => {
   const path = event.url.pathname
 
   if (!import.meta.env.DEV) {

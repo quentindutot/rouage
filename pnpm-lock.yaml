@@ -32,7 +32,7 @@ importers:
 
   examples/demo:
     dependencies:
-      '@granite/core':
+      '@rouage/core':
         specifier: workspace:*
         version: link:../../packages/core
       h3-nightly:

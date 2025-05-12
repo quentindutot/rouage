@@ -5,24 +5,24 @@ import llmstxt from 'vitepress-plugin-llms'
 // biome-ignore lint/style/noDefaultExport: <explanation>
 export default defineConfig({
   lang: 'en-US',
-  title: 'Granite',
-  titleTemplate: ':title - Granite',
+  title: 'Rouage',
+  titleTemplate: ':title - Rouage',
   description: 'Minimal SSR for SolidJS',
-  head: [['link', { rel: 'icon', href: '/granite-logo.svg' }]],
+  head: [['link', { rel: 'icon', href: '/rouage-logo.svg' }]],
   srcDir: 'src',
   outDir: 'build',
   cleanUrls: true,
   themeConfig: {
-    logo: '/granite-logo.svg',
+    logo: '/rouage-logo.svg',
     search: { provider: 'local' },
-    socialLinks: [{ icon: 'github', link: 'https://github.com/granite-dev/granite' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/rouage-dev/rouage' }],
     editLink: {
-      pattern: 'https://github.com/granite-dev/granite/blob/main/apps/website/:path',
+      pattern: 'https://github.com/rouage-dev/rouage/blob/main/apps/website/:path',
       text: 'Edit on GitHub',
     },
     nav: [
-      { text: 'Examples', link: 'https://github.com/granite-dev/granite/tree/examples' },
-      { text: 'Discussions', link: 'https://github.com/granite-dev/granite/discussions' },
+      { text: 'Examples', link: 'https://github.com/rouage-dev/rouage/tree/examples' },
+      { text: 'Discussions', link: 'https://github.com/rouage-dev/rouage/discussions' },
     ],
     sidebar: [
       {

@@ -1,5 +1,5 @@
 {
-  "name": "@granite/content",
+  "name": "@rouage/website",
   "type": "module",
   "private": true,
   "scripts": {

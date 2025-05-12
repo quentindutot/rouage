@@ -3,12 +3,12 @@ layout: home
 title: Minimal SSR for SolidJS
 
 hero:
-  name: "Granite"
+  name: "Rouage"
   text: "Minimal SSR for SolidJS"
-  tagline: Fast and lightweight server rendering and hydration from a Vite plugin compatible with modern servers.
+  tagline: Server rendering and hydration built in a Vite plugin.
   image:
-    src: /granite-logo.svg
-    alt: Granite
+    src: /rouage-logo.svg
+    alt: Rouage
     height: 170
     width: 170
   actions:
@@ -17,7 +17,7 @@ hero:
       link: /introduction
     - theme: alt
       text: View on Github
-      link: https://github.com/granite-dev/granite
+      link: https://github.com/rouage-dev/rouage
 
 features:
   - icon: ⚡️

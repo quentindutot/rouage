@@ -1,5 +1,5 @@
 {
-  "name": "@granite/core",
+  "name": "@rouage/core",
   "type": "module",
   "exports": {
     ".": "./build/client.jsx",

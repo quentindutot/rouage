@@ -1,4 +1,4 @@
-import { MetaTitle, createAsync } from '@granite/core'
+import { MetaTitle, createAsync } from '@rouage/core'
 import { For, createSignal, sharedConfig } from 'solid-js'
 import { isServer } from 'solid-js/web'
 import { Menu } from './menu'
