@@ -10,6 +10,6 @@ export const compress = (_options?: Partial<CompressOptions>): Plugin =>
   compression({
     include: ASSETS_REGEX,
     algorithm: 'brotliCompress',
-    // threshold: 8192, // 8 KB
+    threshold: 2048, // 2 KB
     skipIfLargerOrEqual: true,
   })
