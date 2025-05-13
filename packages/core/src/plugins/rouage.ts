@@ -6,21 +6,17 @@ import type { Plugin, RunnableDevEnvironment, UserConfig } from 'vite'
 export interface RouageOptions {
   /**
    * Enable source maps for client-side code.
-   * This helps with debugging by mapping compiled code back to original source.
-   *
    * @default false
    */
   clientSourcemap?: boolean
   /**
    * Enable source maps for server-side code.
-   * This helps with debugging by mapping compiled code back to original source.
-   *
    * @default false
    */
   serverSourcemap?: boolean
 }
 
-export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
+export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
   name: 'rouage',
   config(config: UserConfig) {
     config.appType = 'custom'
@@ -34,7 +30,7 @@ export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
           manifest: true,
           outDir: 'build/public',
           assetsDir: 'assets',
-          sourcemap: _options?.clientSourcemap ?? false,
+          sourcemap: options?.clientSourcemap ?? false,
           emptyOutDir: true,
           copyPublicDir: true,
           rollupOptions: { input: { index: 'virtual:index' } },
@@ -48,7 +44,7 @@ export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
         build: {
           outDir: 'build/server',
           assetsDir: 'chunks',
-          sourcemap: _options?.serverSourcemap ?? false,
+          sourcemap: options?.serverSourcemap ?? false,
           emptyOutDir: true,
           copyPublicDir: false,
           rollupOptions: { input: { index: 'src/index.ts' } },
