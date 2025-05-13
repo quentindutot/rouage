@@ -7,8 +7,8 @@
     "./vite": "./build/vite.js"
   },
   "scripts": {
-    "dev": "tsup --watch",
-    "build": "tsup"
+    "dev": "tsdown --watch",
+    "build": "tsdown"
   },
   "dependencies": {
     "@solidjs/meta": "^0.29.4",
@@ -16,13 +16,13 @@
   },
   "devDependencies": {
     "@universal-middleware/express": "^0.4.15",
-    "tsup": "^8.4.0",
+    "tsdown": "^0.11.7",
     "vite-plugin-solid": "^2.11.6"
   },
   "peerDependencies": {
-    "vite": "^6.3.5",
+    "h3-nightly": "^2.0.0-20250428-102154-f1115f3",
     "solid-js": "^1.9.6",
-    "h3-nightly": "^2.0.0-20250428-102154-f1115f3"
+    "vite": "^6.3.5"
   },
   "peerDependenciesMeta": {
     "h3-nightly": {
