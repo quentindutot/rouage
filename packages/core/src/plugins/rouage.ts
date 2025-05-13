@@ -1,10 +1,24 @@
-import { readFile, rm, writeFile, cp } from 'node:fs/promises'
+import { readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { createRequestAdapter, sendResponse } from '@universal-middleware/express'
 import type { Plugin, RunnableDevEnvironment, UserConfig } from 'vite'
 
-// biome-ignore lint/suspicious/noEmptyInterface: <explanation>
-export interface RouageOptions {}
+export interface RouageOptions {
+  /**
+   * Enable source maps for client-side code.
+   * This helps with debugging by mapping compiled code back to original source.
+   *
+   * @default false
+   */
+  clientSourcemap?: boolean
+  /**
+   * Enable source maps for server-side code.
+   * This helps with debugging by mapping compiled code back to original source.
+   *
+   * @default false
+   */
+  serverSourcemap?: boolean
+}
 
 export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
   name: 'rouage',
@@ -20,7 +34,7 @@ export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
           manifest: true,
           outDir: 'build/public',
           assetsDir: 'assets',
-          sourcemap: false,
+          sourcemap: _options?.clientSourcemap ?? false,
           emptyOutDir: true,
           copyPublicDir: true,
           rollupOptions: { input: { index: 'virtual:index' } },
@@ -34,7 +48,7 @@ export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
         build: {
           outDir: 'build/server',
           assetsDir: 'chunks',
-          sourcemap: true,
+          sourcemap: _options?.serverSourcemap ?? false,
           emptyOutDir: true,
           copyPublicDir: false,
           rollupOptions: { input: { index: 'src/index.ts' } },
