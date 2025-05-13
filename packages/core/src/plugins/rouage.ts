@@ -1,4 +1,4 @@
-import { readFile, rm, writeFile } from 'node:fs/promises'
+import { readFile, rm, writeFile, cp } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { createRequestAdapter, sendResponse } from '@universal-middleware/express'
 import type { Plugin, RunnableDevEnvironment, UserConfig } from 'vite'
@@ -18,9 +18,10 @@ export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
         },
         build: {
           manifest: true,
-          outDir: 'build',
+          outDir: 'build/public',
           assetsDir: 'assets',
           emptyOutDir: true,
+          copyPublicDir: true,
           rollupOptions: { input: { index: 'virtual:index' } },
         },
       },
@@ -30,9 +31,10 @@ export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
           noExternal: true,
         },
         build: {
-          outDir: 'build',
-          assetsDir: 'server',
-          emptyOutDir: false,
+          outDir: 'build/server',
+          assetsDir: 'chunks',
+          emptyOutDir: true,
+          copyPublicDir: false,
           rollupOptions: { input: { index: 'src/index.ts' } },
         },
       },
@@ -41,7 +43,7 @@ export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
       async buildApp(vite) {
         await vite.build(vite.environments.client)
 
-        const manifestPath = resolve('build/.vite/manifest.json')
+        const manifestPath = resolve('build/public/.vite/manifest.json')
         const manifestContent = await readFile(manifestPath, 'utf-8')
         const manifestEntries = JSON.parse(manifestContent)
 
@@ -72,17 +74,14 @@ export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
     }
   },
   resolveId(id) {
-    if (id === 'virtual:app_tsx') {
-      return id
-    }
-    if (id === 'virtual:app_css') {
+    if (id === 'virtual:app_tsx' || id === 'virtual:app_css') {
       return id
     }
     if (id === 'virtual:index') {
       return `${id}.tsx`
     }
     if (id === 'virtual:manifest') {
-      return 'build/.vite/manifest.json'
+      return 'build/public/.vite/manifest.json'
     }
   },
   load(id) {
@@ -99,9 +98,6 @@ export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
         `import App from 'virtual:app_tsx'`,
         'hydrate(() => <App />, document.body)',
       ].join('\n')
-    }
-    if (id === 'virtual:manifest') {
-      return 'build/.vite/manifest.json'
     }
   },
   async configureServer(vite) {
