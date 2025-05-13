@@ -17,6 +17,7 @@
   "devDependencies": {
     "@universal-middleware/express": "^0.4.15",
     "tsdown": "^0.11.7",
+    "vite-plugin-compression2": "^1.3.3",
     "vite-plugin-solid": "^2.11.6"
   },
   "peerDependencies": {
