@@ -129,7 +129,7 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
   async configurePreviewServer(vite) {
     return () => {
       vite.middlewares.use(async (nodeRequest, nodeResponse) => {
-        const entry = await import(resolve('build/index.js'))
+        const entry = await import(resolve('build/server/index.js'))
 
         const request: Request = createRequestAdapter()(nodeRequest)
         const response: Response = await entry.default.fetch(request)

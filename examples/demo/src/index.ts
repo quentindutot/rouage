@@ -1,11 +1,10 @@
 import { rouage } from '@rouage/core/server'
-import { H3 } from 'h3-nightly'
+import { H3, serve } from 'h3-nightly'
 
 const server = new H3()
 
 server.get('/health', () => new Response('OK'))
 
-server.use('/*', rouage)
+server.all('/**', rouage)
 
-// biome-ignore lint/style/noDefaultExport: <explanation>
-export default server
+serve(server)

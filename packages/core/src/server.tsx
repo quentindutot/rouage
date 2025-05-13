@@ -26,7 +26,7 @@ export const rouage: EventHandler = async (event) => {
   }
 
   const content = await renderToStringAsync(() => <App path={path} />)
-  const assets = getAssets().split('/server/').join('/assets/')
+  const assets = getAssets().split('/chunks/').join('/assets/')
   let scripts = ''
 
   // @ts-expect-error
