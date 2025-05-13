@@ -20,6 +20,7 @@ export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
           manifest: true,
           outDir: 'build/public',
           assetsDir: 'assets',
+          sourcemap: false,
           emptyOutDir: true,
           copyPublicDir: true,
           rollupOptions: { input: { index: 'virtual:index' } },
@@ -33,6 +34,7 @@ export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
         build: {
           outDir: 'build/server',
           assetsDir: 'chunks',
+          sourcemap: true,
           emptyOutDir: true,
           copyPublicDir: false,
           rollupOptions: { input: { index: 'src/index.ts' } },
