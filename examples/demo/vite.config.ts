@@ -1,4 +1,4 @@
-import { rouage, solid, compress } from '@rouage/core/vite'
+import { compress, rouage, solid } from '@rouage/core/vite'
 import tailwind from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 

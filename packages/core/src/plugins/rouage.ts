@@ -1,5 +1,5 @@
-import { readFile, writeFile } from 'node:fs/promises'
-import { resolve } from 'node:path'
+import { readFile, rm, writeFile } from 'node:fs/promises'
+import { dirname, resolve } from 'node:path'
 import { createRequestAdapter, sendResponse } from '@universal-middleware/express'
 import type { Plugin, RunnableDevEnvironment, UserConfig } from 'vite'
 
@@ -66,6 +66,8 @@ export const rouage = (_options?: Partial<RouageOptions>): Plugin => ({
         await writeFile(manifestPath, JSON.stringify(normalizedManifest, null, 2), 'utf-8')
 
         await vite.build(vite.environments.server)
+
+        await rm(dirname(manifestPath), { recursive: true })
       },
     }
   },

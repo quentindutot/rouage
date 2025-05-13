@@ -6,7 +6,7 @@ const ASSETS_REGEX = /^assets\/.*\.(html|xml|css|json|js|mjs|svg|yaml|yml|toml)$
 // biome-ignore lint/suspicious/noEmptyInterface: <explanation>
 export interface CompressOptions {}
 
-export const compress = (options?: Partial<CompressOptions>): Plugin =>
+export const compress = (_options?: Partial<CompressOptions>): Plugin =>
   compression({
     include: ASSETS_REGEX,
     algorithm: 'brotliCompress',
