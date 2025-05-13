@@ -17,7 +17,7 @@ export default defineConfig({
     search: { provider: 'local' },
     socialLinks: [{ icon: 'github', link: 'https://github.com/rouage-dev/rouage' }],
     editLink: {
-      pattern: 'https://github.com/rouage-dev/rouage/blob/main/apps/website/:path',
+      pattern: 'https://github.com/rouage-dev/rouage/blob/main/docs/:path',
       text: 'Edit on GitHub',
     },
     nav: [

@@ -1,6 +1,7 @@
 {
   "name": "@rouage/demo",
   "type": "module",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

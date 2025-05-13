@@ -1,5 +1,5 @@
 {
-  "name": "@rouage/website",
+  "name": "@rouage/docs",
   "type": "module",
   "private": true,
   "scripts": {
