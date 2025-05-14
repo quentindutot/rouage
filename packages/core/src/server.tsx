@@ -1,6 +1,5 @@
 import { resolve } from 'node:path'
 import type { EventHandler } from 'h3-nightly'
-import { sharedConfig } from 'solid-js'
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
 import { serveStatic } from './helpers/serve-static.js'
 
@@ -20,14 +19,22 @@ export const rouage: EventHandler = async (event) => {
     }
   }
 
+  const datum: Record<string, string> = {}
+
+  const fetch = globalThis.fetch
+  globalThis.fetch = async (...args) => {
+    const response = await fetch(...args)
+
+    if (response.ok && response.headers.get('content-type')?.includes('application/json')) {
+      datum[response.url] = await response.clone().json()
+    }
+
+    return response
+  }
+
   const content = await renderToStringAsync(() => <App path={path} />)
   const assets = getAssets().split('/chunks/').join('/assets/')
   let scripts = ''
-
-  // @ts-expect-error
-  const datum = sharedConfig.context?.datum ?? {}
-  // @ts-expect-error
-  sharedConfig.context.datum = {}
 
   if (import.meta.env.DEV) {
     scripts = [

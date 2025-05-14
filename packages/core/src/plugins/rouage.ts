@@ -120,6 +120,11 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
         '/* @refresh reload */',
         `import { hydrate } from 'solid-js/web'`,
         `import App from 'virtual:app_tsx'`,
+        'const fetch = window.fetch',
+        'window.fetch = (url, options) => {',
+        'const cached = window.__INITIAL_DATA__[url]',
+        'return cached ?? fetch(url, options)',
+        '}',
         'hydrate(() => <App />, document.body)',
       ].join('\n')
     }
