@@ -2,7 +2,7 @@
   "name": "@rouage/core",
   "type": "module",
   "exports": {
-    ".": "./build/client.jsx",
+    "./client": "./build/client.jsx",
     "./client__internal": "./build/client__internal.jsx",
     "./server": "./build/server.jsx",
     "./server__internal": "./build/server__internal.jsx",
