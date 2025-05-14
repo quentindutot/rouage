@@ -5,10 +5,20 @@ import type { Plugin, RunnableDevEnvironment, UserConfig } from 'vite'
 
 export interface RouageOptions {
   /**
+   * Enable minification for client-side code.
+   * @default true
+   */
+  clientMinify?: boolean
+  /**
    * Enable source maps for client-side code.
    * @default false
    */
   clientSourcemap?: boolean
+  /**
+   * Enable minification for server-side code.
+   * @default true
+   */
+  serverMinify?: boolean
   /**
    * Enable source maps for server-side code.
    * @default false
@@ -30,9 +40,10 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
           manifest: true,
           outDir: 'build/public',
           assetsDir: 'assets',
-          sourcemap: options?.clientSourcemap ?? false,
           emptyOutDir: true,
           copyPublicDir: true,
+          minify: options?.clientMinify ?? true,
+          sourcemap: options?.clientSourcemap ?? false,
           rollupOptions: { input: { index: 'virtual:index' } },
         },
       },
@@ -44,9 +55,10 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
         build: {
           outDir: 'build/server',
           assetsDir: 'chunks',
-          sourcemap: options?.serverSourcemap ?? false,
           emptyOutDir: true,
           copyPublicDir: false,
+          minify: options?.serverMinify ?? true,
+          sourcemap: options?.serverSourcemap ?? false,
           rollupOptions: { input: { index: 'src/index.ts' } },
         },
       },
