@@ -33,14 +33,14 @@ export const rouage: EventHandler = async (event) => {
     scripts = [
       generateHydrationScript(),
       `<script type="module" src="/@vite/client"></script>`,
-      `<script type="module" src="/@id/virtual:index"></script>`,
+      `<script type="module" src="/@id/virtual:entry-client"></script>`,
     ].join('')
   } else {
     // @ts-ignore
     const manifestModule = await import('virtual:manifest')
     const manifestEntries = manifestModule.default
     // @ts-ignore
-    const manifestEntry = manifestEntries['src/virtual:index.tsx']
+    const manifestEntry = manifestEntries['src/virtual:entry-client.tsx']
 
     scripts = [generateHydrationScript(), `<script type="module" src="/${manifestEntry.file}"></script>`].join('')
   }
@@ -69,3 +69,7 @@ export const rouage: EventHandler = async (event) => {
     },
   })
 }
+
+// works fine for Deno, Bun, and Node.js v22.3.0+ or v20.16.0+
+// biome-ignore lint/performance/noBarrelFile: <explanation>
+export { serve } from 'srvx'

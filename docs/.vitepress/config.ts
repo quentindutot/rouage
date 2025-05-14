@@ -32,9 +32,9 @@ export default defineConfig({
             text: 'Introduction',
             link: '/introduction',
           },
-          {
-            text: 'Quick Start',
-          },
+          // {
+          //   text: 'Quick Start',
+          // },
         ],
       },
       {
@@ -55,7 +55,7 @@ export default defineConfig({
         ],
       },
       {
-        text: 'Integrations',
+        text: 'Servers',
         items: [
           {
             text: 'H3 (v2)',
@@ -66,14 +66,19 @@ export default defineConfig({
           {
             text: 'Elysia',
           },
+        ],
+      },
+      {
+        text: 'Runtimes',
+        items: [
           {
-            text: 'Express',
+            text: 'Node',
           },
           {
-            text: 'Fastify',
+            text: 'Bun',
           },
           {
-            text: 'Koa',
+            text: 'Deno',
           },
         ],
       },

@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import type { H3Event } from 'h3-nightly'
-import { getExtensionMimeType, getFileExtension, FILE_COMPRESSIONS } from './file-encoding.js'
+import { FILE_COMPRESSIONS, getExtensionMimeType, getFileExtension } from './file-encoding.js'
 import { getFilePath } from './file-path.js'
 
 type FileContent = string | Buffer | Uint8Array | ReadableStream | null

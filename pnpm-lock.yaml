@@ -66,6 +66,9 @@ importers:
       solid-js:
         specifier: ^1.9.6
         version: 1.9.6
+      srvx:
+        specifier: ^0.7.1
+        version: 0.7.1
       vite:
         specifier: ^6.3.5
         version: 6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)
@@ -1853,6 +1856,10 @@ packages:
   srvx@0.5.2:
     resolution: {integrity: sha512-dKyh8mBgRWgfv88h4Cy5FrTmazZNrj6HpvcnxI5DYcgaM8jc0B2IBQi6uPsJVyMt7OpfmYGVXMmwNPw6xGbaLw==}
     engines: {node: '>=20.11.1'}
+
+  srvx@0.7.1:
+    resolution: {integrity: sha512-+Q5lVEj1UXrp4R0aq7io3dyeosU4Kn4627PA+ngf3Js1w/ZuOqXz7VfrflbdpCybYIZzNLFr7i12sAhEhN9WcA==}
+    engines: {node: '>=20.16.0'}
 
   string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
@@ -3884,6 +3891,10 @@ snapshots:
   sprintf-js@1.0.3: {}
 
   srvx@0.5.2:
+    dependencies:
+      cookie-es: 2.0.0
+
+  srvx@0.7.1:
     dependencies:
       cookie-es: 2.0.0
 

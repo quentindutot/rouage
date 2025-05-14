@@ -44,7 +44,7 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
           copyPublicDir: true,
           minify: options?.clientMinify ?? true,
           sourcemap: options?.clientSourcemap ?? false,
-          rollupOptions: { input: { index: 'virtual:index' } },
+          rollupOptions: { input: { index: 'virtual:entry-client' } },
         },
       },
       server: {
@@ -59,7 +59,7 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
           copyPublicDir: false,
           minify: options?.serverMinify ?? true,
           sourcemap: options?.serverSourcemap ?? false,
-          rollupOptions: { input: { index: 'src/index.ts' } },
+          rollupOptions: { input: { index: 'virtual:entry-server' } },
         },
       },
     }
@@ -101,7 +101,7 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
     if (id === 'virtual:app_tsx' || id === 'virtual:app_css') {
       return id
     }
-    if (id === 'virtual:index') {
+    if (id === 'virtual:entry-client' || id === 'virtual:entry-server') {
       return `${id}.tsx`
     }
     if (id === 'virtual:manifest') {
@@ -115,12 +115,20 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
     if (id === 'virtual:app_css') {
       return ['/* @refresh reload */', `import styles from './src/app.css?url'`, 'export default styles'].join('\n')
     }
-    if (id === 'virtual:index.tsx') {
+    if (id === 'virtual:entry-client.tsx') {
       return [
         '/* @refresh reload */',
         `import { hydrate } from 'solid-js/web'`,
         `import App from 'virtual:app_tsx'`,
         'hydrate(() => <App />, document.body)',
+      ].join('\n')
+    }
+    if (id === 'virtual:entry-server.tsx') {
+      return [
+        '/* @refresh reload */',
+        `import { serve } from '@rouage/core/server'`,
+        `import server from './src/index'`,
+        'serve({ fetch: server.fetch.bind(server) })',
       ].join('\n')
     }
   },
