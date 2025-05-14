@@ -38,7 +38,7 @@ Rouage takes a different approach: **code-defined routing**:
 
 [SolidStart](https://start.solidjs.com) is a great all-in-one solution for building SolidJS apps but its flexibility comes with additional complexity, conventions, and tooling layers.
 
-Rouage is just a Vite plugin. No CLI, no runtime, no boilerplate.
+Rouage is a Vite plugin. No CLI, no runtime, no boilerplate.
 
 |                        | SolidStart             | Rouage                  |
 |------------------------|------------------------|--------------------------|

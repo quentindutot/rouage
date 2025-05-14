@@ -1,8 +1,8 @@
-import { readFile, stat } from 'node:fs/promises'
-import { join } from 'node:path'
-import { type EventHandler, serveStatic } from 'h3-nightly'
+import { resolve } from 'node:path'
+import type { EventHandler } from 'h3-nightly'
 import { sharedConfig } from 'solid-js'
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
+import { serveStatic } from './helpers/serve-static.js'
 
 // @ts-expect-error
 import App from 'virtual:app_tsx'
@@ -11,17 +11,12 @@ export const rouage: EventHandler = async (event) => {
   const path = event.url.pathname
 
   if (!import.meta.env.DEV) {
-    if (path.startsWith('/assets/')) {
-      return serveStatic(event, {
-        getMeta: async (id) => {
-          // biome-ignore lint/suspicious/noEmptyBlockStatements: <explanation>
-          const stats = await stat(join('build', id)).catch(() => {})
-          if (stats?.isFile()) {
-            return { size: stats.size, mtime: stats.mtimeMs }
-          }
-        },
-        getContents: (id) => readFile(join('build', id)),
-      })
+    const fileResponse = await serveStatic({
+      root: resolve('build/public'),
+      event,
+    })
+    if (fileResponse) {
+      return fileResponse
     }
   }
 
