@@ -54,7 +54,7 @@ export const rouage: EventHandler = async (event) => {
 
   // Serialize datum to be used on client side
   const serializedDatum = JSON.stringify(datum)
-  const datumScript = `<script>window.__INITIAL_DATA__ = ${serializedDatum.replace(/</g, '\\u003c')};</script>`
+  const datumScript = `<script>window.__initial_data__ = ${serializedDatum.replace(/</g, '\\u003c')};</script>`
 
   const html = [
     '<!DOCTYPE html>',
