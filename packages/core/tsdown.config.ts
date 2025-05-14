@@ -33,6 +33,13 @@ export default defineConfig([
     outExtensions: () => ({ js: '.jsx' }),
   },
   {
+    entry: ['src/server__internal.tsx'],
+    ...baseOptions,
+    dts: false,
+    inputOptions: { jsx: 'preserve' },
+    outExtensions: () => ({ js: '.jsx' }),
+  },
+  {
     entry: ['src/vite.ts'],
     ...baseOptions,
     dts: true,

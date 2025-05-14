@@ -128,7 +128,7 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
     if (id === 'virtual:entry-server.tsx') {
       return [
         '/* @refresh reload */',
-        `import { serve } from '@rouage/core/server'`,
+        `import { serve } from '@rouage/core/server__internal'`,
         `import server from './src/index'`,
         'serve({ fetch: server.fetch.bind(server) })',
       ].join('\n')

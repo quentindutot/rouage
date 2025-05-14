@@ -5,6 +5,7 @@
     ".": "./build/client.jsx",
     "./client__internal": "./build/client__internal.jsx",
     "./server": "./build/server.jsx",
+    "./server__internal": "./build/server__internal.jsx",
     "./vite": "./build/vite.js"
   },
   "scripts": {
