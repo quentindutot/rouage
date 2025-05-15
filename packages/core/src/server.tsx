@@ -19,19 +19,6 @@ export const rouage: EventHandler = async (event) => {
     }
   }
 
-  const datum: Record<string, string> = {}
-
-  const fetch = globalThis.fetch
-  globalThis.fetch = async (...args) => {
-    const response = await fetch(...args)
-
-    if (response.ok && response.headers.get('content-type')?.includes('application/json')) {
-      datum[response.url] = await response.clone().json()
-    }
-
-    return response
-  }
-
   const content = await renderToStringAsync(() => <App path={path} />)
   const assets = getAssets().split('/chunks/').join('/assets/')
   let scripts = ''
@@ -52,16 +39,11 @@ export const rouage: EventHandler = async (event) => {
     scripts = [generateHydrationScript(), `<script type="module" src="/${manifestEntry.file}"></script>`].join('')
   }
 
-  // Serialize datum to be used on client side
-  const serializedDatum = JSON.stringify(datum)
-  const datumScript = `<script>window.__initial_data__ = ${serializedDatum.replace(/</g, '\\u003c')};</script>`
-
   const html = [
     '<!DOCTYPE html>',
     '<html><head>',
     '<meta charset="utf-8" />',
     '<meta name="viewport" content="initial-scale=1.0, width=device-width" />',
-    datumScript,
     scripts,
     assets,
     '</head><body>',

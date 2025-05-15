@@ -119,16 +119,14 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
       return [
         '/* @refresh reload */',
         `import { hydrate } from 'solid-js/web'`,
-        `import { setupFetch } from '@rouage/core/client__internal'`,
         `import App from 'virtual:app_tsx'`,
-        'setupFetch()',
         'hydrate(() => <App />, document.body)',
       ].join('\n')
     }
     if (id === 'virtual:entry-server.tsx') {
       return [
         '/* @refresh reload */',
-        `import { serve } from '@rouage/core/server__internal'`,
+        `import { serve } from '@rouage/core/server-internal'`,
         `import server from './src/index'`,
         'serve({ fetch: server.fetch.bind(server) })',
       ].join('\n')

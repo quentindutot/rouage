@@ -3,9 +3,9 @@
   "type": "module",
   "exports": {
     "./client": "./build/client.jsx",
-    "./client__internal": "./build/client__internal.jsx",
+    "./client-internal": "./build/client-internal.jsx",
     "./server": "./build/server.jsx",
-    "./server__internal": "./build/server__internal.jsx",
+    "./server-internal": "./build/server-internal.jsx",
     "./vite": "./build/vite.js"
   },
   "scripts": {

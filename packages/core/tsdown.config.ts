@@ -19,7 +19,7 @@ export default defineConfig([
     outExtensions: () => ({ js: '.jsx' }),
   },
   {
-    entry: ['src/client__internal.tsx'],
+    entry: ['src/client-internal.tsx'],
     ...baseOptions,
     dts: false,
     inputOptions: { jsx: 'preserve' },
@@ -33,7 +33,7 @@ export default defineConfig([
     outExtensions: () => ({ js: '.jsx' }),
   },
   {
-    entry: ['src/server__internal.tsx'],
+    entry: ['src/server-internal.tsx'],
     ...baseOptions,
     dts: false,
     inputOptions: { jsx: 'preserve' },
