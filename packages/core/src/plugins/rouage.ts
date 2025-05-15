@@ -1,10 +1,8 @@
 import { readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
-import { generate } from '@babel/generator'
-import { parse } from '@babel/parser'
 import { createRequestAdapter, sendResponse } from '@universal-middleware/express'
-import { deadCodeElimination } from 'babel-dead-code-elimination'
 import type { Plugin, RunnableDevEnvironment, UserConfig } from 'vite'
+import { transformServerFunction } from '../helpers/server-function/babel-transform.js'
 
 export interface RouageOptions {
   /**
@@ -129,35 +127,30 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
     if (id === 'virtual:entry-server.tsx') {
       return [
         '/* @refresh reload */',
-        `import { serve } from '@rouage/core/server-internal'`,
+        `import { serve } from '@rouage/core/srvx'`,
         `import server from './src/index'`,
         'serve({ fetch: server.fetch.bind(server) })',
       ].join('\n')
     }
   },
-  async transform(src, _id, options) {
+  transform(code, path, options) {
     const isServer = !!options?.ssr
 
-    if (!isServer && src.includes('createServerFunction(')) {
-      const transformSource = src.replace(
-        /createServerFunction\(\s*async\s*\(\s*([^)]*)\s*\)\s*=>\s*{[^}]*}\)/g,
-        (_match, params) => {
-          return `createServerFunction(async (${params}) => { 
-            const serverResponse = await fetch('/test');
-            const responseData = await serverResponse.json();
-            return responseData;
-          })`
-        },
-      )
-
-      const parsedAst = parse(transformSource, { sourceType: 'module' })
-      deadCodeElimination(parsedAst)
-      const generatedCode = generate(parsedAst).code
-
-      return { code: generatedCode }
+    if (!isServer && code.includes('createServerFunction(')) {
+      return {
+        code: transformServerFunction({
+          code,
+          path,
+          template: (sfnId) => `
+            const response = await fetch('/_server/${sfnId}');
+            const data = await response.json();
+            return data;
+          `,
+        }),
+      }
     }
 
-    return src
+    return code
   },
   async configureServer(vite) {
     const serverEnvironment = vite.environments.server as RunnableDevEnvironment

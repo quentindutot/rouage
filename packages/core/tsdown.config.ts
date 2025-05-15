@@ -5,6 +5,7 @@ const baseOptions: Options = {
   format: 'esm',
   outDir: 'build',
   clean: false,
+  dts: true,
   external: [/^virtual:/, ...Object.keys(packageJson.devDependencies), ...Object.keys(packageJson.peerDependencies)],
   noExternal: [...Object.keys(packageJson.dependencies)],
 }
@@ -14,34 +15,21 @@ export default defineConfig([
   {
     entry: ['src/client.tsx'],
     ...baseOptions,
-    dts: true,
-    inputOptions: { jsx: 'preserve' },
-    outExtensions: () => ({ js: '.jsx' }),
-  },
-  {
-    entry: ['src/client-internal.tsx'],
-    ...baseOptions,
-    dts: false,
     inputOptions: { jsx: 'preserve' },
     outExtensions: () => ({ js: '.jsx' }),
   },
   {
     entry: ['src/server.tsx'],
     ...baseOptions,
-    dts: true,
     inputOptions: { jsx: 'preserve' },
     outExtensions: () => ({ js: '.jsx' }),
   },
   {
-    entry: ['src/server-internal.tsx'],
+    entry: ['src/srvx.ts'],
     ...baseOptions,
-    dts: false,
-    inputOptions: { jsx: 'preserve' },
-    outExtensions: () => ({ js: '.jsx' }),
   },
   {
     entry: ['src/vite.ts'],
     ...baseOptions,
-    dts: true,
   },
 ])
