@@ -73,9 +73,21 @@ importers:
         specifier: ^6.3.5
         version: 6.3.5(@types/node@22.15.18)(jiti@2.4.2)(lightningcss@1.29.2)
     devDependencies:
+      '@babel/generator':
+        specifier: ^7.27.1
+        version: 7.27.1
+      '@babel/parser':
+        specifier: ^7.27.2
+        version: 7.27.2
+      '@types/babel__generator':
+        specifier: ^7.27.0
+        version: 7.27.0
       '@universal-middleware/express':
         specifier: ^0.4.15
         version: 0.4.15
+      babel-dead-code-elimination:
+        specifier: ^1.0.10
+        version: 1.0.10
       tsdown:
         specifier: ^0.11.7
         version: 0.11.9(typescript@5.8.3)
@@ -1168,6 +1180,9 @@ packages:
   ast-kit@2.0.0:
     resolution: {integrity: sha512-P63jzlYNz96MF9mCcprU+a7I5/ZQ5QAn3y+mZcPWEcGV3CHF/GWnkFPj3oCrWLUjL47+PD9PNiCUdXxw0cWdsg==}
     engines: {node: '>=20.18.0'}
+
+  babel-dead-code-elimination@1.0.10:
+    resolution: {integrity: sha512-DV5bdJZTzZ0zn0DC24v3jD7Mnidh6xhKa4GfKCbq3sfW8kaWhDdZjP3i81geA8T33tdYqWKw4D3fVv0CwEgKVA==}
 
   babel-plugin-jsx-dom-expressions@0.39.8:
     resolution: {integrity: sha512-/MVOIIjonylDXnrWmG23ZX82m9mtKATsVHB7zYlPfDR9Vdd/NBE48if+wv27bSkBtyO7EPMUlcUc4J63QwuACQ==}
@@ -3118,6 +3133,15 @@ snapshots:
     dependencies:
       '@babel/parser': 7.27.2
       pathe: 2.0.3
+
+  babel-dead-code-elimination@1.0.10:
+    dependencies:
+      '@babel/core': 7.27.1
+      '@babel/parser': 7.27.2
+      '@babel/traverse': 7.27.1
+      '@babel/types': 7.27.1
+    transitivePeerDependencies:
+      - supports-color
 
   babel-plugin-jsx-dom-expressions@0.39.8(@babel/core@7.27.1):
     dependencies:

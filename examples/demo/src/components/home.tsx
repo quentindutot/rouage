@@ -1,11 +1,20 @@
-import { MetaTitle, createAsync } from '@rouage/core/client'
+import { MetaTitle, createAsync, createServerFunction } from '@rouage/core/client'
 import { For, createSignal } from 'solid-js'
 import { Menu } from './menu'
 
+const getTodos = createServerFunction(async () => {
+  return fetch('https://jsonplaceholder.typicode.com/todos').then((response) => response.json()) as Promise<
+    {
+      id: number
+      userId: number
+      title: string
+      completed: boolean
+    }[]
+  >
+})
+
 export const Home = () => {
-  const todos = createAsync(() =>
-    fetch('https://jsonplaceholder.typicode.com/todos').then((response) => response.json()),
-  )
+  const todos = createAsync(() => getTodos())
 
   const [count, setCount] = createSignal(0)
 

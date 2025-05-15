@@ -5,3 +5,5 @@ export * from './components/app.jsx'
 export * from './components/metas.jsx'
 // biome-ignore lint/performance/noReExportAll: <explanation>
 export * from './components/router.jsx'
+
+export const createServerFunction = <Handler,>(handler: Handler): Handler => handler

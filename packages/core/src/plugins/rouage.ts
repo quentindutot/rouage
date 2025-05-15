@@ -1,6 +1,9 @@
 import { readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
+import { generate } from '@babel/generator'
+import { parse } from '@babel/parser'
 import { createRequestAdapter, sendResponse } from '@universal-middleware/express'
+import { deadCodeElimination } from 'babel-dead-code-elimination'
 import type { Plugin, RunnableDevEnvironment, UserConfig } from 'vite'
 
 export interface RouageOptions {
@@ -131,6 +134,30 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
         'serve({ fetch: server.fetch.bind(server) })',
       ].join('\n')
     }
+  },
+  async transform(src, _id, options) {
+    const isServer = !!options?.ssr
+
+    if (!isServer && src.includes('createServerFunction(')) {
+      const transformSource = src.replace(
+        /createServerFunction\(\s*async\s*\(\s*([^)]*)\s*\)\s*=>\s*{[^}]*}\)/g,
+        (_match, params) => {
+          return `createServerFunction(async (${params}) => { 
+            const serverResponse = await fetch('/test');
+            const responseData = await serverResponse.json();
+            return responseData;
+          })`
+        },
+      )
+
+      const parsedAst = parse(transformSource, { sourceType: 'module' })
+      deadCodeElimination(parsedAst)
+      const generatedCode = generate(parsedAst).code
+
+      return { code: generatedCode }
+    }
+
+    return src
   },
   async configureServer(vite) {
     const serverEnvironment = vite.environments.server as RunnableDevEnvironment
