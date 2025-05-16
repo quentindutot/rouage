@@ -1,10 +1,10 @@
-import { MetaTitle, createAsync } from '@rouage/core/client'
+import { MetaTitle, createAsync, createServerFunction } from '@rouage/core/client'
 import { For, createSignal } from 'solid-js'
 import { Menu } from './menu'
-import { createServerFunction } from '../sfn'
 
-const getTodos = createServerFunction('getTodos', async () => {
-  return fetch('https://jsonplaceholder.typicode.com/todos').then((response) => response.json()) as Promise<
+export const getTodos = createServerFunction(async () => {
+  const response = await fetch('https://jsonplaceholder.typicode.com/todos')
+  return response.json() as Promise<
     {
       id: number
       userId: number
@@ -14,7 +14,7 @@ const getTodos = createServerFunction('getTodos', async () => {
   >
 })
 
-const logIncrement = createServerFunction('logIncrement', () => {
+export const logIncrement = createServerFunction(() => {
   // biome-ignore lint/correctness/noConstantCondition: <explanation>
   if (true) {
     // biome-ignore lint/suspicious/noConsoleLog: <explanation>

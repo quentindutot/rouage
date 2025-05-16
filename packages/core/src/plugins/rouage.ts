@@ -108,6 +108,9 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
     if (id === 'virtual:manifest') {
       return 'build/public/.vite/manifest.json'
     }
+    if (id === 'virtual:server-functions') {
+      return 'node_modules/.rouage/server-functions.js'
+    }
   },
   load(id) {
     if (id === 'virtual:app_tsx') {
