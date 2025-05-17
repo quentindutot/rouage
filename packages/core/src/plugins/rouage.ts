@@ -2,7 +2,7 @@ import { readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { createRequestAdapter, sendResponse } from '@universal-middleware/express'
 import type { Plugin, RunnableDevEnvironment, UserConfig } from 'vite'
-import { transformServerFunction } from '../helpers/server-function/babel-transform.js'
+import { processServerFunctions } from '../features/server-function/process-server-functions.js'
 
 export interface RouageOptions {
   /**
@@ -140,17 +140,15 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
     const isServer = !!options?.ssr
 
     if (!isServer && code.includes('createServerFunction(')) {
-      return {
-        code: transformServerFunction({
-          code,
-          path,
-          template: (sfnId) => `
-            const response = await fetch('/_server/${sfnId}');
-            const data = await response.json();
-            return data;
-          `,
-        }),
-      }
+      return processServerFunctions({
+        code,
+        path,
+        template: (serverFunctionId) => `
+          const response = await fetch('/_server/${serverFunctionId}');
+          const data = await response.json();
+          return data;
+        `,
+      })
     }
 
     return code

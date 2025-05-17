@@ -1,7 +1,8 @@
 import { resolve } from 'node:path'
 import type { EventHandler } from 'h3-nightly'
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
-import { serveStatic } from './helpers/serve-static/serve-static.js'
+import { serveStatic } from './features/serve-static/serve-static.js'
+import { handleServerFunction } from './features/server-function/handle-serve-function.js'
 
 // @ts-expect-error
 import App from 'virtual:app_tsx'
@@ -10,30 +11,10 @@ export const rouage = (): EventHandler => async (event) => {
   const path = event.url.pathname
 
   if (path.startsWith('/_server/')) {
-    const sfnId = path.replace('/_server/', '')
-
-    // @ts-expect-error
-    const mod = await import('virtual:server-functions')
-    const manifest = mod.default
-
-    const fileImport = manifest[sfnId]
-    if (!fileImport) {
-      return new Response('Not found', { status: 404 })
+    const serverFunctionResponse = await handleServerFunction({ path })
+    if (serverFunctionResponse) {
+      return serverFunctionResponse
     }
-
-    const handler = await fileImport()
-    if (!handler) {
-      return new Response('Not found', { status: 404 })
-    }
-
-    const result = await handler()
-
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
   }
 
   if (!import.meta.env.DEV) {
