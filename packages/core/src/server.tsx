@@ -1,7 +1,7 @@
 import { resolve } from 'node:path'
 import type { EventHandler } from 'h3-nightly'
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
-import { serveStatic } from './features/serve-static/serve-static.js'
+import { handleStaticFile } from './features/serve-static/handle-static-file.js'
 import { handleServerFunction } from './features/server-function/handle-serve-function.js'
 
 // @ts-expect-error
@@ -18,12 +18,12 @@ export const rouage = (): EventHandler => async (event) => {
   }
 
   if (!import.meta.env.DEV) {
-    const fileResponse = await serveStatic({
+    const staticFileResponse = await handleStaticFile({
       root: resolve('build/public'),
       event,
     })
-    if (fileResponse) {
-      return fileResponse
+    if (staticFileResponse) {
+      return staticFileResponse
     }
   }
 

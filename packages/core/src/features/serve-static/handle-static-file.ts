@@ -10,7 +10,7 @@ interface ServeStaticOptions {
   event: H3Event
 }
 
-export const serveStatic = async ({ root, event }: ServeStaticOptions): Promise<FileContent | undefined> => {
+export const handleStaticFile = async ({ root, event }: ServeStaticOptions): Promise<FileContent | undefined> => {
   const pathName = event.url.pathname
 
   const fileExtension = getFileExtension(pathName)

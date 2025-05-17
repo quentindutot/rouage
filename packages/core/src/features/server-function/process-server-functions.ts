@@ -1,10 +1,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import {
+  type Node,
   generateAstFromCode,
   generateCodeFromAst,
   getAssignedVariableName,
-  type Node,
   traverseAst,
 } from './babel-helpers.js'
 

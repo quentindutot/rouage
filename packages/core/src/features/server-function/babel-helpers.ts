@@ -1,7 +1,7 @@
 import { generate } from '@babel/generator'
 import { parse } from '@babel/parser'
-import type { CallExpression, Node } from '@babel/types'
 import traverseImport, { type NodePath, type TraverseOptions } from '@babel/traverse'
+import type { CallExpression, Node } from '@babel/types'
 
 // @ts-expect-error
 const traverse = traverseImport.default as typeof traverseImport
