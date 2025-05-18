@@ -1,0 +1,15 @@
+{
+  "name": "@rouage/create-rouage",
+  "type": "module",
+  "bin": {
+    "create-rouage": "build/index.js"
+  },
+  "scripts": {
+    "dev": "tsdown --watch",
+    "build": "tsdown"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.17",
+    "tsdown": "^0.11.7"
+  }
+}
