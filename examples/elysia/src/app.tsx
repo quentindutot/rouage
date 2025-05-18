@@ -1,4 +1,4 @@
-import { type AppProps, Route, Router } from '@rouage/core/client'
+import { type AppProps, Route, Router } from '@rouage/solid-rouage/client'
 import { lazy } from 'solid-js'
 import { preloadHome } from './components/home'
 

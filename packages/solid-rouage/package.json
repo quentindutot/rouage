@@ -1,5 +1,5 @@
 {
-  "name": "@rouage/core",
+  "name": "@rouage/solid-rouage",
   "type": "module",
   "exports": {
     "./client": "./build/client.jsx",
@@ -28,11 +28,11 @@
     "vite-plugin-solid": "^2.11.6"
   },
   "peerDependencies": {
-    "elysia": ">=1.0.0",
-    "hono": ">=4.0.0",
-    "h3-nightly": ">=2.0.0-0",
-    "solid-js": ">=1.0.0",
-    "vite": ">=6.0.0"
+    "elysia": "1.x",
+    "hono": "4.x",
+    "h3-nightly": "2.x",
+    "solid-js": "1.x",
+    "vite": "6.x"
   },
   "peerDependenciesMeta": {
     "elysia": {

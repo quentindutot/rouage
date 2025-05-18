@@ -1,4 +1,4 @@
-import { MetaTitle, createAsync, createServerFunction } from '@rouage/core/client'
+import { MetaTitle, createAsync, createServerFunction } from '@rouage/solid-rouage/client'
 import { For, createSignal } from 'solid-js'
 import { Menu } from './menu'
 

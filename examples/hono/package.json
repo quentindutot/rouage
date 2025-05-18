@@ -8,7 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@rouage/core": "workspace:*",
+    "@rouage/solid-rouage": "workspace:*",
     "hono": "^4.7.10",
     "solid-js": "^1.9.6"
   },

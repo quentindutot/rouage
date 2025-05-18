@@ -1,4 +1,4 @@
-import { rouageHono } from '@rouage/core/server'
+import { rouageHono } from '@rouage/solid-rouage/server'
 import { Hono } from 'hono'
 
 const server = new Hono()
