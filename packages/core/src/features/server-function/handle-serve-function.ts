@@ -1,5 +1,7 @@
-export const handleServerFunction = async (options: { path: string }) => {
-  const serverFunctionId = options.path.replace('/_server/', '')
+export const handleServerFunction = async (options: { pathName: string }) => {
+  const responseHeaders = new Headers()
+
+  const serverFunctionId = options.pathName.replace('/_server/', '')
 
   // @ts-expect-error
   const serverFunctionImport = await import('virtual:server-functions')
@@ -17,10 +19,5 @@ export const handleServerFunction = async (options: { path: string }) => {
 
   const result = await handler()
 
-  return new Response(JSON.stringify(result), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+  return { headers: responseHeaders, content: JSON.stringify(result) }
 }

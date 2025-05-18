@@ -8,26 +8,34 @@ import { handleServerFunction } from './features/server-function/handle-serve-fu
 import App from 'virtual:app_tsx'
 
 export const rouage = (): EventHandler => async (event) => {
-  const path = event.url.pathname
+  const pathName = event.url.pathname
+  const acceptEncoding = event.req.headers.get('Accept-Encoding') || ''
 
-  if (path.startsWith('/_server/')) {
-    const serverFunctionResponse = await handleServerFunction({ path })
-    if (serverFunctionResponse) {
-      return serverFunctionResponse
+  if (pathName.startsWith('/_server/')) {
+    const serverFunctionResult = await handleServerFunction({ pathName })
+    if (serverFunctionResult?.content) {
+      return new Response(serverFunctionResult.content, {
+        status: 200,
+        headers: serverFunctionResult.headers,
+      })
     }
   }
 
   if (!import.meta.env.DEV) {
-    const staticFileResponse = await handleStaticFile({
+    const staticFileResult = await handleStaticFile({
       root: resolve('build/public'),
-      event,
+      pathName,
+      acceptEncoding,
     })
-    if (staticFileResponse) {
-      return staticFileResponse
+    if (staticFileResult?.content) {
+      return new Response(staticFileResult.content, {
+        status: 200,
+        headers: staticFileResult.headers,
+      })
     }
   }
 
-  const content = await renderToStringAsync(() => <App path={path} />)
+  const content = await renderToStringAsync(() => <App path={pathName} />)
   const assets = getAssets().split('/chunks/').join('/assets/')
   let scripts = ''
 
