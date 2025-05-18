@@ -12,7 +12,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "~1.9.4",
-    "@types/node": "^22.15.17",
     "typescript": "~5.8.3"
   }
 }
