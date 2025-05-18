@@ -2,15 +2,11 @@ import { readFile } from 'node:fs/promises'
 import { FILE_COMPRESSIONS, getExtensionMimeType, getFileExtension } from './file-encoding.js'
 import { getFilePath } from './file-path.js'
 
-type FileContent = string | Buffer | Uint8Array | ReadableStream | null
-
-interface ServeStaticOptions {
+export const handleStaticFile = async (options: {
   root: string
   pathName: string
   acceptEncoding: string
-}
-
-export const handleStaticFile = async (options: ServeStaticOptions) => {
+}) => {
   const responseHeaders = new Headers()
 
   const fileExtension = getFileExtension(options.pathName)
@@ -23,7 +19,7 @@ export const handleStaticFile = async (options: ServeStaticOptions) => {
     return
   }
 
-  let fileContent: FileContent = await readFile(filePath).catch(() => null)
+  let fileContent: string | Buffer | Uint8Array | ReadableStream | null = await readFile(filePath).catch(() => null)
   if (!fileContent) {
     return
   }
