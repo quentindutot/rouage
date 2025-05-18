@@ -23,6 +23,8 @@ export const logIncrement = createServerFunction(() => {
   }
 })
 
+export const preloadHome = () => getTodos()
+
 export const Home = () => {
   const todos = createAsync(() => getTodos())
 
