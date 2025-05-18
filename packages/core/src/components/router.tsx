@@ -1,5 +1,5 @@
 import { Link, MetaProvider } from '@solidjs/meta'
-import { Router as _Router, Route as _Route, type MatchFilters, type Params } from '@solidjs/router'
+import { type MatchFilters, type Params, Route as _Route, Router as _Router } from '@solidjs/router'
 import { type Component, type JSX, Suspense } from 'solid-js'
 import { isServer } from 'solid-js/web'
 
