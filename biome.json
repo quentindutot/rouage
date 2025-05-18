@@ -11,9 +11,7 @@
     "rules": {
       "all": true,
       "correctness": {
-        "noNodejsModules": "off",
-        "noUndeclaredDependencies": "off",
-        "useImportExtensions": "off"
+        "noUndeclaredDependencies": "off"
       }
     }
   },
@@ -25,11 +23,24 @@
   },
   "overrides": [
     {
+      "include": ["examples/**"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "useImportExtensions": "off"
+          },
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
       "include": ["packages/**"],
       "linter": {
         "rules": {
           "correctness": {
-            "useImportExtensions": "warn"
+            "noNodejsModules": "off"
           }
         }
       }

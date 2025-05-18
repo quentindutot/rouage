@@ -5,5 +5,4 @@ import { Elysia } from 'elysia'
 
 const server = new Elysia().get('/health', 'OK').all('*', rouageElysia())
 
-// biome-ignore lint/style/noDefaultExport: <explanation>
 export default server

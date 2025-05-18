@@ -7,5 +7,4 @@ server.get('/health', () => new Response('OK'))
 
 server.all('/**', rouageH3())
 
-// biome-ignore lint/style/noDefaultExport: <explanation>
 export default server
