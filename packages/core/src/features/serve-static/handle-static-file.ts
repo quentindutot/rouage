@@ -1,20 +1,15 @@
 import { readFile } from 'node:fs/promises'
+import { resolve } from 'node:path'
 import { FILE_COMPRESSIONS, getExtensionMimeType, getFileExtension } from './file-encoding.js'
 import { getFilePath } from './file-path.js'
 
-export const handleStaticFile = async (options: {
-  root: string
-  pathName: string
-  acceptEncoding: string
-}) => {
-  const responseHeaders = new Headers()
-
+export const handleStaticFile = async (options: { pathName: string; acceptEncoding: string }) => {
   const fileExtension = getFileExtension(options.pathName)
   if (!fileExtension) {
     return
   }
 
-  const filePath = getFilePath(options.root, options.pathName)
+  const filePath = getFilePath(resolve('build/public'), options.pathName)
   if (!filePath) {
     return
   }
@@ -29,6 +24,7 @@ export const handleStaticFile = async (options: {
     return
   }
 
+  const responseHeaders = new Headers()
   responseHeaders.set('Content-Type', mimeType)
 
   const acceptEncodingSet = new Set(options.acceptEncoding.split(',').map((encoding: string) => encoding.trim()))

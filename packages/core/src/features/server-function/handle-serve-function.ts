@@ -1,6 +1,4 @@
 export const handleServerFunction = async (options: { pathName: string }) => {
-  const responseHeaders = new Headers()
-
   const serverFunctionId = options.pathName.replace('/_server/', '')
 
   // @ts-expect-error
@@ -16,6 +14,8 @@ export const handleServerFunction = async (options: { pathName: string }) => {
   if (!handler) {
     return
   }
+
+  const responseHeaders = new Headers()
 
   const result = await handler()
 

@@ -1,8 +1,7 @@
-import { resolve } from 'node:path'
 import type { EventHandler } from 'h3-nightly'
+import { handlerRendering } from './features/rendering/handle-rendering.jsx'
 import { handleStaticFile } from './features/serve-static/handle-static-file.js'
 import { handleServerFunction } from './features/server-function/handle-serve-function.js'
-import { handlerRendering } from './features/rendering/handle-rendering.jsx'
 
 export const rouage = (): EventHandler => async (event) => {
   const pathName = event.url.pathname
@@ -20,7 +19,6 @@ export const rouage = (): EventHandler => async (event) => {
 
   if (!import.meta.env.DEV) {
     const staticFileResult = await handleStaticFile({
-      root: resolve('build/public'),
       pathName,
       acceptEncoding,
     })

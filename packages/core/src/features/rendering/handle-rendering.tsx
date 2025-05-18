@@ -4,9 +4,6 @@ import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-j
 import App from 'virtual:app_tsx'
 
 export const handlerRendering = async (options: { pathName: string }) => {
-  const responseHeaders = new Headers()
-  responseHeaders.set('Content-Type', 'text/html')
-
   const content = await renderToStringAsync(() => <App path={options.pathName} />)
   const assets = getAssets().split('/chunks/').join('/assets/')
   let scripts = ''
@@ -38,6 +35,9 @@ export const handlerRendering = async (options: { pathName: string }) => {
     content,
     '</body></html>',
   ].join('')
+
+  const responseHeaders = new Headers()
+  responseHeaders.set('Content-Type', 'text/html')
 
   return { headers: responseHeaders, content: htmlContent }
 }
