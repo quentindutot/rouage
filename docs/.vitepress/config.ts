@@ -83,6 +83,7 @@ export default defineConfig({
     },
   },
   vite: {
+    // @ts-expect-error
     plugins: [llmstxt(), groupIconVitePlugin()],
   },
 })
