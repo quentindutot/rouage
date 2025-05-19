@@ -32,26 +32,23 @@ export default defineConfig({
             text: 'Introduction',
             link: '/introduction',
           },
-          // {
-          //   text: 'Quick Start',
-          // },
         ],
       },
       {
         text: 'Concepts',
         items: [
           {
-            text: 'Metas',
-          },
-          {
             text: 'Routing',
           },
-          // {
-          //   text: 'Data Fetching',
-          // },
-          // {
-          //   text: 'Server Functions',
-          // },
+          {
+            text: 'Page Metas',
+          },
+          {
+            text: 'Server Functions',
+          },
+          {
+            text: 'Deployment',
+          },
         ],
       },
       {

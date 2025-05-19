@@ -12,6 +12,34 @@ Designed to be fast, flexible, and unopinionated. It provides the essentials: se
 > 
 > A small, precise part that powers a larger system.
 
+## Quick Start
+
+The recommended way to create a new Rouage project:
+
+::: code-group
+
+```sh [npm]
+npm create rouage@latest
+```
+
+```sh [yarn]
+yarn create rouage
+```
+
+```sh [pnpm]
+pnpm create rouage@latest
+```
+
+```sh [bun]
+bun create rouage@latest
+```
+
+```sh [deno]
+deno init --npm rouage@latest
+```
+
+:::
+
 ## Server Focused
 
 Rouage focuses purely on SSR and integrates with modern servers like Hono, Elysia, H3, and runtimes Node, Deno, Bun. Enabling full control over the server and its ecosystem without limitations.
@@ -21,8 +49,8 @@ SSR is hard: streaming, async rendering, asset manifests, styles, preloads, and 
 | Rendering Mode          | Ideal Stack                            | Notes                             |
 |-------------------------|----------------------------------------|-----------------------------------|
 | Static Site Generation  | SolidJS × [Astro](https://astro.build) | Pre-rendered static pages         |
-| Single Page Application | SolidJS × [Vite](https://vitejs.dev)   | Rich client-side interactions     |
-| Server-Side Rendering   | SolidJS × **Rouage**                  | Dynamic pages and custom backends |
+| Client-Side Rendering   | SolidJS × [Vite](https://vitejs.dev)   | Rich client-side interactions     |
+| Server-Side Rendering   | SolidJS × **Rouage**                   | Dynamic pages and custom backends |
 
 ## Declarative Routing
 
