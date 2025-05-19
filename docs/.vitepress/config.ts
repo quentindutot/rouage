@@ -21,7 +21,7 @@ export default defineConfig({
       text: 'Edit on GitHub',
     },
     nav: [
-      { text: 'Examples', link: 'https://github.com/quentindutot/rouage/tree/examples' },
+      { text: 'Examples', link: 'https://github.com/quentindutot/rouage/tree/main/examples' },
       { text: 'Discussions', link: 'https://github.com/quentindutot/rouage/discussions' },
     ],
     sidebar: [

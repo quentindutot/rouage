@@ -49,7 +49,7 @@ Rouage is a Vite plugin. No CLI, no runtime, no boilerplate.
 | Memory usage (avg)     | 120–150 MB             | 40–60 MB                 |
 | CPU usage (avg load)   | Higher                 | Lower                    |
 
-*See the [full comparison repository](https://github.com/quentindutot/rouage/tree/main/examples/comparison) for details.*
+*See the [full comparison repository](https://github.com/quentindutot/rouage/tree/main/examples) for details.*
 
 ## Acknowledgements
 
