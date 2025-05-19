@@ -4,8 +4,8 @@ title: Minimal SSR for SolidJS
 
 hero:
   name: "Rouage"
-  text: "Minimal SSR for SolidJS"
-  tagline: Server rendering and hydration built in a Vite plugin.
+  text: "Minimal Solid SSR"
+  tagline: Server rendering and client hydration for SolidJS, powered by a Vite plugin.
   image:
     src: /rouage-logo.svg
     alt: Rouage
@@ -21,21 +21,21 @@ hero:
 
 features:
   - icon: ⚡️
-    title: Fast & Light
+    title: Light & Fast
     details: Instant rendering and hydration with zero bloat.
   - icon: 🛰️
     title: Built for Modern Servers
-    details: Works with Hono, Elysia, H3, and more.
+    details: Integrates with H3, Hono and Elysia.
   - icon: 🧭
     title: Declarative Routing
-    details: Routes are defined in code with flexibility.
+    details: Explicit code-based routing, not tied to folders.
   - icon: 🧪
     title: Vite Environment APIs
-    details: Multi-target builds powered by Vite 6.
+    details: Multi-target builds using the latest Vite APIs.
   - icon: 🌐
     title: Multi-Runtime Support
     details: Compatible with Node, Bun, and Deno.
   - icon: 🧱
     title: Safe and Reliable
-    details: Tested and stable, licensed under MIT.
+    details: Stable and tested, licensed under MIT.
 ---
