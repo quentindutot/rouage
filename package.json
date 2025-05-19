@@ -5,9 +5,8 @@
   "license": "MIT",
   "packageManager": "pnpm@10.0.0",
   "scripts": {
+    "test": "pnpm run -r test",
     "build": "pnpm run -r build",
-    "lint": "biome lint --write",
-    "format": "biome format --write",
     "check": "biome check --write"
   },
   "devDependencies": {
