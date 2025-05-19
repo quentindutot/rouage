@@ -1,5 +1,5 @@
 {
-  "name": "@rouage/create-rouage",
+  "name": "create-rouage",
   "type": "module",
   "bin": {
     "create-rouage": "build/index.js"

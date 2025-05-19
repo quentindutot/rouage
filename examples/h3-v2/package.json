@@ -8,9 +8,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@rouage/solid-rouage": "workspace:*",
     "h3-nightly": "^2.0.0-20250428-102154-f1115f3",
-    "solid-js": "^1.9.6"
+    "solid-js": "^1.9.6",
+    "solid-rouage": "workspace:*"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.4",

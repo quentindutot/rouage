@@ -29,7 +29,7 @@ importers:
 
   examples/elysia:
     dependencies:
-      '@rouage/solid-rouage':
+      'solid-rouage':
         specifier: workspace:*
         version: link:../../packages/solid-rouage
       elysia:
@@ -51,7 +51,7 @@ importers:
 
   examples/h3-v2:
     dependencies:
-      '@rouage/solid-rouage':
+      'solid-rouage':
         specifier: workspace:*
         version: link:../../packages/solid-rouage
       h3-nightly:
@@ -73,7 +73,7 @@ importers:
 
   examples/hono:
     dependencies:
-      '@rouage/solid-rouage':
+      'solid-rouage':
         specifier: workspace:*
         version: link:../../packages/solid-rouage
       hono:

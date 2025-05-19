@@ -1,5 +1,5 @@
-import { rouageH3 } from '@rouage/solid-rouage/server'
 import { H3 } from 'h3-nightly'
+import { rouageH3 } from 'solid-rouage/server'
 
 const server = new H3()
 

@@ -1,5 +1,5 @@
-import { type AppProps, Route, Router } from '@rouage/solid-rouage/client'
 import { lazy } from 'solid-js'
+import { type AppProps, Route, Router } from 'solid-rouage/client'
 import { preloadHome } from './components/home'
 
 const Home = lazy(() => import('./components/home').then((module) => ({ default: module.Home })))

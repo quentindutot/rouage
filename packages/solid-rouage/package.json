@@ -1,5 +1,5 @@
 {
-  "name": "@rouage/solid-rouage",
+  "name": "solid-rouage",
   "type": "module",
   "exports": {
     "./client": "./build/client.jsx",

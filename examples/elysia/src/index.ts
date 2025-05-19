@@ -1,5 +1,5 @@
-import { rouageElysia } from '@rouage/solid-rouage/server'
 import { Elysia } from 'elysia'
+import { rouageElysia } from 'solid-rouage/server'
 
 // https://github.com/elysiajs/elysia/issues/1143
 

@@ -8,9 +8,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@rouage/solid-rouage": "workspace:*",
     "elysia": "^1.3.1",
-    "solid-js": "^1.9.6"
+    "solid-js": "^1.9.6",
+    "solid-rouage": "workspace:*"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.4",

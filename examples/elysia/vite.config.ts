@@ -1,5 +1,5 @@
-import { compress, rouage, solid } from '@rouage/solid-rouage/vite'
 import tailwind from '@tailwindcss/vite'
+import { compress, rouage, solid } from 'solid-rouage/vite'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
