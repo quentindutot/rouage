@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Minimal SSR for SolidJS
+title: Minimal Solid SSR
 
 hero:
   name: "Rouage"

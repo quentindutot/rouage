@@ -55,30 +55,19 @@ export default defineConfig({
         ],
       },
       {
-        text: 'Servers',
+        text: 'Examples',
         items: [
           {
             text: 'H3 (v2)',
+            link: 'https://github.com/quentindutot/rouage/tree/main/examples/h3-v2',
           },
           {
             text: 'Hono',
+            link: 'https://github.com/quentindutot/rouage/tree/main/examples/hono',
           },
           {
             text: 'Elysia',
-          },
-        ],
-      },
-      {
-        text: 'Runtimes',
-        items: [
-          {
-            text: 'Node',
-          },
-          {
-            text: 'Bun',
-          },
-          {
-            text: 'Deno',
+            link: 'https://github.com/quentindutot/rouage/tree/main/examples/elysia',
           },
         ],
       },
