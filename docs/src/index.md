@@ -17,7 +17,7 @@ hero:
       link: /introduction
     - theme: alt
       text: View on Github
-      link: https://github.com/rouage-dev/rouage
+      link: https://github.com/quentindutot/rouage
 
 features:
   - icon: ⚡️

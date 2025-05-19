@@ -69,7 +69,7 @@ const main = async () => {
     const repositoryDir = join(process.cwd(), '.rouage')
 
     // Clone the template into temporary directory
-    execSync(`git clone --depth 1 https://github.com/QuentinDutot/rouage.git ${repositoryDir}`, { stdio: 'ignore' })
+    execSync(`git clone --depth 1 https://github.com/quentindutot/rouage.git ${repositoryDir}`, { stdio: 'ignore' })
 
     // Copy only the selected template contents
     const templatePath = join(repositoryDir, 'examples', projectTemplate)
@@ -95,7 +95,7 @@ const main = async () => {
 
   note(nextSteps, 'Next steps.')
 
-  outro(`Problems? ${color.underline(color.cyan('https://github.com/QuentinDutot/rouage/issues'))}`)
+  outro(`Problems? ${color.underline(color.cyan('https://github.com/quentindutot/rouage/issues'))}`)
 }
 
 main().catch(console.error)

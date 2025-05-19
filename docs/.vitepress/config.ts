@@ -15,14 +15,14 @@ export default defineConfig({
   themeConfig: {
     logo: '/rouage-logo.svg',
     search: { provider: 'local' },
-    socialLinks: [{ icon: 'github', link: 'https://github.com/rouage-dev/rouage' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/quentindutot/rouage' }],
     editLink: {
-      pattern: 'https://github.com/rouage-dev/rouage/blob/main/docs/:path',
+      pattern: 'https://github.com/quentindutot/rouage/blob/main/docs/:path',
       text: 'Edit on GitHub',
     },
     nav: [
-      { text: 'Examples', link: 'https://github.com/rouage-dev/rouage/tree/examples' },
-      { text: 'Discussions', link: 'https://github.com/rouage-dev/rouage/discussions' },
+      { text: 'Examples', link: 'https://github.com/quentindutot/rouage/tree/examples' },
+      { text: 'Discussions', link: 'https://github.com/quentindutot/rouage/discussions' },
     ],
     sidebar: [
       {
