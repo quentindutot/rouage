@@ -39,6 +39,7 @@ export default defineConfig({
         items: [
           {
             text: 'Routing',
+            link: '/concepts/routing',
           },
           {
             text: 'Page Metas',

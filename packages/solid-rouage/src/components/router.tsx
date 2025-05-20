@@ -71,7 +71,7 @@ export const Route = <Path extends string>(props: RouteProps<Path>) => (
       if (!isServer) {
         if (args.intent === 'preload' && args.location.pathname !== window.location.pathname) {
           // @ts-expect-error
-          props.preload?.(args)
+          props.preload?.({ params: args.params, location: args.location })
         }
       }
     }}
