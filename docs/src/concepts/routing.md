@@ -12,9 +12,9 @@ Installation of `@solidjs/router` is not needed, all features are provided by `s
 This page covers application-level routing. For server routes, consult the documentation for frameworks such as H3, Hono, or Elysia.
 :::
 
-## Usage
+## Basic Example
 
-The top-level component that manages routing in your application. The optional `root` prop can wrap the application in a layout component that persists across page changes.
+Below is a routing setup using Router and Route from solid-rouage. Use the root prop to apply a layout across all routes.
 
 ```jsx
 import { lazy } from 'solid-js'
@@ -33,7 +33,7 @@ export const App = (props: AppProps) => (
 )
 ```
 
-## Concepts
+## Router Concepts
 
 | Concept           | Documentation                                                                                                                  |
 |-------------------|--------------------------------------------------------------------------------------------------------------------------------|
@@ -44,11 +44,7 @@ export const App = (props: AppProps) => (
 | Layouts           | [/solid-router/concepts/layouts](https://docs.solidjs.com/solid-router/concepts/layouts)                                       |
 | Preload           | [/solid-router/reference/preload-functions/preload](https://docs.solidjs.com/solid-router/reference/preload-functions/preload) |
 
-## Primitives
-
-The following primitives are re-exported from Solid Router.
-
-Import them directly from `solid-rouage` instead of `@solidjs/router`.
+## Router Primitives
 
 | Primitive         | Documentation                                                                                                                            |
 |-------------------|------------------------------------------------------------------------------------------------------------------------------------------|
@@ -62,10 +58,16 @@ Import them directly from `solid-rouage` instead of `@solidjs/router`.
 | useIsRouting      | [/solid-router/reference/primitives/use-is-routing](https://docs.solidjs.com/solid-router/reference/primitives/use-is-routing)           |
 | usePreloadRoute   | [/solid-router/reference/primitives/use-preload-route](https://docs.solidjs.com/solid-router/reference/primitives/use-preload-route)     |
 
-## Limitations
+## Feature Differences
 
-- No `A` or `Link` components (use standard `<a>` elements instead).
-- No alternative routers (hash mode and memory mode are not supported).
-- No query/action (these APIs are too closely tied to SolidStart).
-- Only component-based routing is supported (not config-based).
-- No intent passed to preload functions; preloading is always triggered by link hover.
+Rouage introduces a few differences from Solid Router to better fit its intended use cases:
+
+- **No `<A>` or `<Link>` Components:** Use standard HTML `<a>` elements.
+
+- **No Alternative Router Modes:**  Hash mode and memory mode are not supported.
+
+- **No `query`/`action` APIs:** Prefer [Server Functions](/concepts/server-functions) for data handling.
+
+- **Component-Based Routing:** Use `<Route>` components over config-based routes.
+
+- **Preload Function Intent:** The preload function is only triggered on link hover.
