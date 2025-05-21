@@ -9,7 +9,7 @@
     "url": "git+https://github.com/quentindutot/rouage.git",
     "directory": "packages/create-rouage"
   },
-  "files": ["build"],
+  "files": ["build", "package.json"],
   "bin": {
     "create-rouage": "./build/index.js"
   },

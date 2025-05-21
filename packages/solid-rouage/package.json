@@ -9,7 +9,7 @@
     "url": "git+https://github.com/quentindutot/rouage.git",
     "directory": "packages/solid-rouage"
   },
-  "files": ["build"],
+  "files": ["build", "package.json"],
   "exports": {
     "./client": "./build/client.jsx",
     "./server": "./build/server.jsx",
