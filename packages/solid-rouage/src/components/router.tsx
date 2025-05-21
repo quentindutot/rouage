@@ -1,5 +1,5 @@
 import { Link, MetaProvider } from '@solidjs/meta'
-import { type MatchFilters, type Params, Route as _Route, Router as _Router } from '@solidjs/router'
+import { type Location, type MatchFilters, type Params, Route as _Route, Router as _Router } from '@solidjs/router'
 import { type Component, type JSX, Suspense } from 'solid-js'
 import { isServer } from 'solid-js/web'
 
@@ -30,10 +30,16 @@ export interface RouterProps {
 export const Router = (props: RouterProps) => (
   <_Router
     url={props.path}
-    root={(props) => (
+    base={props.base}
+    root={(rootProps) => (
       <MetaProvider>
         <Link rel="stylesheet" href={styles} />
-        <Suspense>{props.children}</Suspense>
+
+        <Suspense>
+          {typeof props.root === 'function'
+            ? props.root({ location: rootProps.location, params: rootProps.params, children: rootProps.children })
+            : rootProps.children}
+        </Suspense>
       </MetaProvider>
     )}
   >
@@ -41,12 +47,7 @@ export const Router = (props: RouterProps) => (
   </_Router>
 )
 
-export interface RoutePreloadFuncArgs {
-  params: Params
-  location: Location
-}
-
-export type RoutePreloadFunc = (args: RoutePreloadFuncArgs) => void
+export type RoutePreloadFunction = (args: { params: Params; location: Location }) => void
 
 export interface RouteSectionProps {
   params: Params
@@ -56,20 +57,18 @@ export interface RouteSectionProps {
 
 export type RouteProps<Path extends string> = {
   path?: Path | Path[]
-  preload?: RoutePreloadFunc
+  preload?: RoutePreloadFunction
   component?: Component<RouteSectionProps>
   matchFilters?: MatchFilters<Path>
   children?: JSX.Element
 }
 
 export const Route = <Path extends string>(props: RouteProps<Path>) => (
-  // @ts-expect-error
   <_Route
     {...props}
     preload={(args) => {
       if (!isServer) {
         if (args.intent === 'preload' && args.location.pathname !== window.location.pathname) {
-          // @ts-expect-error
           props.preload?.({ params: args.params, location: args.location })
         }
       }
