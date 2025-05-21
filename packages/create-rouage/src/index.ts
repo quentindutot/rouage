@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { execSync } from 'node:child_process'
-import { cpSync, existsSync, mkdirSync, rmSync } from 'node:fs'
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { setTimeout } from 'node:timers/promises'
 import { cancel, group, intro, log, note, outro, select, spinner, text } from '@clack/prompts'
@@ -60,6 +60,8 @@ const main = async () => {
   const loading = spinner()
   loading.start('Creating your project...')
 
+  await setTimeout(300)
+
   try {
     // Create project directory
     mkdirSync(projectName)
@@ -78,6 +80,14 @@ const main = async () => {
     // Cleanup temporary directory
     rmSync(repositoryDir, { recursive: true, force: true })
 
+    // Update package.json with the project name
+    const packageJsonPath = join(process.cwd(), 'package.json')
+    if (existsSync(packageJsonPath)) {
+      const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf8'))
+      packageJson.name = projectName
+      writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
+    }
+
     loading.stop('Project created successfully!')
   } catch (error: unknown) {
     loading.stop('Failed to create project')
@@ -94,6 +104,8 @@ const main = async () => {
   const nextSteps = `cd ${projectName}\nnpm install\nnpm run dev`
 
   note(nextSteps, 'Next steps.')
+
+  await setTimeout(300)
 
   outro(`Problems? ${color.underline(color.cyan('https://github.com/quentindutot/rouage/issues'))}`)
 }
