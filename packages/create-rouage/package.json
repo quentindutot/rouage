@@ -1,8 +1,17 @@
 {
   "name": "create-rouage",
   "type": "module",
+  "version": "0.0.0",
+  "license": "MIT",
+  "homepage": "https://rouage.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quentindutot/rouage.git",
+    "directory": "packages/create-rouage"
+  },
+  "files": ["build"],
   "bin": {
-    "create-rouage": "build/index.js"
+    "create-rouage": "./build/index.js"
   },
   "scripts": {
     "dev": "tsdown --watch",

@@ -1,6 +1,15 @@
 {
   "name": "solid-rouage",
   "type": "module",
+  "version": "0.0.0",
+  "license": "MIT",
+  "homepage": "https://rouage.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quentindutot/rouage.git",
+    "directory": "packages/solid-rouage"
+  },
+  "files": ["build"],
   "exports": {
     "./client": "./build/client.jsx",
     "./server": "./build/server.jsx",
