@@ -41,6 +41,10 @@
         "rules": {
           "correctness": {
             "noNodejsModules": "off"
+          },
+          "performance": {
+            "noBarrelFile": "off",
+            "noReExportAll": "off"
           }
         }
       }

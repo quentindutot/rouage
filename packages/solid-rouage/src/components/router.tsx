@@ -6,7 +6,6 @@ import { isServer } from 'solid-js/web'
 // @ts-expect-error
 import styles from 'virtual:app_css'
 
-// biome-ignore lint/performance/noBarrelFile: <explanation>
 export { createAsync } from '@solidjs/router'
 
 export interface RouterProps {
