@@ -1,49 +1,22 @@
-import { For, createSignal } from 'solid-js'
-import { MetaTitle, createAsync, createServerFunction } from 'solid-rouage/client'
-import { Menu } from './menu'
+import { createSignal } from 'solid-js'
+import { MetaTitle } from 'solid-rouage/client'
 
-export const getTodos = createServerFunction(async () => {
-  const response = await fetch('https://jsonplaceholder.typicode.com/todos')
-  return response.json() as Promise<
-    {
-      id: number
-      userId: number
-      title: string
-      completed: boolean
-    }[]
-  >
-})
-
-export const logIncrement = createServerFunction(() => {
-  // biome-ignore lint/correctness/noConstantCondition: <explanation>
-  if (true) {
-    // biome-ignore lint/suspicious/noConsoleLog: <explanation>
-    // biome-ignore lint/suspicious/noConsole: <explanation>
-    console.log('server increment logging')
-  }
-})
-
-export const preloadHome = () => getTodos()
-
-export const Home = () => {
-  const todos = createAsync(() => getTodos())
-
+export default function Home() {
   const [count, setCount] = createSignal(0)
 
-  const onIncrement = () => {
-    setCount((count) => count + 1)
-    logIncrement()
-  }
-
   return (
-    <>
-      <div>Home</div>
+    <main>
       <MetaTitle>Home</MetaTitle>
-      <Menu />
-      <button type="button" onClick={onIncrement}>
-        count is {count()}
+
+      <h1 class="font-semibold text-lg">Home</h1>
+
+      <button
+        type="button"
+        onClick={() => setCount(count() + 1)}
+        class="bg-neutral-100 text-sm border border-neutral-200 rounded-md cursor-pointer px-4 py-2"
+      >
+        Clicks: {count()}
       </button>
-      <For each={todos()}>{(todo) => <div>{todo.title}</div>}</For>
-    </>
+    </main>
   )
 }

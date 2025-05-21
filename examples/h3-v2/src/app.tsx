@@ -1,13 +1,10 @@
 import { lazy } from 'solid-js'
 import { type AppProps, Route, Router } from 'solid-rouage/client'
-import { preloadHome } from './components/home'
-
-const Home = lazy(() => import('./components/home').then((module) => ({ default: module.Home })))
-const About = lazy(() => import('./components/about').then((module) => ({ default: module.About })))
+import { Layout } from './components/layout'
 
 export const App = (props: AppProps) => (
-  <Router path={props.path}>
-    <Route path="/" component={Home} preload={preloadHome} />
-    <Route path="/about" component={About} />
+  <Router path={props.path} root={(props) => <Layout>{props.children}</Layout>}>
+    <Route path="/" component={lazy(() => import('./components/home'))} />
+    <Route path="/about" component={lazy(() => import('./components/about'))} />
   </Router>
 )
