@@ -7,7 +7,7 @@ hero:
   text: "Minimal Solid SSR"
   tagline: Server rendering and client hydration for SolidJS, powered by a Vite plugin.
   image:
-    src: /rouage-logo.svg
+    src: /rouage.svg
     alt: Rouage
     height: 170
     width: 170

@@ -8,12 +8,12 @@ export default defineConfig({
   title: 'Rouage',
   titleTemplate: ':title - Rouage',
   description: 'Minimal SSR for SolidJS',
-  head: [['link', { rel: 'icon', href: '/rouage-logo.svg' }]],
+  head: [['link', { rel: 'icon', href: '/rouage.svg' }]],
   srcDir: 'src',
   outDir: 'build',
   cleanUrls: true,
   themeConfig: {
-    logo: '/rouage-logo.svg',
+    logo: '/rouage.svg',
     search: { provider: 'local' },
     socialLinks: [{ icon: 'github', link: 'https://github.com/quentindutot/rouage' }],
     editLink: {
