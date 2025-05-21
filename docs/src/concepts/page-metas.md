@@ -14,7 +14,7 @@ No need to set up a MetaProvider, it is already included by default.
 
 ## Basic Example
 
-Below is an example showing how to use page meta components from solid-rouage. The Title, Link, and Meta components let you declaratively manage the page’s metadata:
+Below is an example showing how to use page meta components from solid-rouage. The Title, Link, and Meta components let you declaratively manage the page’s metadata.
 
 ```jsx
 import { Title, Link, Meta } from 'solid-rouage'
