@@ -32,10 +32,10 @@ export default defineConfig({
             text: 'Introduction',
             link: '/introduction',
           },
-          {
-            text: 'Project Structure',
-            link: '/project-structure',
-          },
+          // {
+          //   text: 'Project Structure',
+          //   link: '/project-structure',
+          // },
         ],
       },
       {
@@ -49,10 +49,10 @@ export default defineConfig({
             text: 'Page Metas',
             link: '/concepts/page-metas',
           },
-          {
-            text: 'Server Functions',
-            link: '/concepts/server-functions',
-          },
+          // {
+          //   text: 'Server Functions',
+          //   link: '/concepts/server-functions',
+          // },
           {
             text: 'Deployment',
             link: '/concepts/deployment',
