@@ -6,7 +6,7 @@ import {
   generateCodeFromAst,
   getAssignedVariableName,
   traverseAst,
-} from './babel-helpers.js'
+} from '../../helpers/babel-helpers.js'
 
 export const processServerFunctions = (options: {
   code: string

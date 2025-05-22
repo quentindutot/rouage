@@ -1,7 +1,7 @@
 import { Base as _Base, Link as _Link, Meta as _Meta, Style as _Style, Title as _Title } from '@solidjs/meta'
 import type { JSX } from 'solid-js'
 import { isServer } from 'solid-js/web'
-import { applyHtmlAttributes } from '../utilities/html-attributes.js'
+import { applyHtmlAttributes } from '../helpers/html-helpers.js'
 import { useMetaContext } from './metas/meta-context.jsx'
 
 const createHtmlAttributeComponent = <T extends HTMLElement>(tagName: string) =>

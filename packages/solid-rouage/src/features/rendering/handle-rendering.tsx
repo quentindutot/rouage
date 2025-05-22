@@ -1,6 +1,6 @@
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
 import { createMetaContext } from '../../components/metas/meta-context.jsx'
-import { dedupeHeadTags, stringHtmlAttributes } from '../../utilities/html-attributes.js'
+import { dedupeHeadTags, stringHtmlAttributes } from '../../helpers/html-helpers.js'
 
 // @ts-expect-error
 import { App } from 'virtual:app'

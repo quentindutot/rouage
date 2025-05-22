@@ -30,6 +30,7 @@
     "vite-plugin-solid": "^2.11.6"
   },
   "devDependencies": {
+    "@babel/types": "^7.27.1",
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.15.3",
     "@types/babel__generator": "^7.27.0",
