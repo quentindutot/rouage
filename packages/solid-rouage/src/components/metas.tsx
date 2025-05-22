@@ -8,7 +8,7 @@ const createHtmlAttributeComponent = <T extends HTMLElement>(tagName: string) =>
   isServer
     ? (props: Omit<JSX.HTMLAttributes<T>, 'children'>) => {
         const metaContext = useMetaContext()
-        metaContext.attrs[tagName] = props
+        metaContext.attributes[tagName] = props
         return null
       }
     : (props: Omit<JSX.HTMLAttributes<T>, 'children'>) => {
@@ -27,5 +27,22 @@ export const Link = _Link
 export const Style = _Style
 export const Title = _Title
 
-// export const Header = () => {}
-// export const Status = () => {}
+export const Header = isServer
+  ? (props: { name: string; value: string }) => {
+      const metaContext = useMetaContext()
+      metaContext.headers[props.name] = props.value
+      return null
+    }
+  : (_props: { name: string; value: string }) => {
+      return null
+    }
+
+export const Status = isServer
+  ? (props: { code: number }) => {
+      const metaContext = useMetaContext()
+      metaContext.status = props.code
+      return null
+    }
+  : (_props: { code: number }) => {
+      return null
+    }

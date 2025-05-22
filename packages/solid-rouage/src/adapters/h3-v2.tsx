@@ -32,7 +32,7 @@ export const rouageH3 = (): EventHandler => async (event) => {
 
   const renderingResult = await handlerRendering({ pathName })
   return new Response(renderingResult.content, {
-    status: 200,
+    status: renderingResult.status,
     headers: renderingResult.headers,
   })
 }

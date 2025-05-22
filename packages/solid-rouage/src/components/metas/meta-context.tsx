@@ -2,11 +2,15 @@ import { MetaProvider as _MetaProvider } from '@solidjs/meta'
 import { type JSX, createContext, useContext } from 'solid-js'
 
 export interface MetaContextInterface {
-  attrs: Record<string, Record<string, unknown>>
+  status: number
+  headers: Record<string, string>
+  attributes: Record<string, Record<string, unknown>>
 }
 
 export const createMetaContext = (): MetaContextInterface => ({
-  attrs: {},
+  status: 200,
+  headers: {},
+  attributes: {},
 })
 
 const MetaContext = createContext<MetaContextInterface | undefined>()

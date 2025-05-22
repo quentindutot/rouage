@@ -1,5 +1,11 @@
 import type { JSX } from 'solid-js'
 
+export const stringHtmlAttributes = (attributes: Record<string, unknown>) => {
+  return Object.entries(attributes)
+    .map(([key, value]) => `${key}="${value}"`)
+    .join(' ')
+}
+
 export const applyHtmlAttributes = <T extends HTMLElement>(
   element: T,
   attributes: JSX.HTMLAttributes<T>,
@@ -26,10 +32,4 @@ export const applyHtmlAttributes = <T extends HTMLElement>(
       }
     }
   }
-}
-
-export const stringHtmlAttributes = (attributes: Record<string, unknown>) => {
-  return Object.entries(attributes)
-    .map(([key, value]) => `${key}="${value}"`)
-    .join(' ')
 }

@@ -6,14 +6,20 @@ import { stringHtmlAttributes } from '../../utilities/html-attributes.js'
 import App from 'virtual:app_tsx'
 
 export const handlerRendering = async (options: { pathName: string }) => {
-  const metaStore = createMetaContext()
+  const metaContext = createMetaContext()
 
-  const content = await renderToStringAsync(() => <App path={options.pathName} meta={metaStore} />)
+  const content = await renderToStringAsync(() => <App path={options.pathName} meta={metaContext} />)
 
   const assets = getAssets().split('/chunks/').join('/assets/')
 
+  const responseStatus = metaContext.status
+  const responseHeaders = new Headers({
+    'Content-Type': 'text/html',
+    ...metaContext.headers,
+  })
+
   const [htmlAttributes, headAttributes, bodyAttributes] = ['html', 'head', 'body'].map((tag) => {
-    const attributes = stringHtmlAttributes(metaStore.attrs[tag] || {})
+    const attributes = stringHtmlAttributes(metaContext.attributes[tag] || {})
     return attributes ? ` ${attributes}` : ''
   })
 
@@ -49,8 +55,5 @@ export const handlerRendering = async (options: { pathName: string }) => {
     '</html>',
   ].join('')
 
-  const responseHeaders = new Headers()
-  responseHeaders.set('Content-Type', 'text/html')
-
-  return { headers: responseHeaders, content: htmlContent }
+  return { status: responseStatus, headers: responseHeaders, content: htmlContent }
 }
