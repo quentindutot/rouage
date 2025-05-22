@@ -44,8 +44,6 @@ export const handlerRendering = async (options: { pathName: string }) => {
     '<!DOCTYPE html>',
     `<html${htmlAttributes}>`,
     `<head${headAttributes}>`,
-    '<meta charset="utf-8" />',
-    '<meta name="viewport" content="initial-scale=1.0, width=device-width" />',
     assets,
     scripts,
     '</head>',
