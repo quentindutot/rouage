@@ -99,8 +99,8 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
     }
   },
   resolveId(id) {
-    if (id === 'virtual:app_tsx' || id === 'virtual:app_css') {
-      return id
+    if (id === 'virtual:app') {
+      return 'src/app.tsx'
     }
     if (id === 'virtual:entry-client' || id === 'virtual:entry-server') {
       return `${id}.tsx`
@@ -113,17 +113,11 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => ({
     }
   },
   load(id) {
-    if (id === 'virtual:app_tsx') {
-      return ['/* @refresh reload */', `import { App } from './src/app'`, 'export default App'].join('\n')
-    }
-    if (id === 'virtual:app_css') {
-      return ['/* @refresh reload */', `import styles from './src/app.css?url'`, 'export default styles'].join('\n')
-    }
     if (id === 'virtual:entry-client.tsx') {
       return [
         '/* @refresh reload */',
         `import { hydrate } from 'solid-js/web'`,
-        `import App from 'virtual:app_tsx'`,
+        `import { App } from './src/app'`,
         'hydrate(() => <App />, document.body)',
       ].join('\n')
     }

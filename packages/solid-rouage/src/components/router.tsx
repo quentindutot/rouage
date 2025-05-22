@@ -1,12 +1,8 @@
-import { Link } from '@solidjs/meta'
 import { type Location, type MatchFilters, type Params, Route as _Route, Router as _Router } from '@solidjs/router'
 import { type Component, type JSX, Suspense } from 'solid-js'
 import { isServer } from 'solid-js/web'
 import { useAppContext } from './app-context.jsx'
 import { MetaProvider } from './metas/meta-context.jsx'
-
-// @ts-expect-error
-import styles from 'virtual:app_css'
 
 export {
   Navigate,
@@ -63,8 +59,6 @@ export const Router = (props: RouterProps) => {
       base={props.base}
       root={(rootProps) => (
         <MetaProvider value={appContext.metaContext}>
-          <Link rel="stylesheet" href={styles} />
-
           <Suspense>
             {typeof props.root === 'function'
               ? props.root({ location: rootProps.location, params: rootProps.params, children: rootProps.children })

@@ -3,7 +3,7 @@ import { createMetaContext } from '../../components/metas/meta-context.jsx'
 import { stringHtmlAttributes } from '../../utilities/html-attributes.js'
 
 // @ts-expect-error
-import App from 'virtual:app_tsx'
+import { App } from 'virtual:app'
 
 export const handlerRendering = async (options: { pathName: string }) => {
   const metaContext = createMetaContext()
