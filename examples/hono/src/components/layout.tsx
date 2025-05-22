@@ -1,7 +1,6 @@
-import type { JSX } from 'solid-js'
-import { Html, Link, Meta } from 'solid-rouage/client'
+import { Html, Link, Meta, type RouteSectionProps } from 'solid-rouage/client'
 
-export const Layout = (props: { children: JSX.Element }) => (
+export const Layout = (props: RouteSectionProps) => (
   <>
     <Html lang="en" />
     <Meta charset="utf-8" />

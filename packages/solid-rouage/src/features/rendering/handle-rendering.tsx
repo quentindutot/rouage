@@ -8,7 +8,7 @@ import App from 'virtual:app_tsx'
 export const handlerRendering = async (options: { pathName: string }) => {
   const metaContext = createMetaContext()
 
-  const content = await renderToStringAsync(() => <App path={options.pathName} meta={metaContext} />)
+  const content = await renderToStringAsync(() => <App initialPath={options.pathName} metaContext={metaContext} />)
 
   const assets = getAssets().split('/chunks/').join('/assets/')
 
