@@ -19,5 +19,5 @@ export const handleServerFunction = async (options: { pathName: string }) => {
 
   const result = await handler()
 
-  return { headers: responseHeaders, content: JSON.stringify(result) }
+  return { status: 200, headers: responseHeaders, content: JSON.stringify(result) }
 }

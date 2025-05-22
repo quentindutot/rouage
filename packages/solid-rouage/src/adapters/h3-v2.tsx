@@ -11,7 +11,7 @@ export const rouageH3 = (): EventHandler => async (event) => {
     const serverFunctionResult = await handleServerFunction({ pathName })
     if (serverFunctionResult?.content) {
       return new Response(serverFunctionResult.content, {
-        status: 200,
+        status: serverFunctionResult.status,
         headers: serverFunctionResult.headers,
       })
     }
@@ -24,7 +24,7 @@ export const rouageH3 = (): EventHandler => async (event) => {
     })
     if (staticFileResult?.content) {
       return new Response(staticFileResult.content, {
-        status: 200,
+        status: staticFileResult.status,
         headers: staticFileResult.headers,
       })
     }

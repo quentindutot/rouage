@@ -45,5 +45,5 @@ export const handleStaticFile = async (options: { pathName: string; acceptEncodi
     break
   }
 
-  return { headers: responseHeaders, content: fileContent }
+  return { status: 200, headers: responseHeaders, content: fileContent }
 }
