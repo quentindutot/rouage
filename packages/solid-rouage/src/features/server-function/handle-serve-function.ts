@@ -1,23 +1,26 @@
-export const handleServerFunction = async (options: { pathName: string }) => {
-  const serverFunctionId = options.pathName.replace('/_server/', '')
+// biome-ignore lint/suspicious/useAwait: <explanation>
+export const handleServerFunction = async (_options: { pathName: string }) => {
+  return
 
-  // @ts-expect-error
-  const serverFunctionImport = await import('virtual:server-functions')
-  const serverFunctionManifest = serverFunctionImport.default
+  // const serverFunctionId = options.pathName.replace('/_server/', '')
 
-  const fileImport = serverFunctionManifest[serverFunctionId]
-  if (!fileImport) {
-    return
-  }
+  // // @ts-expect-error
+  // const serverFunctionImport = await import('virtual:server-functions')
+  // const serverFunctionManifest = serverFunctionImport.default
 
-  const handler = await fileImport()
-  if (!handler) {
-    return
-  }
+  // const fileImport = serverFunctionManifest[serverFunctionId]
+  // if (!fileImport) {
+  //   return
+  // }
 
-  const responseHeaders = new Headers()
+  // const handler = await fileImport()
+  // if (!handler) {
+  //   return
+  // }
 
-  const result = await handler()
+  // const responseHeaders = new Headers()
 
-  return { status: 200, headers: responseHeaders, content: JSON.stringify(result) }
+  // const result = await handler()
+
+  // return { status: 200, headers: responseHeaders, content: JSON.stringify(result) }
 }

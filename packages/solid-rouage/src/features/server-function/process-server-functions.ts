@@ -163,5 +163,6 @@ const generateServerFunctionManifest = (ast: Node, filePath: string) => {
     sourceType: 'module',
   }
 
+  // @ts-expect-error
   fs.writeFileSync(manifestPath, generateCodeFromAst(manifestAst).code)
 }
