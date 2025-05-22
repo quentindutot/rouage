@@ -1,28 +1,28 @@
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
-import { createMetaContext } from '../../components/metas/meta-context.jsx'
+import { createPageContext } from '../../components/app-context.jsx'
 import { dedupeHeadTags, stringHtmlAttributes } from '../../helpers/html-helpers.js'
 
 // @ts-expect-error
 import { App } from 'virtual:app'
 
 export const handlerRendering = async (options: { pathName: string }) => {
-  const metaContext = createMetaContext()
+  const pageContext = createPageContext()
 
   const renderedContent = await renderToStringAsync(() => (
-    <App initialPath={options.pathName} metaContext={metaContext} />
+    <App initialPath={options.pathName} pageContext={pageContext} />
   ))
 
   const renderedAssets = getAssets().split('/chunks/').join('/assets/')
   const dedupedAssets = dedupeHeadTags(renderedAssets) // https://github.com/solidjs/solid/discussions/2294
 
-  const responseStatus = metaContext.status
+  const responseStatus = pageContext.status
   const responseHeaders = new Headers({
     'Content-Type': 'text/html',
-    ...metaContext.headers,
+    ...pageContext.headers,
   })
 
   const [htmlAttributes, headAttributes, bodyAttributes] = ['html', 'head', 'body'].map((tag) => {
-    const attributes = stringHtmlAttributes(metaContext.attributes[tag] || {})
+    const attributes = stringHtmlAttributes(pageContext.attributes[tag] || {})
     return attributes ? ` ${attributes}` : ''
   })
 

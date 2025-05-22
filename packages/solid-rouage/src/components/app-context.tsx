@@ -1,9 +1,20 @@
 import { type JSX, createContext, useContext } from 'solid-js'
-import type { MetaContextInterface } from './metas/meta-context.jsx'
+
+export interface PageContext {
+  status: number
+  headers: Record<string, string>
+  attributes: Record<string, Record<string, unknown>>
+}
+
+export const createPageContext = (): PageContext => ({
+  status: 200,
+  headers: {},
+  attributes: {},
+})
 
 export interface AppContextInterface {
   initialPath: string | undefined
-  metaContext: MetaContextInterface | undefined
+  pageContext: PageContext | undefined
 }
 
 const AppContext = createContext<AppContextInterface | undefined>()

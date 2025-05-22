@@ -1,8 +1,8 @@
+import { MetaProvider } from '@solidjs/meta'
 import { type Location, type MatchFilters, type Params, Route as _Route, Router as _Router } from '@solidjs/router'
 import { type Component, type JSX, Suspense } from 'solid-js'
 import { isServer } from 'solid-js/web'
 import { useAppContext } from './app-context.jsx'
-import { MetaProvider } from './metas/meta-context.jsx'
 
 export {
   Navigate,
@@ -18,22 +18,6 @@ export {
   useIsRouting,
   usePreloadRoute,
 } from '@solidjs/router'
-
-export type RoutePreloadFunction = (args: { params: Params; location: Location }) => void
-
-export interface RouteSectionProps {
-  params: Params
-  location: Location
-  children?: JSX.Element
-}
-
-export type RouteProps<Path extends string> = {
-  path?: Path | Path[]
-  preload?: RoutePreloadFunction
-  component?: Component<RouteSectionProps>
-  matchFilters?: MatchFilters<Path>
-  children?: JSX.Element
-}
 
 export interface RouterProps {
   /**
@@ -58,7 +42,7 @@ export const Router = (props: RouterProps) => {
       url={appContext.initialPath}
       base={props.base}
       root={(rootProps) => (
-        <MetaProvider value={appContext.metaContext}>
+        <MetaProvider>
           <Suspense>
             {typeof props.root === 'function'
               ? props.root({ location: rootProps.location, params: rootProps.params, children: rootProps.children })
@@ -70,6 +54,22 @@ export const Router = (props: RouterProps) => {
       {props.children}
     </_Router>
   )
+}
+
+export type RoutePreloadFunction = (args: { params: Params; location: Location }) => void
+
+export interface RouteSectionProps {
+  params: Params
+  location: Location
+  children?: JSX.Element
+}
+
+export type RouteProps<Path extends string> = {
+  path?: Path | Path[]
+  preload?: RoutePreloadFunction
+  component?: Component<RouteSectionProps>
+  matchFilters?: MatchFilters<Path>
+  children?: JSX.Element
 }
 
 export const Route = <Path extends string>(props: RouteProps<Path>) => (
