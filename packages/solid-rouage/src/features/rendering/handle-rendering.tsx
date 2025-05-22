@@ -1,6 +1,6 @@
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
 import { createMetaContext } from '../../components/metas/meta-context.jsx'
-import { stringHtmlAttributes } from '../../utilities/html-attributes.js'
+import { dedupeHeadTags, stringHtmlAttributes } from '../../utilities/html-attributes.js'
 
 // @ts-expect-error
 import { App } from 'virtual:app'
@@ -8,9 +8,12 @@ import { App } from 'virtual:app'
 export const handlerRendering = async (options: { pathName: string }) => {
   const metaContext = createMetaContext()
 
-  const content = await renderToStringAsync(() => <App initialPath={options.pathName} metaContext={metaContext} />)
+  const renderedContent = await renderToStringAsync(() => (
+    <App initialPath={options.pathName} metaContext={metaContext} />
+  ))
 
-  const assets = getAssets().split('/chunks/').join('/assets/')
+  const renderedAssets = getAssets().split('/chunks/').join('/assets/')
+  const dedupedAssets = dedupeHeadTags(renderedAssets) // https://github.com/solidjs/solid/discussions/2294
 
   const responseStatus = metaContext.status
   const responseHeaders = new Headers({
@@ -23,9 +26,9 @@ export const handlerRendering = async (options: { pathName: string }) => {
     return attributes ? ` ${attributes}` : ''
   })
 
-  let scripts = ''
+  let dynamicScripts = ''
   if (import.meta.env.DEV) {
-    scripts = [
+    dynamicScripts = [
       generateHydrationScript(),
       `<script type="module" src="/@vite/client"></script>`,
       `<script type="module" src="/@id/virtual:entry-client"></script>`,
@@ -37,18 +40,20 @@ export const handlerRendering = async (options: { pathName: string }) => {
     // @ts-ignore
     const manifestEntry = manifestEntries['src/virtual:entry-client.tsx']
 
-    scripts = [generateHydrationScript(), `<script type="module" src="/${manifestEntry.file}"></script>`].join('')
+    dynamicScripts = [generateHydrationScript(), `<script type="module" src="/${manifestEntry.file}"></script>`].join(
+      '',
+    )
   }
 
   const htmlContent = [
     '<!DOCTYPE html>',
     `<html${htmlAttributes}>`,
     `<head${headAttributes}>`,
-    assets,
-    scripts,
+    dedupedAssets,
+    dynamicScripts,
     '</head>',
     `<body${bodyAttributes}>`,
-    content,
+    renderedContent,
     '</body>',
     '</html>',
   ].join('')

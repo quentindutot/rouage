@@ -33,3 +33,22 @@ export const applyHtmlAttributes = <T extends HTMLElement>(
     }
   }
 }
+
+export const dedupeHeadTags = (html: string) => {
+  const seen = new Set<string>()
+  const tags = html.split(/(?=<)/g).reverse() // reverse to prioritize last
+
+  const deduped = tags.filter((tag) => {
+    const cleaned = tag.trim()
+
+    if (seen.has(cleaned)) {
+      return false
+    }
+
+    seen.add(cleaned)
+
+    return true
+  })
+
+  return deduped.reverse().join('') // restore original order
+}
