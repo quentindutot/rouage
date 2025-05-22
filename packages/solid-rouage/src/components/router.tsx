@@ -6,7 +6,20 @@ import { isServer } from 'solid-js/web'
 // @ts-expect-error
 import styles from 'virtual:app_css'
 
-export { createAsync } from '@solidjs/router'
+export {
+  Navigate,
+  createAsync,
+  createAsyncStore,
+  useNavigate,
+  useLocation,
+  useParams,
+  useSearchParams,
+  useMatch,
+  useBeforeLeave,
+  useCurrentMatches,
+  useIsRouting,
+  usePreloadRoute,
+} from '@solidjs/router'
 
 export interface RouterProps {
   /**
