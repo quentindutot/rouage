@@ -20,28 +20,14 @@ Below is an example showing how to use page meta components from solid-rouage. T
 import { Title, Link, Meta } from 'solid-rouage'
 
 export const HomePage = () => (
-  <div class="Home">
+  <>
     <Title>Title of page</Title>
     <Link rel="canonical" href="http://rouage.dev/" />
     <Meta name="example" content="whatever" />
+
     {/* ... */}
-  </div>
+  </>
 )
-```
-
-
-## HTTP Metas
-
-**HttpStatusCode:** Sets the HTTP response status code for SSR.
-
-```jsx
-<HttpStatusCode code={404} />;
-```
-
-**HttpHeader:** Sets custom headers for SSR responses.
-
-```jsx
-<HttpHeader name="x-robots-tag" value="noindex" />
 ```
 
 ## HTML Metas
@@ -53,3 +39,18 @@ export const HomePage = () => (
 | Meta      | [/solid-meta/reference/meta/meta](https://docs.solidjs.com/solid-meta/reference/meta/meta)   |
 | Style     | [/solid-meta/reference/meta/style](https://docs.solidjs.com/solid-meta/reference/meta/style) |
 | Title     | [/solid-meta/reference/meta/title](https://docs.solidjs.com/solid-meta/reference/meta/title) |
+
+
+## HTTP Metas
+
+**Status:** Sets the HTTP response status code for SSR.
+
+```jsx
+<Status code={404} />;
+```
+
+**Header:** Sets custom headers for SSR responses.
+
+```jsx
+<Header name="x-robots-tag" value="noindex" />
+```
