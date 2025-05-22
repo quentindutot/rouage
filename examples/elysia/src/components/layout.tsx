@@ -1,9 +1,10 @@
 import type { JSX } from 'solid-js'
-import { MetaLink } from 'solid-rouage/client'
+import { Html, Link } from 'solid-rouage/client'
 
 export const Layout = (props: { children: JSX.Element }) => (
   <>
-    <MetaLink rel="icon" href="/favicon.ico" />
+    <Html lang="en" />
+    <Link rel="icon" href="/favicon.ico" />
 
     <nav class="flex items-center gap-4">
       <a href="/">Home</a>

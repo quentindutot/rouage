@@ -1,12 +1,12 @@
 import { createSignal } from 'solid-js'
-import { MetaTitle } from 'solid-rouage/client'
+import { Title } from 'solid-rouage/client'
 
 export default function Home() {
   const [count, setCount] = createSignal(0)
 
   return (
     <main>
-      <MetaTitle>Home</MetaTitle>
+      <Title>Home</Title>
 
       <h1 class="font-semibold text-lg">Home</h1>
 

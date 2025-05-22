@@ -39,8 +39,8 @@
   },
   "peerDependencies": {
     "elysia": "1.x",
-    "hono": "4.x",
     "h3-nightly": ">=2.0.0-0 <3.0.0",
+    "hono": "4.x",
     "solid-js": "1.x",
     "vite": "6.x"
   },

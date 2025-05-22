@@ -1,7 +1,9 @@
-import { Link, MetaProvider } from '@solidjs/meta'
+import { Link } from '@solidjs/meta'
 import { type Location, type MatchFilters, type Params, Route as _Route, Router as _Router } from '@solidjs/router'
 import { type Component, type JSX, Suspense } from 'solid-js'
 import { isServer } from 'solid-js/web'
+import type { AppProps } from './app.jsx'
+import { MetaProvider } from './metas/meta-context.jsx'
 
 // @ts-expect-error
 import styles from 'virtual:app_css'
@@ -25,7 +27,11 @@ export interface RouterProps {
   /**
    * The current path to render
    */
-  path?: string
+  path: AppProps['path']
+  /**
+   * Meta store for the router
+   */
+  meta: AppProps['meta']
   /**
    * Base path for all routes
    */
@@ -45,7 +51,7 @@ export const Router = (props: RouterProps) => (
     url={props.path}
     base={props.base}
     root={(rootProps) => (
-      <MetaProvider>
+      <MetaProvider value={props.meta}>
         <Link rel="stylesheet" href={styles} />
 
         <Suspense>

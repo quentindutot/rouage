@@ -1,13 +1,23 @@
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
+import { createMetaContext } from '../../components/metas/meta-context.jsx'
+import { stringHtmlAttributes } from '../../utilities/html-attributes.js'
 
 // @ts-expect-error
 import App from 'virtual:app_tsx'
 
 export const handlerRendering = async (options: { pathName: string }) => {
-  const content = await renderToStringAsync(() => <App path={options.pathName} />)
-  const assets = getAssets().split('/chunks/').join('/assets/')
-  let scripts = ''
+  const metaStore = createMetaContext()
 
+  const content = await renderToStringAsync(() => <App path={options.pathName} meta={metaStore} />)
+
+  const assets = getAssets().split('/chunks/').join('/assets/')
+
+  const [htmlAttributes, headAttributes, bodyAttributes] = ['html', 'head', 'body'].map((tag) => {
+    const attributes = stringHtmlAttributes(metaStore.attrs[tag] || {})
+    return attributes ? ` ${attributes}` : ''
+  })
+
+  let scripts = ''
   if (import.meta.env.DEV) {
     scripts = [
       generateHydrationScript(),
@@ -26,14 +36,17 @@ export const handlerRendering = async (options: { pathName: string }) => {
 
   const htmlContent = [
     '<!DOCTYPE html>',
-    '<html><head>',
+    `<html${htmlAttributes}>`,
+    `<head${headAttributes}>`,
     '<meta charset="utf-8" />',
     '<meta name="viewport" content="initial-scale=1.0, width=device-width" />',
-    scripts,
     assets,
-    '</head><body>',
+    scripts,
+    '</head>',
+    `<body${bodyAttributes}>`,
     content,
-    '</body></html>',
+    '</body>',
+    '</html>',
   ].join('')
 
   const responseHeaders = new Headers()
