@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "node build/server/index.js"
   },
   "dependencies": {
     "h3-nightly": "^2.0.0-20250428-102154-f1115f3",
