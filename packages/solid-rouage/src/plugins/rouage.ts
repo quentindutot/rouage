@@ -1,7 +1,12 @@
-import { readFile, rm, writeFile } from 'node:fs/promises'
-import { dirname, relative, resolve } from 'node:path'
+import { resolve } from 'node:path'
 import { createRequestAdapter, sendResponse } from '@universal-middleware/express'
 import type { Plugin, ResolvedConfig, RunnableDevEnvironment } from 'vite'
+import {
+  deleteManifestViteFolder,
+  replaceManifestClientEntry,
+  replaceManifestUrlImports,
+} from '../features/manifest/process-manifest.js'
+import { normalizeManifestEntries } from '../features/manifest/process-manifest.js'
 import { processServerFunctions } from '../features/server-function/process-server-functions.js'
 
 export interface RouageOptions {
@@ -29,6 +34,8 @@ export interface RouageOptions {
 
 export const rouage = (options?: Partial<RouageOptions>): Plugin => {
   let resolvedConfig: ResolvedConfig
+
+  const manifestPath = resolve('build/public/.vite/manifest.json')
 
   return {
     name: 'rouage',
@@ -73,34 +80,9 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
       config.builder = {
         async buildApp(vite) {
           await vite.build(vite.environments.client)
-
-          const manifestPath = resolve('build/public/.vite/manifest.json')
-          const manifestContent = await readFile(manifestPath, 'utf-8')
-          const manifestEntries = JSON.parse(manifestContent)
-
-          const normalizedManifest = Object.fromEntries(
-            Object.entries(manifestEntries).map(([key, value]) => {
-              const normalize = (path: string) => {
-                const filename = path.split('/').pop() ?? path
-                return filename.startsWith('src/') ? filename : `src/${filename}`
-              }
-
-              const normalizedKey = normalize(key)
-              // @ts-expect-error
-              const normalizedValue = { ...value }
-              if (normalizedValue.src) {
-                normalizedValue.src = normalize(normalizedValue.src)
-              }
-
-              return [normalizedKey, normalizedValue]
-            }),
-          )
-
-          await writeFile(manifestPath, JSON.stringify(normalizedManifest, null, 2), 'utf-8')
-
+          await normalizeManifestEntries({ manifestPath })
           await vite.build(vite.environments.server)
-
-          await rm(dirname(manifestPath), { recursive: true })
+          await deleteManifestViteFolder({ manifestPath })
         },
       }
     },
@@ -113,9 +95,6 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
       }
       if (id === 'virtual:entry-client' || id === 'virtual:entry-server') {
         return `${id}.tsx`
-      }
-      if (id === 'virtual:manifest') {
-        return 'build/public/.vite/manifest.json'
       }
       if (id === 'virtual:server-functions') {
         return 'node_modules/.rouage/server-functions.js'
@@ -155,71 +134,11 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
       }
 
       if (isServer && resolvedConfig.command === 'build' && code.includes('__ENTRY_CLIENT_ASSET__')) {
-        try {
-          const manifestPath = resolve('build/public/.vite/manifest.json')
-          const manifestContent = await readFile(manifestPath, 'utf-8')
-          const manifestEntries = JSON.parse(manifestContent)
-          const clientEntry = manifestEntries['src/virtual:entry-client.tsx']
-          if (clientEntry?.file) {
-            return code.replace('__ENTRY_CLIENT_ASSET__', clientEntry.file)
-          }
-        } catch (_error) {
-          // in dev mode no manifest so no need to replace
-        }
+        return await replaceManifestClientEntry({ manifestPath, filePath: path, fileCode: code })
       }
 
-      // Only do this on the server side after the client build
       if (isServer && resolvedConfig.command === 'build' && code.includes('?url')) {
-        const manifestPath = resolve('build/public/.vite/manifest.json')
-        let manifest: Record<string, unknown>
-        try {
-          manifest = JSON.parse(await readFile(manifestPath, 'utf-8'))
-        } catch (_error) {
-          // Manifest missing: skip in dev mode
-          return code
-        }
-
-        // Regex to find all ?url imports
-        // Handles both 'import ... from' and 'const ... = require(...)'
-        const importUrlRegex = /import\s+(\w+)\s+from\s+['"]([^'"]+\?url)['"];?/g
-
-        let replaced = code
-        let match: RegExpExecArray | null
-
-        // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
-        while ((match = importUrlRegex.exec(code))) {
-          const varName = match[1]
-          const assetPath = match[2]
-
-          // biome-ignore lint/performance/useTopLevelRegex: <explanation>
-          const assetLookup = assetPath.replace(/\?url$/, '')
-
-          // Vite manifest keys are usually like "src/app.css"
-          // Try to resolve to project root
-          // (You may need to tweak this if your paths are different)
-          let manifestKey = assetLookup
-          if (manifestKey.startsWith('./')) {
-            manifestKey = manifestKey.slice(2)
-          }
-          if (manifestKey.startsWith('src/')) {
-            // manifestKey = manifestKey
-          } else {
-            // Try to resolve relative to the current file
-            const absAssetPath = resolve(dirname(path), assetLookup)
-            manifestKey = relative(process.cwd(), absAssetPath)
-          }
-
-          const manifestEntry = manifest[manifestKey] || manifest[`src/${assetLookup.split('/').pop()}`]
-          // @ts-expect-error
-          const assetFile = manifestEntry?.file || manifestEntry
-
-          if (assetFile) {
-            // Replace import with direct assignment to the real URL
-            replaced = replaced.replace(match[0], `const ${varName} = "/assets/${assetFile.split('/').pop()}";`)
-          }
-        }
-
-        return replaced
+        return await replaceManifestUrlImports({ manifestPath, filePath: path, fileCode: code })
       }
 
       return code
