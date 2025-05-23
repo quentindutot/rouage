@@ -1,5 +1,6 @@
 import { resolve } from 'node:path'
 import { createRequestAdapter, sendResponse } from '@universal-middleware/express'
+import color from 'picocolors'
 import type { Plugin, ResolvedConfig, RunnableDevEnvironment } from 'vite'
 import {
   deleteManifestViteFolder,
@@ -157,17 +158,13 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
         })
       }
     },
-    async configurePreviewServer(vite) {
-      return () => {
-        vite.middlewares.use(async (nodeRequest, nodeResponse) => {
-          const entry = await import(resolve('build/server/index.js'))
-
-          const request: Request = createRequestAdapter()(nodeRequest)
-          const response: Response = await entry.default.fetch(request)
-
-          sendResponse(response, nodeResponse)
-        })
-      }
+    configurePreviewServer() {
+      // biome-ignore lint/suspicious/noConsole: <explanation>
+      console.error(
+        color.red('🚨 `vite preview` command is not supported.\n') +
+          color.cyan('👉 Start the server with `node build/server/index.js`.\n'),
+      )
+      process.exit(1)
     },
   }
 }
