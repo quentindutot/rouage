@@ -12,7 +12,7 @@ export const handlerRendering = async (options: { pathName: string }) => {
     <App initialPath={options.pathName} pageContext={pageContext} />
   ))
 
-  const renderedAssets = getAssets().split('/chunks/').join('/assets/')
+  const renderedAssets = getAssets()
   const dedupedAssets = dedupeHeadTags(renderedAssets) // https://github.com/solidjs/solid/discussions/2294
 
   const responseStatus = pageContext.status
@@ -26,24 +26,13 @@ export const handlerRendering = async (options: { pathName: string }) => {
     return attributes ? ` ${attributes}` : ''
   })
 
-  let dynamicScripts = ''
-  if (import.meta.env.DEV) {
-    dynamicScripts = [
-      generateHydrationScript(),
-      `<script type="module" src="/@vite/client"></script>`,
-      `<script type="module" src="/@id/virtual:entry-client"></script>`,
-    ].join('')
-  } else {
-    // @ts-ignore
-    const manifestModule = await import('virtual:manifest')
-    const manifestEntries = manifestModule.default
-    // @ts-ignore
-    const manifestEntry = manifestEntries['src/virtual:entry-client.tsx']
-
-    dynamicScripts = [generateHydrationScript(), `<script type="module" src="/${manifestEntry.file}"></script>`].join(
-      '',
-    )
-  }
+  const dynamicScripts = import.meta.env.DEV
+    ? [
+        generateHydrationScript(),
+        `<script type="module" src="/@vite/client"></script>`,
+        `<script type="module" src="/@id/virtual:entry-client"></script>`,
+      ].join('')
+    : [generateHydrationScript(), `<script type="module" src="/__ENTRY_CLIENT_ASSET__"></script>`].join('')
 
   const htmlContent = [
     '<!DOCTYPE html>',
