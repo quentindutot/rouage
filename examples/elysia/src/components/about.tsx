@@ -1,4 +1,4 @@
-import { Title } from 'solid-rouage/client'
+import { Title } from 'solid-rouage'
 
 export default function About() {
   return (

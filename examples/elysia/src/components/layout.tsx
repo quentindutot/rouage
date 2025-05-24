@@ -1,4 +1,4 @@
-import { Html, Link, Meta, type RouteSectionProps } from 'solid-rouage/client'
+import { Html, Link, Meta, type RouteSectionProps } from 'solid-rouage'
 import styles from '../app.css?url'
 
 export const Layout = (props: RouteSectionProps) => (

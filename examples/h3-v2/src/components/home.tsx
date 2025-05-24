@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js'
-import { Title } from 'solid-rouage/client'
+import { Title } from 'solid-rouage'
 
 export default function Home() {
   const [count, setCount] = createSignal(0)

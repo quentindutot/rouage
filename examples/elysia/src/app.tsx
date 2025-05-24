@@ -1,5 +1,5 @@
 import { lazy } from 'solid-js'
-import { Route, Router, createApp } from 'solid-rouage/client'
+import { Route, Router, createApp } from 'solid-rouage'
 import { Layout } from './components/layout'
 
 export const App = createApp(() => (

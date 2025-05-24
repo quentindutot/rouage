@@ -11,7 +11,7 @@
   },
   "files": ["build", "package.json"],
   "exports": {
-    "./client": "./build/client.jsx",
+    ".": "./build/client.jsx",
     "./server": "./build/server.jsx",
     "./srvx": "./build/srvx.js",
     "./vite": "./build/vite.js"
