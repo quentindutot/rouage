@@ -1,10 +1,10 @@
 import { Hono } from 'hono'
 import { rouageHono } from 'solid-rouage/server'
 
-const server = new Hono()
+const app = new Hono()
 
-server.get('/health', (context) => context.text('OK'))
+app.get('/health', (context) => context.text('OK'))
 
-server.all('*', rouageHono())
+app.all('*', rouageHono())
 
-export default server
+export default app
