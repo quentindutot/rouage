@@ -1,5 +1,9 @@
+import type { HandleResponse } from '../../helpers/shared-types.js'
+
 // biome-ignore lint/suspicious/useAwait: <explanation>
-export const handleServerFunction = async (_options: { pathName: string }) => {
+export const handleServerFunction = async (_options: { pathName: string }): Promise<
+  HandleResponse<string> | undefined
+> => {
   return
 
   // const serverFunctionId = options.pathName.replace('/_server/', '')
@@ -18,7 +22,7 @@ export const handleServerFunction = async (_options: { pathName: string }) => {
   //   return
   // }
 
-  // const responseHeaders = new Headers()
+  // const responseHeaders: Record<string, string> = {}
 
   // const result = await handler()
 

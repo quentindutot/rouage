@@ -1,11 +1,12 @@
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
 import { createPageContext } from '../../components/app-context.jsx'
 import { dedupeHeadTags, stringHtmlAttributes } from '../../helpers/html-helpers.js'
+import type { HandleResponse } from '../../helpers/shared-types.js'
 
 // @ts-expect-error
 import { App } from 'virtual:app'
 
-export const handlerRendering = async (options: { pathName: string }) => {
+export const handlerRendering = async (options: { pathName: string }): Promise<HandleResponse<string>> => {
   const pageContext = createPageContext()
 
   const renderedContent = await renderToStringAsync(() => (
@@ -16,10 +17,7 @@ export const handlerRendering = async (options: { pathName: string }) => {
   const dedupedAssets = dedupeHeadTags(renderedAssets) // https://github.com/solidjs/solid/discussions/2294
 
   const responseStatus = pageContext.status
-  const responseHeaders = new Headers({
-    'Content-Type': 'text/html',
-    ...pageContext.headers,
-  })
+  const responseHeaders: Record<string, string> = { ...pageContext.headers, 'Content-Type': 'text/html' }
 
   const [htmlAttributes, headAttributes, bodyAttributes] = ['html', 'head', 'body'].map((tag) => {
     const attributes = stringHtmlAttributes(pageContext.attributes[tag] || {})

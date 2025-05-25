@@ -1,9 +1,12 @@
 import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
+import type { HandleResponse } from '../../helpers/shared-types.js'
 import { FILE_COMPRESSIONS, getExtensionMimeType, getFileExtension } from './file-encoding.js'
 import { getFilePath } from './file-path.js'
 
-export const handleStaticFile = async (options: { pathName: string; acceptEncoding: string }) => {
+export const handleStaticFile = async (options: { pathName: string; acceptEncoding: string }): Promise<
+  HandleResponse<Buffer<ArrayBufferLike> | Uint8Array<ArrayBufferLike>> | undefined
+> => {
   const fileExtension = getFileExtension(options.pathName)
   if (!fileExtension) {
     return
@@ -24,8 +27,7 @@ export const handleStaticFile = async (options: { pathName: string; acceptEncodi
     return
   }
 
-  const responseHeaders = new Headers()
-  responseHeaders.set('Content-Type', mimeType)
+  const responseHeaders: Record<string, string> = { 'Content-Type': mimeType }
 
   const acceptEncodingSet = new Set(options.acceptEncoding.split(',').map((encoding: string) => encoding.trim()))
 
@@ -40,8 +42,8 @@ export const handleStaticFile = async (options: { pathName: string; acceptEncodi
     }
 
     fileContent = compressedContent
-    responseHeaders.set('Content-Encoding', encoding)
-    responseHeaders.set('Vary', 'Accept-Encoding')
+    responseHeaders['Content-Encoding'] = encoding
+    responseHeaders.Vary = 'Accept-Encoding'
     break
   }
 

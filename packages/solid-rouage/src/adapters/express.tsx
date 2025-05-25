@@ -10,9 +10,7 @@ export const rouageExpress = (): RequestHandler => async (req, res) => {
   if (pathName.startsWith('/_server/')) {
     const serverFunctionResult = await handleServerFunction({ pathName })
     if (serverFunctionResult?.content) {
-      Object.entries(serverFunctionResult.headers).forEach(([key, value]) => {
-        res.setHeader(key, value)
-      })
+      res.set(serverFunctionResult.headers)
       res.status(serverFunctionResult.status)
       res.send(serverFunctionResult.content)
       return
@@ -25,9 +23,7 @@ export const rouageExpress = (): RequestHandler => async (req, res) => {
       acceptEncoding,
     })
     if (staticFileResult?.content) {
-      Object.entries(staticFileResult.headers).forEach(([key, value]) => {
-        res.setHeader(key, value)
-      })
+      res.set(staticFileResult.headers)
       res.status(staticFileResult.status)
       res.send(staticFileResult.content)
       return
@@ -35,9 +31,7 @@ export const rouageExpress = (): RequestHandler => async (req, res) => {
   }
 
   const renderingResult = await handlerRendering({ pathName })
-  Object.entries(renderingResult.headers).forEach(([key, value]) => {
-    res.setHeader(key, value)
-  })
+  res.set(renderingResult.headers)
   res.status(renderingResult.status)
   res.send(renderingResult.content)
 }
