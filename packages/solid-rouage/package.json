@@ -36,11 +36,13 @@
     "@solidjs/router": "^0.15.3",
     "@types/babel__generator": "^7.27.0",
     "@types/babel__traverse": "^7.20.7",
+    "@types/express": "^5.0.2",
     "@types/node": "^22.15.17",
     "tsdown": "^0.11.7"
   },
   "peerDependencies": {
     "elysia": "1.x",
+    "express": "5.x",
     "h3-nightly": ">=2.0.0-0 <3.0.0",
     "hono": "4.x",
     "solid-js": "1.x",
@@ -48,6 +50,9 @@
   },
   "peerDependenciesMeta": {
     "elysia": {
+      "optional": true
+    },
+    "express": {
       "optional": true
     },
     "hono": {

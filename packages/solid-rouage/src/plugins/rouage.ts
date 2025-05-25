@@ -1,5 +1,6 @@
 import { resolve } from 'node:path'
-import { createRequestAdapter, sendResponse } from '@universal-middleware/express'
+import { createRequestAdapter } from '@universal-middleware/express'
+import { sendResponse } from '@universal-middleware/express'
 import color from 'picocolors'
 import type { Plugin, ResolvedConfig, RunnableDevEnvironment } from 'vite'
 import {
@@ -40,7 +41,7 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
 
   return {
     name: 'rouage',
-    config(config) {
+    config(config, { command }) {
       config.appType = 'custom'
       config.environments = {
         client: {
@@ -63,7 +64,8 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
         server: {
           consumer: 'server',
           resolve: {
-            noExternal: true,
+            // Only set noExternal in build mode since esbuild has issues with CJS on server
+            noExternal: command === 'build' ? true : undefined,
           },
           build: {
             manifest: false,
@@ -150,11 +152,16 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
       return () => {
         vite.middlewares.use(async (nodeRequest, nodeResponse) => {
           const entry = await serverEnvironment.runner.import('src/index.ts')
+          const entryDefault = entry.default
 
-          const request: Request = createRequestAdapter()(nodeRequest)
-          const response: Response = await entry.default.fetch(request)
-
-          sendResponse(response, nodeResponse)
+          const isModernServer = 'fetch' in entryDefault
+          if (isModernServer) {
+            const request: Request = createRequestAdapter()(nodeRequest)
+            const response: Response = await entryDefault.fetch(request)
+            sendResponse(response, nodeResponse)
+          } else {
+            await entryDefault(nodeRequest, nodeResponse)
+          }
         })
       }
     },
