@@ -13,28 +13,47 @@ import { processServerFunctions } from '../features/server-function/process-serv
 
 export interface RouageOptions {
   /**
-   * Enable minification for client-side code.
-   * @default true
+   * Client specific options
    */
-  clientMinify?: boolean
+  client?: {
+    /**
+     * Enable minification for client-side code.
+     * @default true
+     */
+    minify?: boolean
+    /**
+     * Enable source maps for client-side code.
+     * @default false
+     */
+    sourcemap?: boolean
+  }
   /**
-   * Enable source maps for client-side code.
-   * @default false
+   * Server specific options
    */
-  clientSourcemap?: boolean
-  /**
-   * Enable minification for server-side code.
-   * @default true
-   */
-  serverMinify?: boolean
-  /**
-   * Enable source maps for server-side code.
-   * @default false
-   */
-  serverSourcemap?: boolean
+  server?: {
+    /**
+     * Enable minification for server-side code.
+     * @default true
+     */
+    minify?: boolean
+    /**
+     * Enable source maps for server-side code.
+     * @default false
+     */
+    sourcemap?: boolean
+  }
 }
 
 export const rouage = (options?: Partial<RouageOptions>): Plugin => {
+  const clientOptions = {
+    minify: options?.client?.minify ?? true,
+    sourcemap: options?.client?.sourcemap ?? false,
+  }
+  const serverOptions = {
+    minify: options?.server?.minify ?? true,
+    sourcemap: options?.server?.sourcemap ?? false,
+  }
+
   let resolvedConfig: ResolvedConfig
 
   const manifestPath = resolve('build/public/.vite/manifest.json')
@@ -56,8 +75,8 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
             assetsDir: 'assets',
             emptyOutDir: true,
             copyPublicDir: true,
-            minify: options?.clientMinify ?? true,
-            sourcemap: options?.clientSourcemap ?? false,
+            minify: clientOptions.minify,
+            sourcemap: clientOptions.sourcemap,
             rollupOptions: { input: { index: 'virtual:entry-client' } },
           },
         },
@@ -74,8 +93,8 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
             assetsDir: 'chunks',
             emptyOutDir: true,
             copyPublicDir: false,
-            minify: options?.serverMinify ?? true,
-            sourcemap: options?.serverSourcemap ?? false,
+            minify: serverOptions.minify,
+            sourcemap: serverOptions.sourcemap,
             rollupOptions: { input: { index: 'virtual:entry-server' } },
           },
         },
