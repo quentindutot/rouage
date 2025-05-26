@@ -74,6 +74,10 @@ export default defineConfig({
             text: 'Elysia',
             link: 'https://github.com/quentindutot/rouage/tree/main/examples/elysia',
           },
+          {
+            text: 'Express',
+            link: 'https://github.com/quentindutot/rouage/tree/main/examples/express',
+          },
         ],
       },
     ],
