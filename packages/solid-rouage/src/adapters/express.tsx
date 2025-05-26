@@ -40,13 +40,13 @@ export const solidExpress = (): RequestHandler => async (req, res) => {
 
 export const serveExpress = (app: Express): AdapterServeExport => {
   if (import.meta.env.DEV) {
-    return { type: 'node', handler: (...args) => app(...args) }
+    return { type: 'node', handler: (req, res) => app(req, res) }
   }
 
   const port = process.env.PORT || 3000
 
   app.listen(port, () => {
     // biome-ignore lint/suspicious/noConsole: <explanation>
-    console.info(`${color.green('✔ Running at')} ${color.cyan(`http://localhost:${port}`)}`)
+    console.info(`${color.green('➜ Listening on:')} ${color.cyan(`http://localhost:${port}`)}`)
   })
 }

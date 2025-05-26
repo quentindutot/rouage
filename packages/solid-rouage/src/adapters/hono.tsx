@@ -1,9 +1,12 @@
-import type { Handler } from 'hono'
+import type { Handler, Hono } from 'hono'
+import color from 'picocolors'
+import { serve } from 'srvx'
 import { handleRendering } from '../features/rendering/handle-rendering.jsx'
 import { handleStaticFile } from '../features/serve-static/handle-static-file.js'
 import { handleServerFunction } from '../features/server-function/handle-serve-function.js'
+import type { AdapterServeExport } from '../helpers/shared-types.js'
 
-export const rouageHono = (): Handler => async (context) => {
+export const solidHono = (): Handler => async (context) => {
   const pathName = new URL(context.req.url).pathname
   const acceptEncoding = context.req.header('Accept-Encoding') || ''
 
@@ -35,4 +38,17 @@ export const rouageHono = (): Handler => async (context) => {
     status: renderingResult.status,
     headers: renderingResult.headers,
   })
+}
+
+export const serveHono = (app: Hono): AdapterServeExport => {
+  if (import.meta.env.DEV) {
+    return { type: 'fetch', handler: (request) => app.fetch(request) }
+  }
+
+  const port = process.env.PORT || 3000
+
+  serve({ port, fetch: (request) => app.fetch(request), silent: true })
+
+  // biome-ignore lint/suspicious/noConsole: <explanation>
+  console.info(`${color.green('➜ Listening on:')} ${color.cyan(`http://localhost:${port}`)}`)
 }

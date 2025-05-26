@@ -1,8 +1,8 @@
 import { Elysia } from 'elysia'
-import { rouageElysia } from 'solid-rouage/server'
+import { serveElysia, solidElysia } from 'solid-rouage/server'
 
 // https://github.com/elysiajs/elysia/issues/1143
 
-const app = new Elysia().get('/health', 'OK').all('*', rouageElysia())
+const app = new Elysia().get('/health', 'OK').all('*', solidElysia())
 
-export default app
+export default serveElysia(app)
