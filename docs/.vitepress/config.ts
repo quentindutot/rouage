@@ -63,8 +63,8 @@ export default defineConfig({
         text: 'Examples',
         items: [
           {
-            text: 'H3 (v2)',
-            link: 'https://github.com/quentindutot/rouage/tree/main/examples/h3-v2',
+            text: 'H3',
+            link: 'https://github.com/quentindutot/rouage/tree/main/examples/h3',
           },
           {
             text: 'Hono',

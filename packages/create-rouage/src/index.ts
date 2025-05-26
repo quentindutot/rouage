@@ -8,7 +8,7 @@ import { cancel, group, intro, log, note, outro, select, spinner, text } from '@
 import color from 'picocolors'
 
 const TEMPLATES = [
-  { value: 'h3-v2', label: 'H3 v2', hint: 'Modern JavaScript Web Framework' },
+  { value: 'h3', label: 'H3', hint: 'Modern JavaScript Web Framework' },
   { value: 'hono', label: 'Hono', hint: 'Small & Fast Web Framework' },
   { value: 'elysia', label: 'Elysia', hint: 'Fast TypeScript Framework for Bun' },
   { value: 'express', label: 'Express', hint: 'Widely-used Framework for Node.js' },

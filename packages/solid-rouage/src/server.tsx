@@ -1,6 +1,6 @@
 export * from './adapters/elysia.jsx'
 export * from './adapters/express.jsx'
-export * from './adapters/h3-v2.jsx'
+export * from './adapters/h3.jsx'
 export * from './adapters/hono.jsx'
 export * from './adapters/koa.jsx'
 export * from './adapters/polka.jsx'
