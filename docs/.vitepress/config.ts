@@ -86,6 +86,10 @@ export default defineConfig({
             text: 'TinyHttp',
             link: 'https://github.com/quentindutot/rouage/tree/main/examples/tinyhttp',
           },
+          {
+            text: 'Restana',
+            link: 'https://github.com/quentindutot/rouage/tree/main/examples/restana',
+          },
         ],
       },
     ],

@@ -47,6 +47,7 @@
     "h3-nightly": ">=2.0.0-0 <3.0.0",
     "hono": "4.x",
     "koa": "3.x",
+    "restana": "5.x",
     "solid-js": "1.x",
     "vite": "6.x"
   },
@@ -67,6 +68,9 @@
       "optional": true
     },
     "koa": {
+      "optional": true
+    },
+    "restana": {
       "optional": true
     }
   }

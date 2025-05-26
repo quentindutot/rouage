@@ -1,22 +1,19 @@
-import type { Handler, Hono } from 'hono'
 import color from 'picocolors'
-import { serve } from 'srvx'
+import type { Protocol, RequestHandler, Service } from 'restana'
 import { handleRendering } from '../features/rendering/handle-rendering.jsx'
 import { handleStaticFile } from '../features/serve-static/handle-static-file.js'
 import { handleServerFunction } from '../features/server-function/handle-serve-function.js'
 import type { AdapterServeExport } from '../helpers/shared-types.js'
 
-export const solidHono = (): Handler => async (context) => {
-  const pathName = context.req.path
-  const acceptEncoding = context.req.header('Accept-Encoding') || ''
+export const solidRestana = (): RequestHandler<Protocol.HTTP> => async (req, res) => {
+  const pathName = req.url ?? ''
+  const acceptEncoding = req.headers['accept-encoding'] || ''
 
   if (pathName.startsWith('/_server/')) {
     const serverFunctionResult = await handleServerFunction({ pathName })
     if (serverFunctionResult?.content) {
-      return new Response(serverFunctionResult.content, {
-        status: serverFunctionResult.status,
-        headers: serverFunctionResult.headers,
-      })
+      res.send(serverFunctionResult.content, serverFunctionResult.status, serverFunctionResult.headers)
+      return
     }
   }
 
@@ -26,28 +23,24 @@ export const solidHono = (): Handler => async (context) => {
       acceptEncoding,
     })
     if (staticFileResult?.content) {
-      return new Response(staticFileResult.content, {
-        status: staticFileResult.status,
-        headers: staticFileResult.headers,
-      })
+      res.send(staticFileResult.content, staticFileResult.status, staticFileResult.headers)
+      return
     }
   }
 
   const renderingResult = await handleRendering({ pathName })
-  return new Response(renderingResult.content, {
-    status: renderingResult.status,
-    headers: renderingResult.headers,
-  })
+  res.send(renderingResult.content, renderingResult.status, renderingResult.headers)
 }
 
-export const serveHono = (app: Hono): AdapterServeExport => {
+export const serveRestana = (app: Service<Protocol.HTTP>): AdapterServeExport => {
   if (import.meta.env.DEV) {
-    return { type: 'fetch', handler: (request) => app.fetch(request) }
+    // @ts-expect-error
+    return { type: 'node', handler: (req, res) => app.handle(req, res) }
   }
 
   const port = Number(process.env.PORT) || 3000
 
-  serve({ port, fetch: (request) => app.fetch(request), silent: true })
+  app.start(port)
 
   // biome-ignore lint/suspicious/noConsole: <explanation>
   console.info(`${color.green('➜ Listening on:')} ${color.cyan(`http://localhost:${port}`)}`)

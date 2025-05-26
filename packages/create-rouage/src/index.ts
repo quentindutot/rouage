@@ -14,6 +14,7 @@ const TEMPLATES = [
   { value: 'express', label: 'Express', hint: 'Widely-used Framework for Node.js' },
   { value: 'koa', label: 'Koa', hint: 'Middleware-based Framework for Node.js' },
   { value: 'tinyhttp', label: 'TinyHttp', hint: 'Modern Express-like Framework for Node.js' },
+  { value: 'restana', label: 'Restana', hint: 'Fast RESTful API Framework for Node.js' },
 ]
 
 const promptForProjectDetails = async () => {
