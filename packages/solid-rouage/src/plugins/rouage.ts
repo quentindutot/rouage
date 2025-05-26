@@ -116,8 +116,11 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
       if (id === 'virtual:app') {
         return 'src/app.tsx'
       }
-      if (id === 'virtual:entry-client' || id === 'virtual:entry-server') {
+      if (id === 'virtual:entry-client') {
         return `${id}.tsx`
+      }
+      if (id === 'virtual:entry-server') {
+        return 'src/index.ts'
       }
       if (id === 'virtual:server-functions') {
         return 'node_modules/.rouage/server-functions.js'
@@ -132,15 +135,13 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
           'hydrate(() => <App />, document.body)',
         ].join('\n')
       }
-      if (id === 'virtual:entry-server.tsx') {
-        return [
-          '/* @refresh reload */',
-          // `import { serve } from 'solid-rouage/srvx'`,
-          `import server from './src/index'`,
-          'export default server',
-          // 'serve({ fetch: server.fetch.bind(server) })',
-        ].join('\n')
-      }
+      // if (id === 'virtual:entry-server.tsx') {
+      //   return [
+      //     '/* @refresh reload */',
+      //     `import server from './src/index'`,
+      //     'export default server',
+      //   ].join('\n')
+      // }
     },
     async transform(code, path, options) {
       const isServer = !!options?.ssr

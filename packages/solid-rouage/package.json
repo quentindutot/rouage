@@ -13,7 +13,6 @@
   "exports": {
     ".": "./build/client.jsx",
     "./server": "./build/server.jsx",
-    "./srvx": "./build/srvx.js",
     "./vite": "./build/vite.js"
   },
   "scripts": {

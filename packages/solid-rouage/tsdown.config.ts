@@ -23,10 +23,6 @@ export default defineConfig([
     outExtensions: () => ({ js: '.jsx' }),
   },
   {
-    entry: ['src/srvx.ts'],
-    ...baseOptions,
-  },
-  {
     entry: ['src/vite.ts'],
     ...baseOptions,
   },
