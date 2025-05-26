@@ -45,7 +45,7 @@ export const serveH3 = (app: H3): AdapterServeExport => {
     return { type: 'fetch', handler: (request) => app.fetch(request) }
   }
 
-  const port = process.env.PORT || 3000
+  const port = Number(process.env.PORT) || 3000
 
   serve({ port, fetch: (request) => app.fetch(request), silent: true })
 

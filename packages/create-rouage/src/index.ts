@@ -12,6 +12,7 @@ const TEMPLATES = [
   { value: 'hono', label: 'Hono', hint: 'Small & Fast Web Framework' },
   { value: 'elysia', label: 'Elysia', hint: 'Fast TypeScript Framework for Bun' },
   { value: 'express', label: 'Express', hint: 'Widely-used Framework for Node.js' },
+  { value: 'koa', label: 'Koa', hint: 'Middleware Framework for Node.js' },
 ]
 
 const promptForProjectDetails = async () => {

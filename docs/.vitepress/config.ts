@@ -78,6 +78,10 @@ export default defineConfig({
             text: 'Express',
             link: 'https://github.com/quentindutot/rouage/tree/main/examples/express',
           },
+          {
+            text: 'Koa',
+            link: 'https://github.com/quentindutot/rouage/tree/main/examples/koa',
+          },
         ],
       },
     ],

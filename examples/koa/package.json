@@ -1,0 +1,24 @@
+{
+  "name": "@rouage/koa",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "node build/server/index.js"
+  },
+  "dependencies": {
+    "@koa/router": "^13.1.0",
+    "koa": "^3.0.0",
+    "solid-js": "^1.9.6",
+    "solid-rouage": "workspace:*"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.4",
+    "@types/koa": "^2.15.0",
+    "@types/koa__router": "^12.0.4",
+    "tailwindcss": "^4.1.6",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5"
+  }
+}

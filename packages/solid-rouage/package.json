@@ -36,6 +36,7 @@
     "@types/babel__generator": "^7.27.0",
     "@types/babel__traverse": "^7.20.7",
     "@types/express": "^5.0.2",
+    "@types/koa": "^2.15.0",
     "@types/node": "^22.15.17",
     "tsdown": "^0.11.7"
   },
@@ -44,6 +45,7 @@
     "express": "5.x",
     "h3-nightly": ">=2.0.0-0 <3.0.0",
     "hono": "4.x",
+    "koa": "3.x",
     "solid-js": "1.x",
     "vite": "6.x"
   },
@@ -54,10 +56,13 @@
     "express": {
       "optional": true
     },
+    "h3-nightly": {
+      "optional": true
+    },
     "hono": {
       "optional": true
     },
-    "h3-nightly": {
+    "koa": {
       "optional": true
     }
   }
