@@ -41,6 +41,7 @@
     "tsdown": "^0.11.7"
   },
   "peerDependencies": {
+    "@tinyhttp/app": "2.x",
     "elysia": "1.x",
     "express": "5.x",
     "h3-nightly": ">=2.0.0-0 <3.0.0",
@@ -50,6 +51,9 @@
     "vite": "6.x"
   },
   "peerDependenciesMeta": {
+    "@tinyhttp/app": {
+      "optional": true
+    },
     "elysia": {
       "optional": true
     },
