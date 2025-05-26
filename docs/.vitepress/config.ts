@@ -83,7 +83,7 @@ export default defineConfig({
             link: 'https://github.com/quentindutot/rouage/tree/main/examples/koa',
           },
           {
-            text: 'Tinyhttp',
+            text: 'TinyHttp',
             link: 'https://github.com/quentindutot/rouage/tree/main/examples/tinyhttp',
           },
         ],

@@ -13,7 +13,7 @@ const TEMPLATES = [
   { value: 'elysia', label: 'Elysia', hint: 'Fast TypeScript Framework for Bun' },
   { value: 'express', label: 'Express', hint: 'Widely-used Framework for Node.js' },
   { value: 'koa', label: 'Koa', hint: 'Middleware-based Framework for Node.js' },
-  { value: 'tinyhttp', label: 'Tinyhttp', hint: 'Modern Express-like Framework for Node.js' },
+  { value: 'tinyhttp', label: 'TinyHttp', hint: 'Modern Express-like Framework for Node.js' },
 ]
 
 const promptForProjectDetails = async () => {
