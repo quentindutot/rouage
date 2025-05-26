@@ -1,9 +1,11 @@
-import type { RequestHandler } from 'express'
-import { handlerRendering } from '../features/rendering/handle-rendering.jsx'
+import type { Express, RequestHandler } from 'express'
+import color from 'picocolors'
+import { handleRendering } from '../features/rendering/handle-rendering.jsx'
 import { handleStaticFile } from '../features/serve-static/handle-static-file.js'
 import { handleServerFunction } from '../features/server-function/handle-serve-function.js'
+import type { AdapterServeExport } from '../helpers/shared-types.js'
 
-export const rouageExpress = (): RequestHandler => async (req, res) => {
+export const solidExpress = (): RequestHandler => async (req, res) => {
   const pathName = req.path
   const acceptEncoding = req.get('Accept-Encoding') || ''
 
@@ -30,8 +32,21 @@ export const rouageExpress = (): RequestHandler => async (req, res) => {
     }
   }
 
-  const renderingResult = await handlerRendering({ pathName })
+  const renderingResult = await handleRendering({ pathName })
   res.set(renderingResult.headers)
   res.status(renderingResult.status)
   res.send(renderingResult.content)
+}
+
+export const serveExpress = (app: Express): AdapterServeExport => {
+  if (import.meta.env.DEV) {
+    return { type: 'node', handler: (...args) => app(...args) }
+  }
+
+  const port = process.env.PORT || 3000
+
+  app.listen(port, () => {
+    // biome-ignore lint/suspicious/noConsole: <explanation>
+    console.info(`${color.green('✔ Running at')} ${color.cyan(`http://localhost:${port}`)}`)
+  })
 }

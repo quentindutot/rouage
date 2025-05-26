@@ -1,11 +1,11 @@
 import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
-import type { HandleResponse } from '../../helpers/shared-types.js'
+import type { FeatureHandleReturn } from '../../helpers/shared-types.js'
 import { FILE_COMPRESSIONS, getExtensionMimeType, getFileExtension } from './file-encoding.js'
 import { getFilePath } from './file-path.js'
 
 export const handleStaticFile = async (options: { pathName: string; acceptEncoding: string }): Promise<
-  HandleResponse<Buffer<ArrayBufferLike> | Uint8Array<ArrayBufferLike>> | undefined
+  FeatureHandleReturn<Buffer<ArrayBufferLike> | Uint8Array<ArrayBufferLike>> | undefined
 > => {
   const fileExtension = getFileExtension(options.pathName)
   if (!fileExtension) {

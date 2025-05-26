@@ -1,12 +1,12 @@
 import { generateHydrationScript, getAssets, renderToStringAsync } from 'solid-js/web'
 import { createPageContext } from '../../components/app-context.jsx'
 import { dedupeHeadTags, stringHtmlAttributes } from '../../helpers/html-helpers.js'
-import type { HandleResponse } from '../../helpers/shared-types.js'
+import type { FeatureHandleReturn } from '../../helpers/shared-types.js'
 
 // @ts-expect-error
 import { App } from 'virtual:app'
 
-export const handlerRendering = async (options: { pathName: string }): Promise<HandleResponse<string>> => {
+export const handleRendering = async (options: { pathName: string }): Promise<FeatureHandleReturn<string>> => {
   const pageContext = createPageContext()
 
   const renderedContent = await renderToStringAsync(() => (

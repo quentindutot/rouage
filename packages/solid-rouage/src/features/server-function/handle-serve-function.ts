@@ -1,8 +1,8 @@
-import type { HandleResponse } from '../../helpers/shared-types.js'
+import type { FeatureHandleReturn } from '../../helpers/shared-types.js'
 
 // biome-ignore lint/suspicious/useAwait: <explanation>
 export const handleServerFunction = async (_options: { pathName: string }): Promise<
-  HandleResponse<string> | undefined
+  FeatureHandleReturn<string> | undefined
 > => {
   return
 

@@ -10,6 +10,7 @@ import {
 } from '../features/manifest/process-manifest.js'
 import { normalizeManifestEntries } from '../features/manifest/process-manifest.js'
 import { processServerFunctions } from '../features/server-function/process-server-functions.js'
+import type { AdapterServeExport } from '../helpers/shared-types.js'
 
 export interface RouageOptions {
   /**
@@ -134,9 +135,10 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
       if (id === 'virtual:entry-server.tsx') {
         return [
           '/* @refresh reload */',
-          `import { serve } from 'solid-rouage/srvx'`,
+          // `import { serve } from 'solid-rouage/srvx'`,
           `import server from './src/index'`,
-          'serve({ fetch: server.fetch.bind(server) })',
+          'export default server',
+          // 'serve({ fetch: server.fetch.bind(server) })',
         ].join('\n')
       }
     },
@@ -171,15 +173,26 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
       return () => {
         vite.middlewares.use(async (nodeRequest, nodeResponse) => {
           const entry = await serverEnvironment.runner.import('src/index.ts')
-          const entryDefault = entry.default
+          const entryDefault = entry.default as AdapterServeExport
 
-          const isModernServer = 'fetch' in entryDefault
-          if (isModernServer) {
-            const request: Request = createRequestAdapter()(nodeRequest)
-            const response: Response = await entryDefault.fetch(request)
-            sendResponse(response, nodeResponse)
-          } else {
-            await entryDefault(nodeRequest, nodeResponse)
+          switch (entryDefault?.type) {
+            case 'node': {
+              await entryDefault.handler(nodeRequest, nodeResponse)
+              break
+            }
+
+            case 'fetch': {
+              const request: Request = createRequestAdapter()(nodeRequest)
+              const response: Response = await entryDefault.handler(request)
+              sendResponse(response, nodeResponse)
+              break
+            }
+
+            default: {
+              // biome-ignore lint/suspicious/noConsole: <explanation>
+              console.error(color.red('🚨 Missing or invalid adapter export.\n'))
+              process.exit(1)
+            }
           }
         })
       }

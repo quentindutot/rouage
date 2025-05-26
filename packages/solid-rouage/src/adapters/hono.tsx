@@ -1,5 +1,5 @@
 import type { Handler } from 'hono'
-import { handlerRendering } from '../features/rendering/handle-rendering.jsx'
+import { handleRendering } from '../features/rendering/handle-rendering.jsx'
 import { handleStaticFile } from '../features/serve-static/handle-static-file.js'
 import { handleServerFunction } from '../features/server-function/handle-serve-function.js'
 
@@ -30,7 +30,7 @@ export const rouageHono = (): Handler => async (context) => {
     }
   }
 
-  const renderingResult = await handlerRendering({ pathName })
+  const renderingResult = await handleRendering({ pathName })
   return new Response(renderingResult.content, {
     status: renderingResult.status,
     headers: renderingResult.headers,
