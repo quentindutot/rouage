@@ -68,6 +68,4 @@ Rouage introduces a few differences from Solid Router to better fit its intended
 
 - **No `query`/`action` APIs:** Prefer [Server Functions](/concepts/server-functions) for data handling.
 
-- **Component-Based Routing:** Use `<Route>` components over config-based routes.
-
 - **Preload Function Intent:** The preload function is only triggered on link hover.
