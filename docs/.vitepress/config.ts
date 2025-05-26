@@ -90,6 +90,10 @@ export default defineConfig({
             text: 'Restana',
             link: 'https://github.com/quentindutot/rouage/tree/main/examples/restana',
           },
+          {
+            text: 'Polka',
+            link: 'https://github.com/quentindutot/rouage/tree/main/examples/polka',
+          },
         ],
       },
     ],
