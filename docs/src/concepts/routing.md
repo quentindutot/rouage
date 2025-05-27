@@ -8,25 +8,17 @@ Rouage is powered internally by Solid Router. Most APIs are directly re-exported
 
 Installation of `@solidjs/router` is not needed, all features are provided by `solid-rouage`.
 
-## Basic Example
-
-Below is a routing setup using Router and Route from solid-rouage. Use the root prop to apply a layout across all routes.
-
 ```jsx
 import { lazy } from 'solid-js'
-import { type AppProps, Router, Route } from 'solid-rouage'
+import { Router, Route, createApp } from 'solid-rouage'
+import { Layout } from './layout'
 
-const Home = lazy(() => import('./Home'))
-const About = lazy(() => import('./About'))
-const NotFound = lazy(() => import('./NotFound'))
-
-export const App = (props: AppProps) => (
-  <Router path={props.path}>
-    <Route path="/" component={Home} />
-    <Route path="/about" component={About} />
-    <Route path="*" component={NotFound} />
+export const App = createApp(() => (
+  <Router root={Layout}>
+    <Route path="/" component={lazy(() => import('./Home'))} />
+    <Route path="/about" component={lazy(() => import('./About'))} />
   </Router>
-)
+))
 ```
 
 ## Router Concepts

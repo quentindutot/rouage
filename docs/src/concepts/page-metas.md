@@ -8,45 +8,49 @@ Rouage is powered internally by Solid Meta. Most APIs are directly re-exported, 
 
 Installation of `@solidjs/meta` is not needed, all features are provided by `solid-rouage`.
 
-## Basic Example
-
-Below is an example showing how to use page meta components from solid-rouage. The Title, Link, and Meta components let you declaratively manage the page’s metadata.
-
-```jsx
-import { Title, Link, Meta } from 'solid-rouage'
-
-export const HomePage = () => (
-  <>
-    <Title>Title of page</Title>
-    <Link rel="canonical" href="http://rouage.dev/" />
-    <Meta name="example" content="whatever" />
-
-    {/* ... */}
-  </>
-)
-```
-
 ## HTML Metas
 
 | Component | Documentation                                                                                |
 |-----------|----------------------------------------------------------------------------------------------|
-| Base      | [/solid-meta/reference/meta/base](https://docs.solidjs.com/solid-meta/reference/meta/base) |
+| Base      | [/solid-meta/reference/meta/base](https://docs.solidjs.com/solid-meta/reference/meta/base)   |
 | Link      | [/solid-meta/reference/meta/link](https://docs.solidjs.com/solid-meta/reference/meta/link)   |
 | Meta      | [/solid-meta/reference/meta/meta](https://docs.solidjs.com/solid-meta/reference/meta/meta)   |
 | Style     | [/solid-meta/reference/meta/style](https://docs.solidjs.com/solid-meta/reference/meta/style) |
 | Title     | [/solid-meta/reference/meta/title](https://docs.solidjs.com/solid-meta/reference/meta/title) |
 
+**Example:**
+
+```jsx
+<Title>Title of page</Title>
+<Link rel="canonical" href="http://rouage.dev/" />
+<Meta name="example" content="whatever" />
+```
+
+## HTML Attributes
+
+| Component | Description                                           |
+|-----------|-------------------------------------------------------|
+| Html      | Sets attributes on the html element                   |
+| Head      | Sets attributes on the head element *(rarely needed)* |
+| Body      | Sets attributes on the body element                   |
+
+**Example:**
+
+```jsx
+<Html lang="en" />
+<Body class="bg-gray-50" />
+```
 
 ## HTTP Metas
 
-**Status:** Sets the HTTP response status code for SSR.
+| Component | Description                                 |
+|-----------|---------------------------------------------|
+| Status    | Sets the HTTP status code for SSR responses |
+| Header    | Adds custom HTTP headers to SSR responses   |
+
+**Example:**
 
 ```jsx
-<Status code={404} />;
-```
-
-**Header:** Sets custom headers for SSR responses.
-
-```jsx
-<Header name="x-robots-tag" value="noindex" />
+<Status code={404} />
+<Header name="Cache-Control" value="no-store" />
 ```
