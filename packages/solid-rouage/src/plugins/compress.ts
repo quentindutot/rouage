@@ -8,7 +8,7 @@ export interface CompressOptions {
    * The algorithm to use for compression.
    * @default 'brotli'
    */
-  algorithm?: 'gzip' | 'brotli'
+  algorithm?: 'brotli' | 'gzip'
 }
 
 export const compress = (options?: Partial<CompressOptions>): Plugin =>

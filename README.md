@@ -25,7 +25,7 @@ The complete documentation can be found at [rouage.dev](https://rouage.dev).
 ## Highlights
 
 - ⚡️ **Light & Fast**: Instant rendering and hydration with zero bloat.
-- 🛰️ **Wide Server Support**: Hono, Elysia, Express, Koa, and more.
+- 🛰️ **Server Integrations**: Hono, Elysia, Express, Koa, and more.
 - 🧭 **Declarative Routing**: Explicit code-based routing, not tied to folders.
 - 🧪 **Vite Environment APIs**: Multi-target builds using the latest Vite APIs.
 - 🌐 **Multi-Runtime Support**: Runs on Node, Bun, and Deno.

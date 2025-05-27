@@ -32,10 +32,10 @@ export default defineConfig({
             text: 'Introduction',
             link: '/introduction',
           },
-          // {
-          //   text: 'Project Structure',
-          //   link: '/project-structure',
-          // },
+          {
+            text: 'Project Structure',
+            link: '/project-structure',
+          },
         ],
       },
       {

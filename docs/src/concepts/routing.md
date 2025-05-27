@@ -8,10 +8,6 @@ Rouage is powered internally by Solid Router. Most APIs are directly re-exported
 
 Installation of `@solidjs/router` is not needed, all features are provided by `solid-rouage`.
 
-:::info
-This page covers application-level routing. For server routes, consult the documentation for frameworks such as H3, Hono, or Elysia.
-:::
-
 ## Basic Example
 
 Below is a routing setup using Router and Route from solid-rouage. Use the root prop to apply a layout across all routes.

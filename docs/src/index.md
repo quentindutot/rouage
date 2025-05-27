@@ -24,7 +24,7 @@ features:
     title: Light & Fast
     details: Instant rendering and hydration with zero bloat.
   - icon: 🛰️
-    title: Wide Server Support
+    title: Server Integrations
     details: Hono, Elysia, Express, Koa, and more.
   - icon: 🧭
     title: Declarative Routing
