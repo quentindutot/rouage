@@ -24,8 +24,8 @@ features:
     title: Light & Fast
     details: Instant rendering and hydration with zero bloat.
   - icon: 🛰️
-    title: Built for Modern Servers
-    details: Integrates with H3, Hono and Elysia.
+    title: Wide Server Support
+    details: Hono, Elysia, Express, Koa, and more.
   - icon: 🧭
     title: Declarative Routing
     details: Explicit code-based routing, not tied to folders.
@@ -34,7 +34,7 @@ features:
     details: Multi-target builds using the latest Vite APIs.
   - icon: 🌐
     title: Multi-Runtime Support
-    details: Compatible with Node, Bun, and Deno.
+    details: Runs on Node, Bun, and Deno.
   - icon: 🧱
     title: Safe and Reliable
     details: Stable and tested, licensed under MIT.

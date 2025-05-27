@@ -1,4 +1,4 @@
-<h3 align="center">⚙️ Minimal Solid SSR ⚙️</h3>
+<h3 align="center">⚙️ Rouage - Minimal Solid SSR ⚙️</h3>
 
 <p align="center">Server rendering and client hydration for SolidJS, powered by a Vite plugin.</p>
 
@@ -25,11 +25,16 @@ The complete documentation can be found at [rouage.dev](https://rouage.dev).
 ## Highlights
 
 - ⚡️ **Light & Fast**: Instant rendering and hydration with zero bloat.
-- 🛰️ **Built for Modern Servers**: Integrates with H3, Hono and Elysia.
+- 🛰️ **Wide Server Support**: Hono, Elysia, Express, Koa, and more.
 - 🧭 **Declarative Routing**: Explicit code-based routing, not tied to folders.
 - 🧪 **Vite Environment APIs**: Multi-target builds using the latest Vite APIs.
-- 🌐 **Multi-Runtime Support**: Compatible with Node, Bun, and Deno.
+- 🌐 **Multi-Runtime Support**: Runs on Node, Bun, and Deno.
 - 🧱 **Safe and Reliable**: Stable and tested, licensed under MIT.
+
+## Packages
+
+- [create-rouage](https://github.com/quentindutot/rouage/tree/main/packages/create-rouage)
+- [solid-rouage](https://github.com/quentindutot/rouage/tree/main/packages/solid-rouage)
 
 ## Examples
 

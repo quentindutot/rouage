@@ -42,27 +42,18 @@ deno init --npm rouage@latest
 
 ## Server Focused
 
-Rouage focuses purely on SSR and integrates with modern servers like Hono, Elysia, H3, and runtimes Node, Deno, Bun. Enabling full control over the server and its ecosystem without limitations.
+Rouage is purpose-built for SSR, integrating seamlessly with custom servers and runtimes enabling complete control over the server environment and ecosystem.
 
-SSR is hard: streaming, async rendering, asset manifests, styles, preloads, and caching all add complexity. Rouage solves this once — cleanly and predictably.
+SSR is hard to set up right: streaming, async rendering, asset manifests, styles, preloads, caching, HMR. Rouage handles these complexities in a straightforward and maintainable way.
 
-| Rendering Mode          | Ideal Stack                            | Notes                             |
-|-------------------------|----------------------------------------|-----------------------------------|
-| Static Site Generation  | SolidJS × [Astro](https://astro.build) | Pre-rendered static pages         |
-| Client-Side Rendering   | SolidJS × [Vite](https://vitejs.dev)   | Rich client-side interactions     |
-| Server-Side Rendering   | SolidJS × **Rouage**                   | Dynamic pages and custom backends |
+| Rendering Mode         | Ideal Stack                                       | Best For                        |
+|------------------------|---------------------------------------------------|---------------------------------|
+| Static Site Generation | SolidJS + [Astro](https://astro.build)            | Pre-rendered static pages       |
+| Client-Side Rendering  | SolidJS + [Vite](https://vitejs.dev)              | Rich client-side interactions   |
+| Server-Side Rendering  | SolidJS + **Rouage**                              | Dynamic pages, custom backends  |
+| Edge / Cloud Rendering | SolidJS + [SolidStart](https://start.solidjs.com) | Serverless and edge deployments |
 
-## Declarative Routing
-
-While many ecosystems have moved past file-based routing, most JavaScript frameworks still depend on it. It's convenient at first — but brittle as complexity grows.
-
-Rouage takes a different approach: **code-defined routing**:
-- 📝 Routes are written explicitly, not inferred from filenames
-- 🧩 Structure remains flexible, with no imposed conventions
-- 🛡️ Type safety and IDE support work naturally
-- 🚀 Advanced use cases become straightforward — like i18n or custom logic
-
-## Why not SolidStart?
+<!-- ## Why not SolidStart?
 
 [SolidStart](https://start.solidjs.com) is a great all-in-one solution for building SolidJS apps but its flexibility comes with additional complexity, conventions, and tooling layers.
 
@@ -77,7 +68,7 @@ Rouage is a Vite plugin. No CLI, no runtime, no boilerplate.
 | Memory usage (avg)     | 120–150 MB             | 40–60 MB                 |
 | CPU usage (avg load)   | Higher                 | Lower                    |
 
-*See the [full comparison repository](https://github.com/quentindutot/rouage/tree/main/examples) for details.*
+*See the [full comparison repository](https://github.com/quentindutot/rouage/tree/main/examples) for details.* -->
 
 ## Acknowledgements
 
