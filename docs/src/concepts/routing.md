@@ -32,6 +32,14 @@ export const App = createApp(() => (
 | Layouts           | [/solid-router/concepts/layouts](https://docs.solidjs.com/solid-router/concepts/layouts)                                       |
 | Preload           | [/solid-router/reference/preload-functions/preload](https://docs.solidjs.com/solid-router/reference/preload-functions/preload) |
 
+## Router Components
+
+| Component         | Documentation                                                                                                      |
+|-------------------|--------------------------------------------------------------------------------------------------------------------|
+| Router            | [/solid-router/reference/components/router](https://docs.solidjs.com/solid-router/reference/components/router)     |
+| Route             | [/solid-router/reference/components/route](https://docs.solidjs.com/solid-router/reference/components/route)       |
+| Navigate          | [/solid-router/reference/components/navigate](https://docs.solidjs.com/solid-router/reference/components/navigate) |
+
 ## Router Primitives
 
 | Primitive         | Documentation                                                                                                                            |
@@ -55,5 +63,3 @@ Rouage introduces a few differences from Solid Router to better fit its intended
 - **No Alternative Router Modes:**  Hash mode and memory mode are not supported.
 
 - **No `query`/`action` APIs:** Prefer [Server Functions](/concepts/server-functions) for data loading.
-
-- **Preload Function Intent:** The preload function is only triggered on link hover.
