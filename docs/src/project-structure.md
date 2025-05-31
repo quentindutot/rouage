@@ -111,6 +111,6 @@ interface RouageOptions {
 
 ```ts
 interface CompressOptions {
-  algorithm?: 'brotli' | 'gzip'
+  threshold?: number
 }
 ```
