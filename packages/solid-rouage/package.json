@@ -26,7 +26,6 @@
     "@universal-middleware/express": "^0.4.15",
     "picocolors": "^1.1.1",
     "srvx": "^0.7.1",
-    "vite-plugin-compression2": "^1.3.3",
     "vite-plugin-solid": "^2.11.6"
   },
   "devDependencies": {
