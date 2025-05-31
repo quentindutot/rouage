@@ -1,3 +1,4 @@
+import { Suspense } from 'solid-js'
 import { Body, Html, Link, Meta, type RouteSectionProps } from 'solid-rouage'
 import styles from '../app.css?url'
 
@@ -25,6 +26,6 @@ export const Layout = (props: RouteSectionProps) => (
       </a>
     </nav>
 
-    {props.children}
+    <Suspense>{props.children}</Suspense>
   </>
 )

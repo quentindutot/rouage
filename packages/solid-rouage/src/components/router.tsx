@@ -1,6 +1,6 @@
 import { MetaProvider } from '@solidjs/meta'
 import { type RouteSectionProps, Router as _Router } from '@solidjs/router'
-import { type Component, type JSX, Suspense } from 'solid-js'
+import type { Component, JSX } from 'solid-js'
 import { useAppContext } from './app-context.jsx'
 
 export {
@@ -45,9 +45,7 @@ export const Router = (props: RouterProps) => {
       url={appContext.initialPath}
       base={props.base}
       root={(rootProps) => (
-        <MetaProvider>
-          <Suspense>{typeof props.root === 'function' ? props.root(rootProps) : rootProps.children}</Suspense>
-        </MetaProvider>
+        <MetaProvider>{typeof props.root === 'function' ? props.root(rootProps) : rootProps.children}</MetaProvider>
       )}
     >
       {props.children}
