@@ -3,22 +3,11 @@ import type Koa from 'koa'
 import color from 'picocolors'
 import { handleRendering } from '../features/rendering/handle-rendering.jsx'
 import { handleStaticFile } from '../features/serve-static/handle-static-file.js'
-import { handleServerFunction } from '../features/server-function/handle-serve-function.js'
 import type { AdapterServeExport } from '../helpers/shared-types.js'
 
 export const solidKoa = (): Middleware => async (context) => {
   const pathName = context.path
   const acceptEncoding = context.headers['accept-encoding'] || ''
-
-  if (pathName.startsWith('/_server/')) {
-    const serverFunctionResult = await handleServerFunction({ pathName })
-    if (serverFunctionResult?.content) {
-      context.set(serverFunctionResult.headers)
-      context.status = serverFunctionResult.status
-      context.body = serverFunctionResult.content
-      return
-    }
-  }
 
   if (!import.meta.env.DEV) {
     const staticFileResult = await handleStaticFile({

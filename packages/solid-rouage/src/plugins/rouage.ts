@@ -9,7 +9,6 @@ import {
   replaceManifestUrlImports,
 } from '../features/manifest/process-manifest.js'
 import { normalizeManifestEntries } from '../features/manifest/process-manifest.js'
-import { processServerFunctions } from '../features/server-function/process-server-functions.js'
 import type { AdapterServeExport } from '../helpers/shared-types.js'
 
 export interface RouageOptions {
@@ -145,18 +144,6 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
     },
     async transform(code, path, options) {
       const isServer = !!options?.ssr
-
-      if (!isServer && code.includes('createServerFunction(')) {
-        return processServerFunctions({
-          code,
-          path,
-          template: (serverFunctionId) => `
-            const response = await fetch('/_server/${serverFunctionId}');
-            const data = await response.json();
-            return data;
-          `,
-        })
-      }
 
       if (isServer && resolvedConfig.command === 'build' && code.includes('__ENTRY_CLIENT_ASSET__')) {
         return await replaceManifestClientEntry({ manifestPath, filePath: path, fileCode: code })

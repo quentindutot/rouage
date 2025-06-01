@@ -52,34 +52,3 @@ export const Router = (props: RouterProps) => {
     </_Router>
   )
 }
-
-// const fetchCache = new Map<string, { response: Response; timestamp: number }>()
-// const FETCH_CACHE_TTL = 5000 // 5 seconds in milliseconds
-
-// if (!isServer) {
-//   console.log('setup preload cache')
-
-//   const originalFetch = window.fetch
-
-//   // @ts-expect-error
-//   window.fetch = async (input: string | URL | Request, init?: RequestInit) => {
-//     const cacheKey = typeof input === 'string' ? input : input instanceof Request ? input.url : input.toString()
-//     const cached = fetchCache.get(cacheKey)
-
-//     if (cached && Date.now() - cached.timestamp < FETCH_CACHE_TTL) {
-//       // Clone the cached response since responses can only be used once
-//       return cached.response.clone()
-//     }
-
-//     // Do the actual fetch
-//     const response = await originalFetch(input, init)
-
-//     // Cache a clone of the response
-//     fetchCache.set(cacheKey, {
-//       response: response.clone(),
-//       timestamp: Date.now(),
-//     })
-
-//     return response
-//   }
-// }

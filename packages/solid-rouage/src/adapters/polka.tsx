@@ -3,22 +3,11 @@ import color from 'picocolors'
 import type { Middleware, Polka } from 'polka'
 import { handleRendering } from '../features/rendering/handle-rendering.jsx'
 import { handleStaticFile } from '../features/serve-static/handle-static-file.js'
-import { handleServerFunction } from '../features/server-function/handle-serve-function.js'
 import type { AdapterServeExport } from '../helpers/shared-types.js'
 
 export const solidPolka = (): Middleware<IncomingMessage> => async (req, res) => {
   const pathName = req.path
   const acceptEncoding = req.headers['accept-encoding'] || ''
-
-  if (pathName.startsWith('/_server/')) {
-    const serverFunctionResult = await handleServerFunction({ pathName })
-    if (serverFunctionResult?.content) {
-      res.setHeaders(new Headers(serverFunctionResult.headers))
-      res.statusCode = serverFunctionResult.status
-      res.end(serverFunctionResult.content)
-      return
-    }
-  }
 
   if (!import.meta.env.DEV) {
     const staticFileResult = await handleStaticFile({

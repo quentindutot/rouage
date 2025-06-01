@@ -2,22 +2,11 @@ import type { App, Handler } from '@tinyhttp/app'
 import color from 'picocolors'
 import { handleRendering } from '../features/rendering/handle-rendering.jsx'
 import { handleStaticFile } from '../features/serve-static/handle-static-file.js'
-import { handleServerFunction } from '../features/server-function/handle-serve-function.js'
 import type { AdapterServeExport } from '../helpers/shared-types.js'
 
 export const solidTinyHttp = (): Handler => async (req, res) => {
   const pathName = req.path
   const acceptEncoding = [req.get('accept-encoding') ?? ''].flat().join(',')
-
-  if (pathName.startsWith('/_server/')) {
-    const serverFunctionResult = await handleServerFunction({ pathName })
-    if (serverFunctionResult?.content) {
-      res.set(serverFunctionResult.headers)
-      res.status(serverFunctionResult.status)
-      res.send(serverFunctionResult.content)
-      return
-    }
-  }
 
   if (!import.meta.env.DEV) {
     const staticFileResult = await handleStaticFile({

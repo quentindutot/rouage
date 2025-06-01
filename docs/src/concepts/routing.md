@@ -62,4 +62,4 @@ Rouage introduces a few differences from Solid Router to better fit its intended
 
 - **No Alternative Router Modes:**  Hash mode and memory mode are not supported.
 
-- **No `query`/`action` APIs:** Prefer [Server Functions](/concepts/server-functions) for data loading.
+- **No `query`/`action` or `use server`:** Prefer oRPC, tRPC, ts-rest, HonoRPC or ElysiaEden.

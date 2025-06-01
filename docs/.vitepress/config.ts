@@ -61,10 +61,6 @@ export default defineConfig({
             text: 'Page Metas',
             link: '/concepts/page-metas',
           },
-          // {
-          //   text: 'Server Functions',
-          //   link: '/concepts/server-functions',
-          // },
           {
             text: 'Deployment',
             link: '/concepts/deployment',

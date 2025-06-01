@@ -3,22 +3,11 @@ import color from 'picocolors'
 import { serve } from 'srvx'
 import { handleRendering } from '../features/rendering/handle-rendering.jsx'
 import { handleStaticFile } from '../features/serve-static/handle-static-file.js'
-import { handleServerFunction } from '../features/server-function/handle-serve-function.js'
 import type { AdapterServeExport } from '../helpers/shared-types.js'
 
 export const solidH3 = (): EventHandler => async (event) => {
   const pathName = event.url.pathname
   const acceptEncoding = event.req.headers.get('Accept-Encoding') || ''
-
-  if (pathName.startsWith('/_server/')) {
-    const serverFunctionResult = await handleServerFunction({ pathName })
-    if (serverFunctionResult?.content) {
-      return new Response(serverFunctionResult.content, {
-        status: serverFunctionResult.status,
-        headers: serverFunctionResult.headers,
-      })
-    }
-  }
 
   if (!import.meta.env.DEV) {
     const staticFileResult = await handleStaticFile({
