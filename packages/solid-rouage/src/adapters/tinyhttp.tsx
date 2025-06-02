@@ -8,10 +8,7 @@ export const solidTinyHttp = (): Handler => async (req, res) => {
   const pathName = req.path
   const acceptEncoding = [req.get('accept-encoding') ?? ''].flat().join(',')
 
-  const staticFileResult = await handleStaticFile({
-    pathName,
-    acceptEncoding,
-  })
+  const staticFileResult = await handleStaticFile({ pathName, acceptEncoding })
   if (staticFileResult?.content) {
     res.set(staticFileResult.headers)
     res.status(staticFileResult.status)

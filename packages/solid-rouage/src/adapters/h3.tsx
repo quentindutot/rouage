@@ -9,10 +9,7 @@ export const solidH3 = (): EventHandler => async (event) => {
   const pathName = event.url.pathname
   const acceptEncoding = event.req.headers.get('Accept-Encoding') || ''
 
-  const staticFileResult = await handleStaticFile({
-    pathName,
-    acceptEncoding,
-  })
+  const staticFileResult = await handleStaticFile({ pathName, acceptEncoding })
   if (staticFileResult?.content) {
     return new Response(staticFileResult.content, {
       status: staticFileResult.status,

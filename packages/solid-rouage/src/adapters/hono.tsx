@@ -9,10 +9,7 @@ export const solidHono = (): Handler => async (context) => {
   const pathName = context.req.path
   const acceptEncoding = context.req.header('Accept-Encoding') || ''
 
-  const staticFileResult = await handleStaticFile({
-    pathName,
-    acceptEncoding,
-  })
+  const staticFileResult = await handleStaticFile({ pathName, acceptEncoding })
   if (staticFileResult?.content) {
     return new Response(staticFileResult.content, {
       status: staticFileResult.status,

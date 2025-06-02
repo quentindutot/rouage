@@ -8,10 +8,7 @@ export const solidExpress = (): RequestHandler => async (req, res) => {
   const pathName = req.path
   const acceptEncoding = req.get('Accept-Encoding') || ''
 
-  const staticFileResult = await handleStaticFile({
-    pathName,
-    acceptEncoding,
-  })
+  const staticFileResult = await handleStaticFile({ pathName, acceptEncoding })
   if (staticFileResult?.content) {
     res.set(staticFileResult.headers)
     res.status(staticFileResult.status)

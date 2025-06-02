@@ -11,10 +11,7 @@ export const solidElysia =
     const pathName = new URL(request.url).pathname
     const acceptEncoding = request.headers.get('Accept-Encoding') || ''
 
-    const staticFileResult = await handleStaticFile({
-      pathName,
-      acceptEncoding,
-    })
+    const staticFileResult = await handleStaticFile({ pathName, acceptEncoding })
     if (staticFileResult?.content) {
       return new Response(staticFileResult.content, {
         status: staticFileResult.status,
