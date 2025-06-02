@@ -12,7 +12,8 @@
   "files": ["build", "package.json"],
   "exports": {
     ".": "./build/client.jsx",
-    "./server": "./build/server.jsx",
+    "./fetch": "./build/fetch.jsx",
+    "./node": "./build/node.jsx",
     "./vite": "./build/vite.js"
   },
   "scripts": {

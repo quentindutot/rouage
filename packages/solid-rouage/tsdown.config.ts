@@ -17,7 +17,13 @@ export default defineConfig([
     outExtensions: () => ({ js: '.jsx' }),
   },
   {
-    entry: ['src/server.tsx'],
+    entry: ['src/fetch.tsx'],
+    ...baseOptions,
+    inputOptions: { jsx: 'preserve' },
+    outExtensions: () => ({ js: '.jsx' }),
+  },
+  {
+    entry: ['src/node.tsx'],
     ...baseOptions,
     inputOptions: { jsx: 'preserve' },
     outExtensions: () => ({ js: '.jsx' }),
