@@ -155,13 +155,13 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
 
           switch (entryDefault?.type) {
             case 'node': {
-              await entryDefault.handler(nodeRequest, nodeResponse)
+              await entryDefault.handle(nodeRequest, nodeResponse)
               break
             }
 
             case 'fetch': {
               const request: Request = createRequestAdapter()(nodeRequest)
-              const response: Response = await entryDefault.handler(request)
+              const response: Response = await entryDefault.handle(request)
               sendResponse(response, nodeResponse)
               break
             }
