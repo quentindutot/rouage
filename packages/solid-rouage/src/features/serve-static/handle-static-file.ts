@@ -7,6 +7,10 @@ import { getFilePath } from './file-path.js'
 export const handleStaticFile = async (options: { pathName: string; acceptEncoding: string }): Promise<
   FeatureHandleReturn<Buffer<ArrayBufferLike> | Uint8Array<ArrayBufferLike>> | undefined
 > => {
+  if (import.meta.env.DEV) {
+    return
+  }
+
   const fileExtension = getFileExtension(options.pathName)
   if (!fileExtension) {
     return

@@ -9,17 +9,15 @@ export const solidPolka = (): Middleware<IncomingMessage> => async (req, res) =>
   const pathName = req.path
   const acceptEncoding = req.headers['accept-encoding'] || ''
 
-  if (!import.meta.env.DEV) {
-    const staticFileResult = await handleStaticFile({
-      pathName,
-      acceptEncoding,
-    })
-    if (staticFileResult?.content) {
-      res.setHeaders(new Headers(staticFileResult.headers))
-      res.statusCode = staticFileResult.status
-      res.end(staticFileResult.content)
-      return
-    }
+  const staticFileResult = await handleStaticFile({
+    pathName,
+    acceptEncoding,
+  })
+  if (staticFileResult?.content) {
+    res.setHeaders(new Headers(staticFileResult.headers))
+    res.statusCode = staticFileResult.status
+    res.end(staticFileResult.content)
+    return
   }
 
   const renderingResult = await handleRendering({ pathName })

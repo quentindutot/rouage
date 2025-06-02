@@ -11,17 +11,15 @@ export const solidElysia =
     const pathName = new URL(request.url).pathname
     const acceptEncoding = request.headers.get('Accept-Encoding') || ''
 
-    if (!import.meta.env.DEV) {
-      const staticFileResult = await handleStaticFile({
-        pathName,
-        acceptEncoding,
+    const staticFileResult = await handleStaticFile({
+      pathName,
+      acceptEncoding,
+    })
+    if (staticFileResult?.content) {
+      return new Response(staticFileResult.content, {
+        status: staticFileResult.status,
+        headers: staticFileResult.headers,
       })
-      if (staticFileResult?.content) {
-        return new Response(staticFileResult.content, {
-          status: staticFileResult.status,
-          headers: staticFileResult.headers,
-        })
-      }
     }
 
     const renderingResult = await handleRendering({ pathName })

@@ -9,17 +9,15 @@ export const solidKoa = (): Middleware => async (context) => {
   const pathName = context.path
   const acceptEncoding = context.headers['accept-encoding'] || ''
 
-  if (!import.meta.env.DEV) {
-    const staticFileResult = await handleStaticFile({
-      pathName,
-      acceptEncoding,
-    })
-    if (staticFileResult?.content) {
-      context.set(staticFileResult.headers)
-      context.status = staticFileResult.status
-      context.body = staticFileResult.content
-      return
-    }
+  const staticFileResult = await handleStaticFile({
+    pathName,
+    acceptEncoding,
+  })
+  if (staticFileResult?.content) {
+    context.set(staticFileResult.headers)
+    context.status = staticFileResult.status
+    context.body = staticFileResult.content
+    return
   }
 
   const renderingResult = await handleRendering({ pathName })

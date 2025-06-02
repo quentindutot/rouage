@@ -8,15 +8,13 @@ export const solidRestana = (): RequestHandler<Protocol.HTTP> => async (req, res
   const pathName = req.url ?? ''
   const acceptEncoding = req.headers['accept-encoding'] || ''
 
-  if (!import.meta.env.DEV) {
-    const staticFileResult = await handleStaticFile({
-      pathName,
-      acceptEncoding,
-    })
-    if (staticFileResult?.content) {
-      res.send(staticFileResult.content, staticFileResult.status, staticFileResult.headers)
-      return
-    }
+  const staticFileResult = await handleStaticFile({
+    pathName,
+    acceptEncoding,
+  })
+  if (staticFileResult?.content) {
+    res.send(staticFileResult.content, staticFileResult.status, staticFileResult.headers)
+    return
   }
 
   const renderingResult = await handleRendering({ pathName })
