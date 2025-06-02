@@ -43,7 +43,7 @@
     "polka": ">=1.0.0-0 <2.0.0",
     "restana": "5.x",
     "solid-js": "1.x",
-    "vite": "6.x"
+    "vite": ">=6.0.0"
   },
   "peerDependenciesMeta": {
     "@tinyhttp/app": {
