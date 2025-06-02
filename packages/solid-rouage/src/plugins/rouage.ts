@@ -116,7 +116,7 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
         return 'src/app.tsx'
       }
       if (id === 'virtual:entry-client') {
-        return `${id}.tsx`
+        return 'virtual:entry-client.tsx'
       }
       if (id === 'virtual:entry-server') {
         return 'src/index.ts'
@@ -134,13 +134,6 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
           'hydrate(() => <App />, document.body)',
         ].join('\n')
       }
-      // if (id === 'virtual:entry-server.tsx') {
-      //   return [
-      //     '/* @refresh reload */',
-      //     `import server from './src/index'`,
-      //     'export default server',
-      //   ].join('\n')
-      // }
     },
     async transform(code, path, options) {
       const isServer = !!options?.ssr
