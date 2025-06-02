@@ -1,8 +1,10 @@
+import { readFile, stat, writeFile } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import { promisify } from 'node:util'
 import zlib from 'node:zlib'
-import type { Logger, Plugin } from 'vite'
+import color from 'picocolors'
+import type { Plugin, ResolvedConfig } from 'vite'
 
 const ASSETS_REGEX = /^assets\/.*\.(html|xml|css|json|js|mjs|svg|yaml|yml|toml)$/
 const MAX_CONCURRENT = Math.max(1, (os.cpus()?.length || 1) - 1)
@@ -62,11 +64,8 @@ const createQueue = () => {
   }
 }
 
-const stringToBytes = (input: string | Uint8Array): Uint8Array =>
-  typeof input === 'string' ? new TextEncoder().encode(input) : input
-
-const replaceFileName = (staticPath: string, extension: string): string => {
-  const { dir, name, ext } = path.parse(staticPath)
+const replaceFileName = (fileName: string, extension: string): string => {
+  const { dir, name, ext } = path.parse(fileName)
   const basePath = dir ? `${dir}/` : ''
   return `${basePath}${name}${ext}${extension}`
 }
@@ -82,46 +81,58 @@ export interface CompressOptions {
 export const compress = (options?: Partial<CompressOptions>): Plugin => {
   const threshold = options?.threshold ?? 2048
 
+  let resolvedConfig: ResolvedConfig
+
   const queue = createQueue()
-  let logger: Logger
+
+  const stats = {
+    gzip: { count: 0, originalSize: 0, compressedSize: 0 },
+    brotli: { count: 0, originalSize: 0, compressedSize: 0 },
+  }
 
   return {
     name: 'rouage-compress',
     apply: 'build',
     enforce: 'post',
-    configResolved(resolvedConfig) {
-      logger = resolvedConfig.logger
+    configResolved(config) {
+      resolvedConfig = config
     },
-    async generateBundle(_, outputBundle) {
+    async writeBundle(_, outputBundle) {
       for (const fileName in outputBundle) {
         if (!ASSETS_REGEX.test(fileName)) {
           continue
         }
 
-        const bundle = outputBundle[fileName]
-        const source = stringToBytes(bundle.type === 'asset' ? bundle.source : bundle.code)
-        if (source.length < threshold) {
-          continue
-        }
+        const filePath = path.resolve(resolvedConfig.build.outDir, fileName)
 
-        // Compress with both gzip and brotli
         queue.enqueue(async () => {
-          try {
-            // Gzip compression
-            const gzipCompressed = await gzipCompress(source)
-            if (gzipCompressed.length < source.length) {
-              const gzipName = replaceFileName(fileName, '.gz')
-              this.emitFile({ type: 'asset', fileName: gzipName, source: gzipCompressed })
-            }
+          const fileStats = await stat(filePath)
+          if (fileStats.size < threshold) {
+            return
+          }
 
-            // Brotli compression
-            const brotliCompressed = await brotliCompress(source)
-            if (brotliCompressed.length < source.length) {
-              const brotliName = replaceFileName(fileName, '.br')
-              this.emitFile({ type: 'asset', fileName: brotliName, source: brotliCompressed })
-            }
-          } catch (error) {
-            logger?.error(`Failed to compress ${fileName}: ${error}`)
+          const source = await readFile(filePath)
+
+          const gzipCompressed = await gzipCompress(source)
+          if (gzipCompressed.length < source.length) {
+            const gzipName = replaceFileName(fileName, '.gz')
+            const gzipPath = path.resolve(resolvedConfig.build.outDir, gzipName)
+            await writeFile(gzipPath, gzipCompressed)
+
+            stats.gzip.count++
+            stats.gzip.originalSize += source.length
+            stats.gzip.compressedSize += gzipCompressed.length
+          }
+
+          const brotliCompressed = await brotliCompress(source)
+          if (brotliCompressed.length < source.length) {
+            const brotliName = replaceFileName(fileName, '.br')
+            const brotliPath = path.resolve(resolvedConfig.build.outDir, brotliName)
+            await writeFile(brotliPath, brotliCompressed)
+
+            stats.brotli.count++
+            stats.brotli.originalSize += source.length
+            stats.brotli.compressedSize += brotliCompressed.length
           }
         })
       }
@@ -129,6 +140,30 @@ export const compress = (options?: Partial<CompressOptions>): Plugin => {
       await queue.wait().catch((error) => {
         this.error(error)
       })
+
+      if (stats.gzip.count > 0 || stats.brotli.count > 0) {
+        // biome-ignore lint/suspicious/noConsole: <explanation>
+        console.info(`\n${color.green('compressing assets...')}`)
+
+        if (stats.gzip.count > 0) {
+          const gzipSaved = (stats.gzip.originalSize - stats.gzip.compressedSize) / 1024
+          // biome-ignore lint/suspicious/noConsole: <explanation>
+          console.info(
+            `${color.cyan('gzip')} ${color.gray(`${stats.gzip.count} compressed, ${gzipSaved.toFixed(2)} kB saved`)}`,
+          )
+        }
+
+        if (stats.brotli.count > 0) {
+          const brotliSaved = (stats.brotli.originalSize - stats.brotli.compressedSize) / 1024
+          // biome-ignore lint/suspicious/noConsole: <explanation>
+          console.info(
+            `${color.cyan('brotli')} ${color.gray(`${stats.brotli.count} compressed, ${brotliSaved.toFixed(2)} kB saved`)}`,
+          )
+        }
+
+        // biome-ignore lint/suspicious/noConsole: <explanation>
+        console.info('')
+      }
     },
   }
 }
