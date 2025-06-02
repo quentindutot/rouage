@@ -121,9 +121,6 @@ export const rouage = (options?: Partial<RouageOptions>): Plugin => {
       if (id === 'virtual:entry-server') {
         return 'src/index.ts'
       }
-      if (id === 'virtual:server-functions') {
-        return 'node_modules/.rouage/server-functions.js'
-      }
     },
     load(id) {
       if (id === 'virtual:entry-client.tsx') {
