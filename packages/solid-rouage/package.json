@@ -23,53 +23,16 @@
   "dependencies": {
     "@universal-middleware/express": "^0.4.15",
     "picocolors": "^1.1.1",
-    "srvx": "^0.7.1",
     "vite-plugin-solid": "^2.11.6"
   },
   "devDependencies": {
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.15.3",
-    "@types/express": "^5.0.2",
-    "@types/koa": "^2.15.0",
     "@types/node": "^22.15.17",
     "tsdown": "^0.11.7"
   },
   "peerDependencies": {
-    "@tinyhttp/app": "2.x",
-    "elysia": "1.x",
-    "express": "5.x",
-    "h3-nightly": ">=2.0.0-0 <3.0.0",
-    "hono": "4.x",
-    "koa": "3.x",
-    "polka": ">=1.0.0-0 <2.0.0",
-    "restana": "5.x",
-    "solid-js": "1.x",
+    "solid-js": "^1.9.6 || ^2.0.0-0",
     "vite": "^6.3.5 || ^7.0.0-0"
-  },
-  "peerDependenciesMeta": {
-    "@tinyhttp/app": {
-      "optional": true
-    },
-    "elysia": {
-      "optional": true
-    },
-    "express": {
-      "optional": true
-    },
-    "h3-nightly": {
-      "optional": true
-    },
-    "hono": {
-      "optional": true
-    },
-    "koa": {
-      "optional": true
-    },
-    "polka": {
-      "optional": true
-    },
-    "restana": {
-      "optional": true
-    }
   }
 }
