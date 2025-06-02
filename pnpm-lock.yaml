@@ -38,6 +38,9 @@ importers:
       solid-rouage:
         specifier: workspace:*
         version: link:../../packages/solid-rouage
+      srvx:
+        specifier: ^0.7.1
+        version: 0.7.1
     devDependencies:
       '@tailwindcss/vite':
         specifier: ^4.1.4
@@ -116,6 +119,9 @@ importers:
       solid-rouage:
         specifier: workspace:*
         version: link:../../packages/solid-rouage
+      srvx:
+        specifier: ^0.7.1
+        version: 0.7.1
     devDependencies:
       '@tailwindcss/vite':
         specifier: ^4.1.4

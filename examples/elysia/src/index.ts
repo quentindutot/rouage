@@ -1,8 +1,16 @@
 import { Elysia } from 'elysia'
-import { serveElysia, solidElysia } from 'solid-rouage/server'
+import { createAdapter, handleRequest } from 'solid-rouage/fetch'
+import { serve } from 'srvx'
 
-// https://github.com/elysiajs/elysia/issues/1143
+const app = new Elysia().get('/health', 'OK').all('*', async ({ request }) => {
+  const pathName = new URL(request.url).pathname
+  const acceptEncoding = request.headers.get('Accept-Encoding') || ''
 
-const app = new Elysia().get('/health', 'OK').all('*', solidElysia())
+  const response = await handleRequest({ pathName, acceptEncoding })
+  return response
+})
 
-export default serveElysia(app)
+export default createAdapter({
+  handle: (request) => app.fetch(request),
+  listen: () => serve({ fetch: app.fetch }),
+})

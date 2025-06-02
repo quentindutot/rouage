@@ -29,6 +29,10 @@
           "correctness": {
             "useImportExtensions": "off"
           },
+          "suspicious": {
+            "noConsole": "off",
+            "noEmptyBlockStatements": "off"
+          },
           "style": {
             "noDefaultExport": "off"
           }

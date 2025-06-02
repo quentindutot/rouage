@@ -1,10 +1,20 @@
 import { Hono } from 'hono'
-import { serveHono, solidHono } from 'solid-rouage/server'
+import { createAdapter, handleRequest } from 'solid-rouage/fetch'
+import { serve } from 'srvx'
 
 const app = new Hono()
 
 app.get('/health', (context) => context.text('OK'))
 
-app.all('*', solidHono())
+app.all('*', async (context) => {
+  const pathName = context.req.path
+  const acceptEncoding = context.req.header('Accept-Encoding') || ''
 
-export default serveHono(app)
+  const response = await handleRequest({ pathName, acceptEncoding })
+  return response
+})
+
+export default createAdapter({
+  handle: (request) => app.fetch(request),
+  listen: () => serve(app),
+})

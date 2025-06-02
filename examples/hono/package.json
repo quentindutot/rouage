@@ -10,7 +10,8 @@
   "dependencies": {
     "hono": "^4.7.10",
     "solid-js": "^1.9.6",
-    "solid-rouage": "workspace:*"
+    "solid-rouage": "workspace:*",
+    "srvx": "^0.7.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.4",

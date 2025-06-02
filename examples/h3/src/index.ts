@@ -15,7 +15,5 @@ app.all('/**', async (event) => {
 
 export default createAdapter({
   handle: (request) => app.fetch(request),
-  listen: () => {
-    serve(app)
-  },
+  listen: () => serve(app),
 })
