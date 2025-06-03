@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { createQueue, MAX_CONCURRENT } from './create-queue.js'
+import { MAX_CONCURRENT, createQueue } from './create-queue.js'
 
 describe('createQueue', () => {
   it('executes tasks in order', async () => {
