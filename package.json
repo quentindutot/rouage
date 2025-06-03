@@ -8,7 +8,7 @@
     "test": "pnpm run -r test",
     "build": "pnpm run -r build",
     "check": "biome check --write",
-    "release:prepare": "pnpm run test && pnpm run build && pnpm run check",
+    "release:prepare": "pnpm run check && pnpm run test && pnpm run build",
     "release:version": "pnpm dlx bumpp --recursive",
     "release:publish": "pnpm --filter='./packages/*' publish --recursive",
     "release": "pnpm run release:prepare && pnpm run release:version && pnpm run release:publish"
