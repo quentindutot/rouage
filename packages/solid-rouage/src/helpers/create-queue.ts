@@ -1,6 +1,6 @@
 import os from 'node:os'
 
-const MAX_CONCURRENT = Math.max(1, (os.cpus()?.length || 1) - 1)
+export const MAX_CONCURRENT = Math.max(1, (os.cpus()?.length || 1) - 1)
 
 export const createQueue = () => {
   const queue: Array<() => Promise<void>> = []

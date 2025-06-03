@@ -18,7 +18,8 @@
   },
   "scripts": {
     "dev": "tsdown --watch",
-    "build": "tsdown"
+    "build": "tsdown",
+    "test": "tsx --test 'src/**/*.test.ts'"
   },
   "dependencies": {
     "@universal-middleware/express": "^0.4.15",
@@ -29,7 +30,8 @@
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.15.3",
     "@types/node": "^22.15.17",
-    "tsdown": "^0.11.7"
+    "tsdown": "^0.11.7",
+    "tsx": "^4.19.2"
   },
   "peerDependencies": {
     "solid-js": "^1.9.6 || ^2.0.0-0",

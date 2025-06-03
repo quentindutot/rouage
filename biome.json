@@ -49,6 +49,9 @@
           "performance": {
             "noBarrelFile": "off",
             "noReExportAll": "off"
+          },
+          "suspicious": {
+            "useAwait": "off"
           }
         }
       }
