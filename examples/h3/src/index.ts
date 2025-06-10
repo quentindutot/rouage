@@ -1,4 +1,4 @@
-import { H3, serve } from 'h3-nightly'
+import { H3, serve } from 'h3'
 import { createAdapter, handleRequest } from 'solid-rouage/fetch'
 
 const app = new H3()
