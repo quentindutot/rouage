@@ -3,9 +3,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "node build/server/index.js"
+    "dev": "bunx --bun vite",
+    "build": "tsc && bunx --bun vite build",
+    "preview": "bunx --bun vite preview"
   },
   "dependencies": {
     "@nhttp/nhttp": "npm:@jsr/nhttp__nhttp@2.0.2",
@@ -16,6 +16,7 @@
     "@tailwindcss/vite": "^4.1.4",
     "tailwindcss": "^4.1.6",
     "typescript": "~5.8.3",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "@types/bun": "latest"
   }
 }

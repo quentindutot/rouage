@@ -1,19 +1,28 @@
-import { handleRequest } from "solid-rouage/fetch";
+import { createAdapter, handleRequest } from "solid-rouage/fetch";
+import { serve } from "bun";
 
-Bun.serve({
-  port: process.env.PORT ? Number(process.env.PORT) : 3000,
-
-  routes: {
-    // Health check
-    "/health": new Response("OK"),
-  },
-
-  // Fallback handler for all other routes
-  async fetch(request: Request) {
+const adapter = createAdapter({
+  handle: async (request: Request) => {
     const url = new URL(request.url);
     const pathName = url.pathname;
     const acceptEncoding = request.headers.get("Accept-Encoding") || "";
 
     return handleRequest({ pathName, acceptEncoding });
   },
+
+  listen: () => {
+    serve({
+      port: process.env.PORT ? Number(process.env.PORT) : 3000,
+
+      routes: {
+        "/health": new Response("OK"),
+      },
+
+      fetch(request) {
+        return adapter!.handle(request);
+      },
+    });
+  },
 });
+
+export default adapter;
