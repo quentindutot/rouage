@@ -16,6 +16,8 @@ const TEMPLATES = [
   { value: 'tinyhttp', label: 'TinyHttp', hint: 'Modern Express-like Framework for Node.js' },
   { value: 'restana', label: 'Restana', hint: 'Fast RESTful API Framework for Node.js' },
   { value: 'polka', label: 'Polka', hint: 'Micro Express Alternative for Node.js' },
+  { value: 'nhttp', label: 'NHttp', hint: 'An Simple web-framework for Deno and Friends' },
+  { value: 'bun', label: 'Bun HTTP server', hint: 'Default Bun HTTP Server' },
 ]
 
 const promptForProjectDetails = async () => {
