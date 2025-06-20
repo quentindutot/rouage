@@ -18,8 +18,11 @@ const adapter = createAdapter({
         "/health": new Response("OK"),
       },
 
-      fetch: (request) => {
-        return adapter!.handle(request);
+      fetch: async (request) => {
+        return (
+          (await adapter.handle(request)) ??
+          new Response("Not Found", { status: 404 })
+        );
       },
     });
   },
