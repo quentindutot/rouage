@@ -2,7 +2,7 @@ import { createAdapter, handleRequest } from "solid-rouage/fetch";
 import { serve } from "bun";
 
 const adapter = createAdapter({
-  handle: async (request: Request) => {
+  handle: async (request) => {
     const url = new URL(request.url);
     const pathName = url.pathname;
     const acceptEncoding = request.headers.get("Accept-Encoding") || "";
@@ -18,7 +18,7 @@ const adapter = createAdapter({
         "/health": new Response("OK"),
       },
 
-      fetch(request) {
+      fetch: (request) => {
         return adapter!.handle(request);
       },
     });
