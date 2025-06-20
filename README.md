@@ -46,6 +46,9 @@ The complete documentation can be found at [rouage.dev](https://rouage.dev).
 - [TinyHttp](https://github.com/quentindutot/rouage/tree/main/examples/tinyhttp)
 - [Restana](https://github.com/quentindutot/rouage/tree/main/examples/restana)
 - [Polka](https://github.com/quentindutot/rouage/tree/main/examples/polka)
+- [NHttp with bun](https://github.com/quentindutot/rouage/tree/main/examples/nhttp-bun)
+- [Bun default server](https://github.com/quentindutot/rouage/tree/main/examples/bun)
+
 
 ## License
 
