@@ -1,0 +1,22 @@
+{
+  "name": "@rouage/nhttp",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bunx --bun vite",
+    "build": "tsc && bunx --bun vite build",
+    "preview": "bunx --bun vite preview"
+  },
+  "dependencies": {
+    "@nhttp/nhttp": "npm:@jsr/nhttp__nhttp@2.0.2",
+    "solid-js": "^1.9.6",
+    "solid-rouage": "workspace:*"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.4",
+    "tailwindcss": "^4.1.6",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    "@types/bun": "latest"
+  }
+}
