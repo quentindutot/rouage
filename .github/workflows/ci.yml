@@ -36,5 +36,9 @@ jobs:
         with:
           node-version: 22
           cache: "pnpm"
+      - name: Install Bun
+        run: curl -fsSL https://bun.sh/install | bash
+      - name: Add Bun to PATH
+        run: echo "${HOME}/.bun/bin" >> $GITHUB_PATH
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
