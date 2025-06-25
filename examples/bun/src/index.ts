@@ -7,7 +7,8 @@ const adapter = createAdapter({
     const pathName = url.pathname;
     const acceptEncoding = request.headers.get("Accept-Encoding") || "";
 
-    return handleRequest({ pathName, acceptEncoding });
+    const response = await handleRequest({ pathName, acceptEncoding });
+    return response;
   },
 
   listen: () => {
